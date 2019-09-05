@@ -2,12 +2,13 @@ import React from 'react';
 import Card from './components/Card';
 import './App.css';
 import WeatherCard from './components/WeatherCard';
+import BicycleCard from './components/BicycleCard';
 
 export const App = () => {
   return (
-    <article class="article">
+    <article className="article">
       <Card title="Buss" />
-      <Card title="Bysykkel" />
+      <BicycleCard />
       <WeatherCard />
       <Card title="Har mannen falt?" />
     </article>
