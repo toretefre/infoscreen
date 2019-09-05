@@ -8,7 +8,7 @@ export const WeatherCard = () => {
   return (
     <section className="card">
       <h1>Vær</h1>
-      <p>{weather}</p>
+      <p>Nedbørsfritt neste timen, 19&deg;</p>
     </section>
   );
 };
