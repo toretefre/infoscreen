@@ -9,7 +9,6 @@ export const BicycleCard = () => {
         'https://gbfs.urbansharing.com/trondheimbysykkel.no/station_status.json'
       );
       const json = await response.json();
-      console.log(json);
 
       const vollabakken = json.data.stations.find(
         station => station.station_id === '41'
@@ -19,7 +18,6 @@ export const BicycleCard = () => {
       );
       const newbikedata = { vollabakken, samfundet };
       setBikedata(newbikedata);
-      console.log(newbikedata);
     };
     fetchBikedata();
   }, []);
