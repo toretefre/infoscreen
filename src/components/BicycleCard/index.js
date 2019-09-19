@@ -24,7 +24,6 @@ export const BicycleCard = () => {
 
   return (
     <section className="card">
-      <h1>Bysyklar</h1>
       <section>
         <h2>Vollabakken</h2>
         <h4>{bikedata && bikedata.vollabakken.num_bikes_available} syklar</h4>
