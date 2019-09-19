@@ -24,10 +24,10 @@ export const App = () => {
 
   return (
     <article className="article">
-      <BusCard />
-      <TimeCard time={time} />
-      <BicycleCard />
       <WeatherCard />
+      <TimeCard time={time} />
+      <BusCard />
+      <BicycleCard />
     </article>
   );
 };

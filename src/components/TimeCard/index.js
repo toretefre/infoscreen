@@ -7,9 +7,9 @@ export const TimeCard = props => {
 
   return (
     <section className="card">
-      <h1 className="bigtext">{moment(time).format('LTS')}</h1>
-      <h3 className="smalltext">{moment(time).format('dddd Do MMMM YYYY')}</h3>
       <h3 className="smalltext">Veke {moment(time).weeks()}</h3>
+      <h3 className="smalltext">{moment(time).format('dddd Do MMMM YYYY')}</h3>
+      <h1 className="bigtext">{moment(time).format('LTS')}</h1>
     </section>
   );
 };
