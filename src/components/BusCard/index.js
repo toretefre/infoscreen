@@ -9,15 +9,11 @@ export const BusCard = () => {
     <section className="card">
       <section>
         <h2>3 Lohove</h2>
-        <h1 className="bigtext">2</h1>
-        <p>min</p>
-        <p>Deretter 07:41, 07:48 og 07:55</p>
+        <h1 className="bigtext">2 min 7 min 07:51</h1>
       </section>
       <section>
         <h2>22 Vestlia</h2>
-        <h1 className="bigtext">3</h1>
-        <p>min</p>
-        <p>Deretter 07:41, 07:48 og 07:55</p>
+        <h1 className="bigtext">4 min 07:50 07:59 08:10</h1>
       </section>
     </section>
   );

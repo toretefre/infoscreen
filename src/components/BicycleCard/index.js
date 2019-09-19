@@ -32,25 +32,31 @@ export const BicycleCard = () => {
         </p>
       </section>
     );
+
   return (
     <section className="card">
+      <img
+        className="icon"
+        src="https://image.flaticon.com/icons/svg/2050/2050121.svg"
+        alt="syklar"
+      />
       <section>
-        <h2>Vollabakken</h2>
-        <h4>{bikedata && bikedata.vollabakken.num_bikes_available} </h4>
-        <img
-          className="icon"
-          src="https://image.flaticon.com/icons/svg/2050/2050121.svg"
-          alt="syklar"
-        />
+        <h2 className="smalltext">Vollabakken</h2>
+        <h4 className="bigtext">
+          {bikedata.vollabakken.num_bikes_available}{' '}
+          {bikedata.samfundet.num_bikes_available === 1
+            ? 'bysykkel'
+            : 'bysyklar'}
+        </h4>
       </section>
       <section>
-        <h2>Elgeseter gate</h2>
-        <h4>{bikedata && bikedata.samfundet.num_bikes_available}</h4>
-        <img
-          className="icon"
-          src="https://image.flaticon.com/icons/svg/2050/2050121.svg"
-          alt="syklar"
-        />
+        <h2 className="smalltext">Elgeseter gate</h2>
+        <h4 className="bigtext">
+          {bikedata.samfundet.num_bikes_available}{' '}
+          {bikedata.samfundet.num_bikes_available === 1
+            ? 'bysykkel'
+            : 'bysyklar'}
+        </h4>
       </section>
     </section>
   );
