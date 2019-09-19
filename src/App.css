@@ -20,7 +20,8 @@ body {
 .card {
   color: white;
   padding: 1rem;
-  background-color: rgba(20, 20, 150, 0.3);
+  background-color: black;
+  border: 1px solid darkslategray;
   width: 42%;
   margin: 2rem 0;
 }
