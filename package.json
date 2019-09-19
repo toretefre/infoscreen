@@ -28,5 +28,7 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "moment": "^2.24.0"
+  }
 }
