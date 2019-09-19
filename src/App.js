@@ -9,12 +9,19 @@ import moment from 'moment';
 
 export const App = () => {
   const [time, setTime] = useState();
+
   useEffect(() => {
     moment().locale('nn');
+
     setInterval(() => {
       setTime(moment());
     }, 1000);
+
+    setInterval(() => {
+      window.location.reload(true);
+    }, 1000 * 60 * 6);
   }, []);
+
   return (
     <article className="article">
       <BusCard />
