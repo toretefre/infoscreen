@@ -24,17 +24,33 @@ export const BicycleCard = () => {
     setInterval(fetchBikedata(), 1000 * 60 * 10);
   }, []);
 
+  if (!bikedata)
+    return (
+      <section className="card">
+        <p>
+          Trøbbel med henting av bysykkeldata, været er sikkert dritt uansett :)
+        </p>
+      </section>
+    );
   return (
     <section className="card">
       <section>
         <h2>Vollabakken</h2>
-        <h4>{bikedata && bikedata.vollabakken.num_bikes_available} syklar</h4>
-        <h4>{bikedata && bikedata.vollabakken.num_docks_available} ledige</h4>
+        <h4>{bikedata && bikedata.vollabakken.num_bikes_available} </h4>
+        <img
+          className="icon"
+          src="https://image.flaticon.com/icons/svg/2050/2050121.svg"
+          alt="syklar"
+        />
       </section>
       <section>
-        <h2>Samfundet (7-11)</h2>
-        <h4>{bikedata && bikedata.samfundet.num_bikes_available} syklar</h4>
-        <h4>{bikedata && bikedata.samfundet.num_docks_available} ledige</h4>
+        <h2>Elgeseter gate</h2>
+        <h4>{bikedata && bikedata.samfundet.num_bikes_available}</h4>
+        <img
+          className="icon"
+          src="https://image.flaticon.com/icons/svg/2050/2050121.svg"
+          alt="syklar"
+        />
       </section>
     </section>
   );
