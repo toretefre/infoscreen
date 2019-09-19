@@ -21,7 +21,7 @@ export const BicycleCard = () => {
     };
 
     // fetch citybike data every 5 minutes
-    setInterval(fetchBikedata(), 1000 * 15);
+    setInterval(fetchBikedata(), 1000 * 60 * 10);
   }, []);
 
   return (
