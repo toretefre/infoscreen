@@ -23,3 +23,8 @@ body {
   width: 42%;
   margin: 2rem 0;
 }
+
+.watch {
+  font-size: 4rem;
+  text-align: center;
+}

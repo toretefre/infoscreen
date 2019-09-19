@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
-export const MannenCard = () => {
-  const [mannenStatus, setMannenStatus] = useState();
-
-  useEffect(() => setMannenStatus('nei'), []);
-
+export const MannenCard = props => {
+  const { time } = props;
   return (
     <section className="card">
-      <h1>Har Mannen falt?</h1>
-      <h3>NEI</h3>
+      <h1 className="watch">
+        {time &&
+          time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds()}
+      </h1>
     </section>
   );
 };
