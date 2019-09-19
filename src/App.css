@@ -24,12 +24,12 @@ body {
   margin: 2rem 0;
 }
 
-.watch {
+.bigtext {
   font-size: 4rem;
   text-align: center;
 }
 
-.watchDetails {
+.smalltext {
   text-transform: capitalize;
   font-size: 1.5rem;
   text-align: center;
