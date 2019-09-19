@@ -19,7 +19,9 @@ export const BicycleCard = () => {
       const newbikedata = { vollabakken, samfundet };
       setBikedata(newbikedata);
     };
-    fetchBikedata();
+
+    // fetch citybike data every 5 minutes
+    setInterval(fetchBikedata(), 1000 * 15);
   }, []);
 
   return (
