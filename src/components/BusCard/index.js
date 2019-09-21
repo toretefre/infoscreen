@@ -7,6 +7,11 @@ export const BusCard = () => {
 
   return (
     <section className="card">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/b/b4/EnTur_logo.png"
+        alt="EnTur logo"
+        className="icon"
+      />
       <section>
         <h2>3 Lohove</h2>
         <h1 className="bigtext">2 min 7 min 07:51</h1>
