@@ -18,7 +18,7 @@ export const BusCard = () => {
       </section>
       <section>
         <h2>22 Vestlia</h2>
-        <h1 className="bigtext">4 min 07:50 07:59 08:10</h1>
+        <h1 className="bigtext">4 min 07:50 07:59</h1>
       </section>
     </section>
   );
