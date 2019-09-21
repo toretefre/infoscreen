@@ -6,9 +6,18 @@ import TimeCard from './components/TimeCard';
 import BusCard from './components/BusCard';
 import 'moment/locale/nn';
 import moment from 'moment';
+import 'moment-timezone';
 
 export const App = () => {
   const [time, setTime] = useState();
+
+  useEffect(() => {
+    if (time) {
+      setTimeout(() => {
+        setTime(time.add(1, 'second'));
+      }, 1000);
+    }
+  }, [time]);
 
   useEffect(() => {
     moment().locale('nn');
@@ -18,13 +27,9 @@ export const App = () => {
         'http://worldtimeapi.org/api/timezone/Europe/Oslo'
       );
       let data = await response.json();
-      setTime(data.datetime);
+      setTime(moment(data.datetime).tz('Europe/Oslo'));
     };
     fetchTime();
-
-    setInterval(() => {
-      setTime(moment(time).add(1, 'second'));
-    }, 1000);
 
     setInterval(() => {
       window.location.reload(true);
