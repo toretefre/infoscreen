@@ -44,7 +44,7 @@ export const BicycleCard = () => {
         <h2 className="smalltext">Vollabakken</h2>
         <h4 className="bigtext">
           {bikedata.vollabakken.num_bikes_available}{' '}
-          {bikedata.samfundet.num_bikes_available === 1
+          {bikedata.vollabakken.num_bikes_available === 1
             ? 'bysykkel'
             : 'bysyklar'}
         </h4>
