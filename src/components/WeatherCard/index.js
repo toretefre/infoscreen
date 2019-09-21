@@ -10,6 +10,7 @@ export const WeatherCard = () => {
     <section className="card">
       <img src={icons[precipitation]} alt={precipitation} />
       <h1 className="bigtext">-273.15&deg;</h1>
+      <h6>Vêrvarsel frå Yr, levert av NRK og Meteorologisk institutt</h6>
     </section>
   );
 };
