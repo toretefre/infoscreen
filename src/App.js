@@ -13,8 +13,17 @@ export const App = () => {
   useEffect(() => {
     moment().locale('nn');
 
+    const fetchTime = async () => {
+      let response = await fetch(
+        'http://worldtimeapi.org/api/timezone/Europe/Oslo'
+      );
+      let data = await response.json();
+      setTime(data.datetime);
+    };
+    fetchTime();
+
     setInterval(() => {
-      setTime(moment());
+      setTime(moment(time).add(1, 'second'));
     }, 1000);
 
     setInterval(() => {
