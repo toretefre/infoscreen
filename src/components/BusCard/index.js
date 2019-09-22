@@ -48,9 +48,7 @@ export const BusCard = props => {
       setBusData(estimatedCalls);
       console.log(estimatedCalls);
     };
-    fetchBusdata();
-
-    setInterval(() => fetchBusdata(), 1000 * 15);
+    setInterval(fetchBusdata(), 1000 * 15);
   }, []);
 
   return (
@@ -75,9 +73,7 @@ export const BusCard = props => {
                   ' - ' +
                   departure.destinationDisplay.frontText +
                   ' - ' +
-                  moment(departure.expectedDepartureTime)
-                    .tz(location)
-                    .format('LTS')}
+                  moment(time).to(departure.expectedDepartureTime)}
               </h2>
             </section>
           ))}
