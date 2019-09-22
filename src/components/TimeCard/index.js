@@ -2,7 +2,7 @@ import React from 'react';
 import 'moment-timezone';
 
 export const TimeCard = props => {
-  const { time } = props;
+  const { time, location } = props;
   if (!time) return <section className="card" />;
 
   const localTime = time.tz('Europe/Oslo');
