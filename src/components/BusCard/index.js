@@ -18,7 +18,7 @@ export const BusCard = () => {
             query: `{
               quay(id: "NSR:Quay:73102") {
                 name
-                estimatedCalls(numberOfDepartures: 15) {
+                estimatedCalls(timeRange: 3600, numberOfDepartures: 20) {
                   notices {
                     text
                     publicCode
