@@ -16,10 +16,10 @@ export const WeatherCard = () => {
 };
 
 const icons = {
-  sun: 'http://yr.github.io/weather-symbols/png/100/01d.png',
-  cloudy: 'http://yr.github.io/weather-symbols/png/100/04.png',
-  rainy: 'http://yr.github.io/weather-symbols/png/100/09.png',
-  snow: 'http://yr.github.io/weather-symbols/png/100/13.png'
+  sun: 'https://yr.github.io/weather-symbols/png/100/01d.png',
+  cloudy: 'https://yr.github.io/weather-symbols/png/100/04.png',
+  rainy: 'https://yr.github.io/weather-symbols/png/100/09.png',
+  snow: 'https://yr.github.io/weather-symbols/png/100/13.png'
 };
 
 export default WeatherCard;
