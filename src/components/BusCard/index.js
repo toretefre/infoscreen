@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 
-export const BusCard = () => {
+export const BusCard = props => {
+  const { time } = props;
   const [busData, setBusData] = useState();
+  const currentLocalISO = moment(time).toISOString();
 
   useEffect(() => {
     const fetchBusdata = async () => {
@@ -18,7 +20,7 @@ export const BusCard = () => {
             query: `{
               quay(id: "NSR:Quay:73102") {
                 name
-                estimatedCalls(timeRange: 3600, numberOfDepartures: 20) {
+                estimatedCalls(startTime: "${currentLocalISO}", timeRange: 3600, numberOfDepartures: 20) {
                   notices {
                     text
                     publicCode
