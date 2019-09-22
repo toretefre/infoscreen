@@ -44,18 +44,14 @@ export const BicycleCard = () => {
         <h2 className="smalltext">Vollabakken</h2>
         <h4 className="bigtext">
           {bikedata.vollabakken.num_bikes_available}{' '}
-          {bikedata.vollabakken.num_bikes_available === 1
-            ? 'bysykkel'
-            : 'bysyklar'}
+          {bikedata.vollabakken.num_bikes_available === 1 ? 'sykkel' : 'syklar'}
         </h4>
       </section>
       <section>
         <h2 className="smalltext">Elgeseter gate</h2>
         <h4 className="bigtext">
           {bikedata.samfundet.num_bikes_available}{' '}
-          {bikedata.samfundet.num_bikes_available === 1
-            ? 'bysykkel'
-            : 'bysyklar'}
+          {bikedata.samfundet.num_bikes_available === 1 ? 'sykkel' : 'syklar'}
         </h4>
       </section>
     </section>
