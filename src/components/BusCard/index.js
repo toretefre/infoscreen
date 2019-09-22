@@ -48,7 +48,9 @@ export const BusCard = props => {
       setBusData(estimatedCalls);
       console.log(estimatedCalls);
     };
-    setInterval(fetchBusdata(), 1000 * 15);
+    fetchBusdata();
+
+    setInterval(fetchBusdata, 1000 * 15);
   }, []);
 
   return (
