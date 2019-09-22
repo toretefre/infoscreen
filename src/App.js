@@ -9,27 +9,22 @@ import moment from 'moment';
 import 'moment-timezone';
 
 export const App = () => {
+  moment().locale('nn');
   const [time, setTime] = useState();
 
   useEffect(() => {
-    if (time) {
-      setTimeout(() => {
-        setTime(time.add(1, 'second'));
-      }, 1000);
-    }
-  }, [time]);
-
-  useEffect(() => {
-    moment().locale('nn');
-
-    const fetchTime = async () => {
-      let response = await fetch(
-        'http://worldtimeapi.org/api/timezone/Europe/Oslo'
+    const fetchTime = async location => {
+      const response = await fetch(
+        `http://worldtimeapi.org/api/timezone/${location}`
       );
-      let data = await response.json();
-      setTime(moment(data.datetime).tz('Europe/Oslo'));
+      const json = await response.json();
+      setTime(moment.unix(json.unixtime));
     };
-    fetchTime();
+    fetchTime('Europe/Oslo');
+
+    setInterval(() => {
+      setTime(moment(time).add(1, 'second'));
+    }, 1000);
 
     setInterval(() => {
       window.location.reload(true);

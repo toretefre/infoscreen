@@ -1,14 +1,18 @@
 import React from 'react';
+import moment from 'moment';
+import 'moment-timezone';
 
 export const TimeCard = props => {
   const { time } = props;
   if (!time) return <section className="card" />;
 
+  const localTime = time.tz('Europe/Oslo');
+
   return (
     <section className="card">
-      <h3 className="smalltext">Veke {time.weeks()}</h3>
-      <h3 className="smalltext">{time.format('dddd Do MMMM YYYY')}</h3>
-      <h1 className="bigtext">{time.format('LTS')}</h1>
+      <h3 className="smalltext">Veke {localTime.weeks()}</h3>
+      <h3 className="smalltext">{localTime.format('dddd Do MMMM YYYY')}</h3>
+      <h1 className="bigtext">{localTime.format('LTS')}</h1>
     </section>
   );
 };
