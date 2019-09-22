@@ -35,7 +35,7 @@ export const App = () => {
   return (
     <article className="article">
       <WeatherCard />
-      <TimeCard time={time} />
+      <TimeCard time={time} location={location} />
       <BusCard />
       <BicycleCard />
     </article>

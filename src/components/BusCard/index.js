@@ -3,7 +3,46 @@ import React, { useState, useEffect } from 'react';
 export const BusCard = () => {
   const [busData, setBusData] = useState();
 
-  useEffect(() => setBusData('nei'), []);
+  useEffect(() => {
+    const fetchBusdata = async () => {
+      const response = await fetch(
+        'https://api.entur.io/journey-planner/v2/graphql',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'ET-Client-Name': 'toretefre - infoscreen'
+          },
+          body: JSON.stringify({
+            query: `{
+              quay(id: "NSR:Quay:73102") {
+                name
+                estimatedCalls(timeRange: 72100, numberOfDepartures: 15) {
+                  notices {
+                    text
+                    publicCode
+                  }
+                  realtime
+                  aimedDepartureTime
+                  expectedDepartureTime
+                  destinationDisplay {
+                    frontText
+                  }
+                  serviceJourney {
+                    publicCode
+                  }
+                }
+              }
+            }`
+          })
+        }
+      );
+      const json = await response.json();
+      console.log(json);
+    };
+
+    fetchBusdata();
+  }, []);
 
   return (
     <section className="card">
