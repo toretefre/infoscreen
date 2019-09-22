@@ -16,7 +16,7 @@ export const App = () => {
   useEffect(() => {
     const fetchTime = async location => {
       const response = await fetch(
-        `http://worldtimeapi.org/api/timezone/${location}`
+        `https://worldtimeapi.org/api/timezone/${location}`
       );
       const json = await response.json();
       setTime(moment.unix(json.unixtime));
