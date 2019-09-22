@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import moment from 'moment';
 
 export const BusCard = () => {
   const [busData, setBusData] = useState();
@@ -17,7 +18,7 @@ export const BusCard = () => {
             query: `{
               quay(id: "NSR:Quay:73102") {
                 name
-                estimatedCalls(timeRange: 72100, numberOfDepartures: 15) {
+                estimatedCalls(numberOfDepartures: 15) {
                   notices {
                     text
                     publicCode
@@ -38,10 +39,13 @@ export const BusCard = () => {
         }
       );
       const json = await response.json();
-      console.log(json);
+      const estimatedCalls = json.data.quay.estimatedCalls;
+      setBusData(estimatedCalls);
+      console.log(estimatedCalls);
     };
-
     fetchBusdata();
+
+    setInterval(() => fetchBusdata(), 1000 * 15);
   }, []);
 
   return (
@@ -51,14 +55,25 @@ export const BusCard = () => {
         alt="EnTur logo"
         className="icon"
       />
-      <section>
-        <h2>3 Lohove</h2>
-        <h1 className="bigtext">2 min 7 min 07:51</h1>
-      </section>
-      <section>
-        <h2>22 Vestlia</h2>
-        <h1 className="bigtext">4 min 07:50 07:59</h1>
-      </section>
+      {busData &&
+        busData
+          .filter(departure => departure.serviceJourney.publicCode !== '25')
+          .map(departure => (
+            <section
+              key={
+                departure.serviceJourney.publicCode +
+                departure.expectedDepartureTime
+              }
+            >
+              <h2>
+                {departure.serviceJourney.publicCode +
+                  ' - ' +
+                  departure.destinationDisplay.frontText +
+                  ' - ' +
+                  moment(departure.expectedDepartureTime).format('LTS')}
+              </h2>
+            </section>
+          ))}
     </section>
   );
 };
