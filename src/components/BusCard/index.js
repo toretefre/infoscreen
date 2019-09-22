@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
+import 'moment-timezone';
 
 export const BusCard = props => {
-  const { time } = props;
+  const { time, location } = props;
   const [busData, setBusData] = useState();
-  const currentLocalISO = moment(time).toISOString();
+  const currentLocalISO = moment(time)
+    .tz(location)
+    .toISOString();
 
   useEffect(() => {
     const fetchBusdata = async () => {
@@ -72,7 +75,9 @@ export const BusCard = props => {
                   ' - ' +
                   departure.destinationDisplay.frontText +
                   ' - ' +
-                  moment(departure.expectedDepartureTime).format('LTS')}
+                  moment(departure.expectedDepartureTime)
+                    .tz(location)
+                    .format('LTS')}
               </h2>
             </section>
           ))}

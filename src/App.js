@@ -36,7 +36,7 @@ export const App = () => {
     <article className="article">
       <WeatherCard />
       <TimeCard time={time} location={location} />
-      <BusCard time={time} />
+      <BusCard time={time} location={location} />
       <BicycleCard />
     </article>
   );
