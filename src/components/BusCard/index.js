@@ -74,7 +74,9 @@ export const BusCard = props => {
                   ' - ' +
                   departure.destinationDisplay.frontText +
                   ' - ' +
-                  moment(departure.expectedDepartureTime).format('LTS')}
+                  moment(departure.expectedDepartureTime)
+                    .tz(location)
+                    .format('LTS')}
               </h2>
             </section>
           ))}
