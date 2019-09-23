@@ -5,9 +5,6 @@ import 'moment-timezone';
 export const BusCard = props => {
   const { time, location } = props;
   const [busData, setBusData] = useState();
-  const currentLocalISO = moment(time)
-    .tz(location)
-    .toISOString();
 
   useEffect(() => {
     const fetchBusdata = async () => {
@@ -23,7 +20,9 @@ export const BusCard = props => {
             query: `{
               quay(id: "NSR:Quay:73102") {
                 name
-                estimatedCalls(startTime: "${currentLocalISO}", timeRange: 3600, numberOfDepartures: 20) {
+                estimatedCalls(startTime: "${moment(time)
+                  .tz(location)
+                  .toISOString()}", timeRange: 3600, numberOfDepartures: 20) {
                   notices {
                     text
                     publicCode
