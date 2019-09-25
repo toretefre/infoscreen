@@ -21,6 +21,7 @@ export const BusCard = props => {
               quay(id: "NSR:Quay:73102") {
                 name
                 estimatedCalls(startTime: "${moment(time)
+                  .subtract(10, 'minutes')
                   .tz(location)
                   .toISOString()}", timeRange: 3600, numberOfDepartures: 20) {
                   notices {

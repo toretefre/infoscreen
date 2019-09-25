@@ -21,10 +21,12 @@ body {
 }
 
 .article {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 1rem;
+  margin: 1rem;
+  min-height: calc(100vh-2rem);
 }
 
 .card {
@@ -32,8 +34,6 @@ body {
   padding: 1rem;
   background-color: black;
   border: 1px solid darkslategray;
-  width: 42%;
-  margin: 2rem 0;
 }
 
 .bigtext {

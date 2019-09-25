@@ -4,7 +4,18 @@ export const WeatherCard = () => {
   const [weather, setWeather] = useState();
   const [precipitation, setPrecipitation] = useState('rainy');
 
-  useEffect(() => setWeather('nei'), []);
+  useEffect(() => {
+    const fetchWeatherData = async () => {
+      console.log('fetching weather');
+      const response = await fetch(
+        'https://www.yr.no/stad/Norge/Tr%C3%B8ndelag/Trondheim/Trondheim/varsel_nu.xml'
+      );
+      const json = await response.json();
+      console.log(json);
+    };
+
+    fetchWeatherData();
+  }, []);
 
   return (
     <section className="card">
