@@ -21,9 +21,9 @@ export const BusCard = props => {
               quay(id: "NSR:Quay:73102") {
                 name
                 estimatedCalls(startTime: "${moment(time)
-                  .subtract(10, 'minutes')
-                  .tz(location)
-                  .toISOString()}", timeRange: 3600, numberOfDepartures: 20) {
+                .subtract(10, 'minutes')
+                .tz(location)
+                .toISOString()}", timeRange: 3600, numberOfDepartures: 20) {
                   notices {
                     text
                     publicCode
@@ -35,7 +35,11 @@ export const BusCard = props => {
                     frontText
                   }
                   serviceJourney {
-                    publicCode
+                    journeyPattern {
+                      line {
+                        publicCode
+                      }
+                    }
                   }
                 }
               }
@@ -63,6 +67,7 @@ export const BusCard = props => {
       {busData &&
         busData
           .filter(departure => departure.serviceJourney.publicCode !== '25')
+          .filter(departure => departure.serviceJourney.publicCode !== '28')
           .map(departure => (
             <section
               key={
@@ -71,7 +76,7 @@ export const BusCard = props => {
               }
             >
               <h2>
-                {departure.serviceJourney.publicCode +
+                {departure.serviceJourney.journeyPattern.line.publicCode +
                   ' - ' +
                   departure.destinationDisplay.frontText +
                   ' - ' +
