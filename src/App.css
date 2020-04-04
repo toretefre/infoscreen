@@ -34,6 +34,7 @@ body {
   padding: 1rem;
   background-color: black;
   border: 1px solid darkslategray;
+  border-radius: 25px;
 }
 
 .bigtext {
@@ -48,4 +49,17 @@ body {
 .icon {
   max-height: 6rem;
   margin: 1rem 0;
+}
+
+.busTable {
+  width: 100%;
+}
+
+.rightText {
+  text-align: right;
+}
+
+.leftText {
+  padding-left: 1em;
+  text-align: left;
 }

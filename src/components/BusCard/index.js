@@ -64,28 +64,30 @@ export const BusCard = props => {
         alt="EnTur logo"
         className="icon"
       />
-      {busData &&
-        busData
-          .filter(departure => departure.serviceJourney.publicCode !== '25')
-          .filter(departure => departure.serviceJourney.publicCode !== '28')
-          .map(departure => (
-            <section
-              key={
-                departure.serviceJourney.publicCode +
-                departure.expectedDepartureTime
-              }
-            >
-              <h2>
-                {departure.serviceJourney.journeyPattern.line.publicCode +
-                  ' - ' +
-                  departure.destinationDisplay.frontText +
-                  ' - ' +
-                  moment(departure.expectedDepartureTime)
-                    .tz(location)
-                    .format('LTS')}
-              </h2>
-            </section>
+      <table className="busTable">
+        {busData &&
+          busData.map(departure => (
+            <tr key={
+              departure.serviceJourney.publicCode +
+              departure.expectedDepartureTime
+            }>
+              <td className="rightText">
+                {departure.serviceJourney.journeyPattern.line.publicCode}
+              </td>
+              <td className="leftText">
+                {departure.destinationDisplay.frontText}
+              </td>
+              <td>
+                {moment(departure.expectedDepartureTime).fromNow()}
+              </td>
+              <td>
+                {moment(departure.expectedDepartureTime)
+                  .tz(location)
+                  .format('LTS')}
+              </td>
+            </tr>
           ))}
+      </table>
     </section>
   );
 };
