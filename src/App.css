@@ -63,3 +63,7 @@ body {
   padding-left: 1em;
   text-align: left;
 }
+
+.realtime {
+  color: yellow;
+}

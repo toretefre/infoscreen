@@ -70,7 +70,8 @@ export const BusCard = props => {
             <tr key={
               departure.serviceJourney.publicCode +
               departure.expectedDepartureTime
-            }>
+            }
+              className={departure.realtime && "realtime"}>
               <td className="rightText">
                 {departure.serviceJourney.journeyPattern.line.publicCode}
               </td>
