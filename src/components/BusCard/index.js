@@ -65,29 +65,31 @@ export const BusCard = props => {
         className="icon"
       />
       <table className="busTable">
-        {busData &&
-          busData.map(departure => (
-            <tr key={
-              departure.serviceJourney.publicCode +
-              departure.expectedDepartureTime
-            }
-              className={departure.realtime && "realtime"}>
-              <td className="rightText">
-                {departure.serviceJourney.journeyPattern.line.publicCode}
-              </td>
-              <td className="leftText">
-                {departure.destinationDisplay.frontText}
-              </td>
-              <td>
-                {moment(departure.expectedDepartureTime).fromNow()}
-              </td>
-              <td>
-                {moment(departure.expectedDepartureTime)
-                  .tz(location)
-                  .format('LTS')}
-              </td>
-            </tr>
-          ))}
+        <tbody>
+          {busData &&
+            busData.map(departure => (
+              <tr key={
+                departure.serviceJourney.publicCode +
+                departure.expectedDepartureTime
+              }
+                className={departure.realtime ? "realtime" : undefined}>
+                <td className="rightText">
+                  {departure.serviceJourney.journeyPattern.line.publicCode}
+                </td>
+                <td className="leftText">
+                  {departure.destinationDisplay.frontText}
+                </td>
+                <td>
+                  {moment(departure.expectedDepartureTime).fromNow()}
+                </td>
+                <td>
+                  {moment(departure.expectedDepartureTime)
+                    .tz(location)
+                    .format('LTS')}
+                </td>
+              </tr>
+            ))}
+        </tbody>
       </table>
     </section>
   );
