@@ -21,7 +21,7 @@ export const BusCard = props => {
               quay(id: "NSR:Quay:73102") {
                 name
                 estimatedCalls(startTime: "${moment(time)
-                .subtract(10, 'minutes')
+                .subtract(30, 'minutes')
                 .tz(location)
                 .toISOString()}", timeRange: 3600, numberOfDepartures: 20) {
                   notices {
@@ -48,7 +48,9 @@ export const BusCard = props => {
         }
       );
       const json = await response.json();
-      const estimatedCalls = json.data.quay.estimatedCalls;
+      const estimatedCalls = json.data.quay.estimatedCalls.filter(departure =>
+        !departure.realtime || (departure.realtime && moment().isBefore(moment(departure.expectedDepartureTime)))
+      );
       setBusData(estimatedCalls);
       console.log(estimatedCalls);
     };
