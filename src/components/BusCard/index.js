@@ -83,9 +83,15 @@ export const BusCard = props => {
                   {moment(departure.expectedDepartureTime).fromNow()}
                 </td>
                 <td>
-                  {moment(departure.expectedDepartureTime)
-                    .tz(location)
-                    .format('LTS')}
+                  {!departure.realtime ?
+                    moment(departure.expectedDepartureTime)
+                      .tz(location)
+                      .format('LT') :
+                    moment(departure.expectedDepartureTime)
+                      .tz(location)
+                      .format('LTS')
+                  }
+                  {!departure.realtime && " -ish"}
                 </td>
               </tr>
             ))}
