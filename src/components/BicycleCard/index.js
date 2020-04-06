@@ -37,7 +37,7 @@ export const BicycleCard = () => {
     <section className="card">
       <img
         className="icon"
-        src="https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/27073156_2014944812096761_593220392364489488_n.png?_nc_cat=104&_nc_oc=AQkWOr1xAqZOTr0sEhNVyKIQfZq7i-xjHT6QHZdMtlp7cO-pb5h8l02CJ0qXh6D4ztE&_nc_ht=scontent-arn2-1.xx&oh=803870b3ae4e453a3a9cc080e8559fd0&oe=5DF1C7CB"
+        src={process.env.PUBLIC_URL + '/trondheimbysykkel.png'}
         alt="Trondheim bysykkel logo"
       />
       <section>
