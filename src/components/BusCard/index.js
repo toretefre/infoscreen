@@ -52,7 +52,6 @@ export const BusCard = props => {
         !departure.realtime || (departure.realtime && moment().isBefore(moment(departure.expectedDepartureTime)))
       );
       setBusData(estimatedCalls);
-      console.log(estimatedCalls);
     };
     fetchBusdata();
 

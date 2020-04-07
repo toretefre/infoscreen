@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import * as convert from 'xml-js';
 
 export const WeatherCard = () => {
   const [weather, setWeather] = useState();
@@ -6,12 +7,12 @@ export const WeatherCard = () => {
 
   useEffect(() => {
     const fetchWeatherData = async () => {
-      console.log('fetching weather');
       const response = await fetch(
-        'https://www.yr.no/stad/Norge/Tr%C3%B8ndelag/Trondheim/Trondheim/varsel_nu.xml'
+        'https://cors-anywhere.herokuapp.com/https://www.yr.no/sted/Norge/Tr%C3%B8ndelag/Trondheim/Trondheim/varsel_nu.xml'
       );
-      const json = await response.json();
-      console.log(json);
+      const xmlfile = await response.text()
+      const jsonfile = convert.xml2json(xmlfile);
+      console.log(jsonfile);
     };
 
     fetchWeatherData();
@@ -19,7 +20,6 @@ export const WeatherCard = () => {
 
   return (
     <section className="card">
-      <img src={icons[precipitation]} alt={precipitation} />
       <h1 className="bigtext">-273.15&deg;</h1>
       <h6>Vêrvarsel frå Yr, levert av NRK og Meteorologisk institutt</h6>
     </section>
