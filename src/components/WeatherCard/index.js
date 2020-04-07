@@ -39,8 +39,13 @@ export const WeatherCard = () => {
       )
       const temperatureData = await response.json();
       const newestTemperatureData = temperatureData.product.time[0];
-      console.log(newestTemperatureData);
+      const symbolData = temperatureData.product.time[1].location.symbol;
+      console.log(symbolData);
       setWeather({
+        symbol: {
+          code: symbolData.number,
+          id: symbolData.id,
+        },
         temperature: newestTemperatureData.location.temperature.value,
         cloudiness: newestTemperatureData.location.cloudiness.percent,
         wind: {
@@ -58,6 +63,8 @@ export const WeatherCard = () => {
   return (
     <section className="card">
       {weather && <h3>Varsel for kl. {moment(weather.updated).format('LT')}</h3>}
+
+      {weather && <img src={'https://api.met.no/weatherapi/weathericon/1.1/?content_type=image%2Fpng&symbol=' + weather.symbol.code} alt={weather.symbol.id} />}
 
       {weather && <h1 className="bigtext">{weather.temperature}&deg;</h1>}
 
