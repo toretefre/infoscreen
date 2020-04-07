@@ -11,8 +11,8 @@ export const WeatherCard = () => {
         'https://cors-anywhere.herokuapp.com/https://www.yr.no/sted/Norge/Tr%C3%B8ndelag/Trondheim/Trondheim/varsel_nu.xml'
       );
       const xmlfile = await response.text()
-      const jsonfile = convert.xml2json(xmlfile);
-      console.log(jsonfile);
+      const jsfile = convert.xml2js(xmlfile);
+      console.log(jsfile);
     };
 
     fetchWeatherData();
