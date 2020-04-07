@@ -15,7 +15,6 @@ export const WeatherCard = () => {
       const xmlfile = await response.text()
       const jsfile = convert.xml2js(xmlfile);
       const currentWeather = jsfile.elements[0].elements;
-      console.log(currentWeather);
       const lastUpdatedTime = currentWeather
         .find(element => element.name === "meta")
         .elements
@@ -25,7 +24,6 @@ export const WeatherCard = () => {
       const precipitationData = currentWeather
         .find(element => element.name === "forecast")
         .elements;
-      console.log(precipitationData);
       const weatherTableRows = precipitationData.map(time =>
         <tr key={time.attributes.from}>
           <td>{moment(time.attributes.from).format('LT')}</td>
@@ -35,12 +33,32 @@ export const WeatherCard = () => {
       setPrecipitation(weatherTableRows);
     };
 
+    const fetchTemperatureData = async () => {
+      const response = await fetch(
+        'https://api.met.no/weatherapi/locationforecast/1.9/.json?lat=63.422937&lon=10.396857&msl=10'
+      )
+      const temperatureData = await response.json();
+      const newestTemperatureData = temperatureData.product.time[0];
+      console.log(newestTemperatureData);
+      setWeather({
+        temperature: newestTemperatureData.location.temperature.value,
+        cloudiness: newestTemperatureData.location.cloudiness.percent,
+        updated: newestTemperatureData.from,
+      })
+    };
+
     fetchWeatherData();
+    fetchTemperatureData();
   }, []);
 
   return (
     <section className="card">
-      <h1 className="bigtext">-273.15&deg;</h1>
+      {weather && <h1 className="bigtext">{weather.temperature}&deg;</h1>}
+
+      {weather && <h2>Skydekke: {weather.cloudiness}%</h2>}
+
+      {weather && <h3>Sist oppdatert: {moment(weather.updated).format('LT')}</h3>}
+
       {precipitation &&
         <table><tbody>
           {precipitation}
