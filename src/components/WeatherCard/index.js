@@ -43,6 +43,10 @@ export const WeatherCard = () => {
       setWeather({
         temperature: newestTemperatureData.location.temperature.value,
         cloudiness: newestTemperatureData.location.cloudiness.percent,
+        wind: {
+          mps: newestTemperatureData.location.windSpeed.mps,
+          name: newestTemperatureData.location.windSpeed.name,
+        },
         updated: newestTemperatureData.from,
       })
     };
@@ -55,9 +59,13 @@ export const WeatherCard = () => {
     <section className="card">
       {weather && <h1 className="bigtext">{weather.temperature}&deg;</h1>}
 
-      {weather && <h2>Skydekke: {weather.cloudiness}%</h2>}
+      {weather && <h2>{Math.round(weather.cloudiness)}% skydekke</h2>}
+
+      {weather && <h2>{weather.wind.name} - {weather.wind.mps} m/s</h2>}
 
       {weather && <h3>Sist oppdatert: {moment(weather.updated).format('LT')}</h3>}
+
+      <h6>Data fra Meteorologisk institutt</h6>
 
       {precipitation &&
         <table><tbody>
