@@ -40,7 +40,7 @@ export const WeatherCard = () => {
       const temperatureData = await response.json();
       const newestTemperatureData = temperatureData.product.time[0];
       const symbolData = temperatureData.product.time[1].location.symbol;
-      console.log(symbolData);
+
       setWeather({
         symbol: {
           code: symbolData.number,
