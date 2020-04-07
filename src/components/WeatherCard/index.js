@@ -57,13 +57,13 @@ export const WeatherCard = () => {
 
   return (
     <section className="card">
+      {weather && <h3>Varsel for kl. {moment(weather.updated).format('LT')}</h3>}
+
       {weather && <h1 className="bigtext">{weather.temperature}&deg;</h1>}
 
       {weather && <h2>{Math.round(weather.cloudiness)}% skydekke</h2>}
 
       {weather && <h2>{weather.wind.name} - {weather.wind.mps} m/s</h2>}
-
-      {weather && <h3>Sist oppdatert: {moment(weather.updated).format('LT')}</h3>}
 
       <h6>Data fra Meteorologisk institutt</h6>
 
@@ -72,7 +72,7 @@ export const WeatherCard = () => {
           {precipitation}
         </tbody></table>
       }
-      <h6>Vêrvarsel frå Yr, levert av NRK og Meteorologisk institutt</h6>
+      <h6>Nedbørsvarsel frå Yr, levert av NRK og Meteorologisk institutt</h6>
       {updateTime && <h6>Sist oppdatert {updateTime.format('LT')}</h6>}
     </section>
   );
