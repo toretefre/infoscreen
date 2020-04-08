@@ -83,7 +83,6 @@ export const WeatherCard = () => {
       <h1 className="bigtext">{weather.temperature}&deg;</h1>
       <h2>{Math.round(weather.cloudiness)}% skydekke</h2>
       <h2>{weather.wind.name} - {weather.wind.mps} m/s</h2>
-      <h6>Data fra Meteorologisk institutt</h6>
 
       <V.VictoryChart>
         <V.VictoryArea
@@ -92,7 +91,7 @@ export const WeatherCard = () => {
         />
       </V.VictoryChart>
 
-      <h6>Nedbørsvarsel frå Yr, levert av NRK og Meteorologisk institutt</h6>
+      <h6>Vêrvarsel frå Yr, levert av NRK og Meteorologisk institutt</h6>
       <h6>Sist oppdatert {precipitation.lastUpdated.format('LT')}</h6>
     </section>
   );
