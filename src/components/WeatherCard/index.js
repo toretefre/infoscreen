@@ -16,25 +16,32 @@ export const WeatherCard = () => {
       const xmlfile = await response.text()
       const jsfile = convert.xml2js(xmlfile);
       const currentWeather = jsfile.elements[0].elements;
-      const lastUpdatedTime = currentWeather
-        .find(element => element.name === "meta")
-        .elements
-        .find(element => element.name === "lastupdate")
-        .elements[0].text;
-      setUpdateTime(moment(lastUpdatedTime));
+
       const precipitationData = currentWeather
         .find(element => element.name === "forecast")
         .elements;
+
       const precipitationChartData = [];
-      precipitationData.forEach(time =>
-        precipitationChartData.push({
-          x: moment(time.attributes.from).diff(moment(), 'minutes'),
-          y: parseFloat(time.elements.find(element => element.name === "precipitation").attributes.value)
-        }));
+      precipitationData
+        .filter(time =>
+          moment(time.attributes.from).diff(moment(), 'minutes') >= 0
+        )
+        .forEach(time => {
+          precipitationChartData.push({
+            x: moment(time.attributes.from).diff(moment(), 'minutes'),
+            y: parseFloat(time.elements.find(element => element.name === "precipitation").attributes.value),
+          });
+        });
+      console.log(precipitationChartData);
 
+      const lastUpdatedTime = currentWeather
+        .find(element => element.name === "meta").elements
+        .find(element => element.name === "lastupdate").elements[0].text;
 
-      console.log(precipitationChartData)
-      setPrecipitation(precipitationChartData);
+      setPrecipitation({
+        chartData: precipitationChartData,
+        lastUpdated: moment(lastUpdatedTime),
+      });
     };
 
     const fetchTemperatureData = async () => {
@@ -57,33 +64,34 @@ export const WeatherCard = () => {
           name: newestTemperatureData.location.windSpeed.name,
         },
         updated: newestTemperatureData.from,
-      })
+      });
     };
 
     fetchWeatherData();
     fetchTemperatureData();
   }, []);
 
+  if (!weather) {
+    return (
+      <section className="card" />
+    )
+  }
+
   return (
     <section className="card">
-      {weather && <h3>Varsel for kl. {moment(weather.updated).format('LT')}</h3>}
-
-      {weather && <img src={'https://api.met.no/weatherapi/weathericon/1.1/?content_type=image%2Fpng&symbol=' + weather.symbol.code} alt={weather.symbol.id} />}
-
-      {weather && <h1 className="bigtext">{weather.temperature}&deg;</h1>}
-
-      {weather && <h2>{Math.round(weather.cloudiness)}% skydekke</h2>}
-
-      {weather && <h2>{weather.wind.name} - {weather.wind.mps} m/s</h2>}
-
+      <h3>Varsel for kl. {moment(weather.updated).format('LT')}</h3>
+      <img src={'https://api.met.no/weatherapi/weathericon/1.1/?content_type=image%2Fpng&symbol=' + weather.symbol.code} alt={weather.symbol.id} />
+      <h1 className="bigtext">{weather.temperature}&deg;</h1>
+      <h2>{Math.round(weather.cloudiness)}% skydekke</h2>
+      <h2>{weather.wind.name} - {weather.wind.mps} m/s</h2>
       <h6>Data fra Meteorologisk institutt</h6>
 
-      {weather && <V.VictoryChart>
+      <V.VictoryChart>
         <V.VictoryArea
-          data={precipitation}
+          data={precipitation.chartData}
           domain={{ y: [0, 10] }}
         />
-      </V.VictoryChart>}
+      </V.VictoryChart>
 
       <h6>Nedbørsvarsel frå Yr, levert av NRK og Meteorologisk institutt</h6>
       {updateTime && <h6>Sist oppdatert {updateTime.format('LT')}</h6>}
