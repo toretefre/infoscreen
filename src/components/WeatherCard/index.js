@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import * as convert from 'xml-js';
+import * as V from 'victory';
 
 export const WeatherCard = () => {
   const [weather, setWeather] = useState();
@@ -24,13 +25,16 @@ export const WeatherCard = () => {
       const precipitationData = currentWeather
         .find(element => element.name === "forecast")
         .elements;
-      const weatherTableRows = precipitationData.map(time =>
-        <tr key={time.attributes.from}>
-          <td>{moment(time.attributes.from).format('LT')}</td>
-          <td>{time.elements.find(element => element.name === "precipitation").attributes.value} mm nedbør</td>
-        </tr>
-      )
-      setPrecipitation(weatherTableRows);
+      const precipitationChartData = [];
+      precipitationData.forEach(time =>
+        precipitationChartData.push({
+          x: moment(time.attributes.from).diff(moment(), 'minutes'),
+          y: parseFloat(time.elements.find(element => element.name === "precipitation").attributes.value)
+        }));
+
+
+      console.log(precipitationChartData)
+      setPrecipitation(precipitationChartData);
     };
 
     const fetchTemperatureData = async () => {
@@ -74,11 +78,13 @@ export const WeatherCard = () => {
 
       <h6>Data fra Meteorologisk institutt</h6>
 
-      {precipitation &&
-        <table><tbody>
-          {precipitation}
-        </tbody></table>
-      }
+      {weather && <V.VictoryChart>
+        <V.VictoryArea
+          data={precipitation}
+          domain={{ y: [0, 10] }}
+        />
+      </V.VictoryChart>}
+
       <h6>Nedbørsvarsel frå Yr, levert av NRK og Meteorologisk institutt</h6>
       {updateTime && <h6>Sist oppdatert {updateTime.format('LT')}</h6>}
     </section>
