@@ -5,7 +5,6 @@ import * as V from 'victory';
 
 export const WeatherCard = () => {
   const [weather, setWeather] = useState();
-  const [updateTime, setUpdateTime] = useState();
   const [precipitation, setPrecipitation] = useState();
 
   useEffect(() => {
@@ -71,7 +70,7 @@ export const WeatherCard = () => {
     fetchTemperatureData();
   }, []);
 
-  if (!weather) {
+  if (!weather || !precipitation) {
     return (
       <section className="card" />
     )
@@ -89,12 +88,12 @@ export const WeatherCard = () => {
       <V.VictoryChart>
         <V.VictoryArea
           data={precipitation.chartData}
-          domain={{ y: [0, 10] }}
+          domain={{ y: [0, 4] }}
         />
       </V.VictoryChart>
 
       <h6>Nedbørsvarsel frå Yr, levert av NRK og Meteorologisk institutt</h6>
-      {updateTime && <h6>Sist oppdatert {updateTime.format('LT')}</h6>}
+      <h6>Sist oppdatert {precipitation.lastUpdated.format('LT')}</h6>
     </section>
   );
 };
