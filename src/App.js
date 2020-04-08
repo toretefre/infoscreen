@@ -11,7 +11,7 @@ import 'moment-timezone';
 export const App = () => {
   moment().locale('nn');
   const [time, setTime] = useState();
-  const [location, setLocation] = useState('Europe/Oslo');
+  const location = 'Europe/Oslo';
 
   useEffect(() => {
     const fetchTime = async location => {
