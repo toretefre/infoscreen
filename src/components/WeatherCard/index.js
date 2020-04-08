@@ -91,11 +91,4 @@ export const WeatherCard = () => {
   );
 };
 
-const icons = {
-  sun: 'https://yr.github.io/weather-symbols/png/100/01d.png',
-  cloudy: 'https://yr.github.io/weather-symbols/png/100/04.png',
-  rainy: 'https://yr.github.io/weather-symbols/png/100/09.png',
-  snow: 'https://yr.github.io/weather-symbols/png/100/13.png'
-};
-
 export default WeatherCard;
