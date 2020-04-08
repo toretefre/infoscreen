@@ -16,6 +16,12 @@ export const WeatherCard = () => {
       const jsfile = convert.xml2js(xmlfile);
       const currentWeather = jsfile.elements[0].elements;
 
+      console.log(currentWeather)
+
+      if (!currentWeather.find(element => element.name === "forecast").elements) {
+        return;
+      }
+
       const precipitationData = currentWeather
         .find(element => element.name === "forecast")
         .elements;
