@@ -59,7 +59,7 @@ export const BusCard = props => {
   }, []);
 
   return (
-    <section className="card">
+    <section id="busCard" className="card">
       <img
         src={process.env.PUBLIC_URL + 'entur.png'}
         alt="EnTur logo"

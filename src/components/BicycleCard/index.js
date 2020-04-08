@@ -26,7 +26,7 @@ export const BicycleCard = () => {
 
   if (!bikedata)
     return (
-      <section className="card">
+      <section id="bicycleCard" className="card">
         <p>
           Trøbbel med henting av bysykkeldata, været er sikkert dritt uansett :)
         </p>
@@ -34,7 +34,7 @@ export const BicycleCard = () => {
     );
 
   return (
-    <section className="card">
+    <section id="bicycleCard" className="card">
       <img
         className="icon"
         src={process.env.PUBLIC_URL + '/trondheimbysykkel.png'}

@@ -8,7 +8,7 @@ export const TimeCard = props => {
   const localTime = time.tz('Europe/Oslo');
 
   return (
-    <section className="card">
+    <section id="timeCard" className="card">
       <h3 className="smalltext">Veke {localTime.weeks()}</h3>
       <h3 className="smalltext">{localTime.format('dddd Do MMMM')}</h3>
       <h1 className="bigtext">{localTime.format('LTS')}</h1>

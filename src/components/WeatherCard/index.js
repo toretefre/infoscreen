@@ -72,18 +72,19 @@ export const WeatherCard = () => {
 
   if (!weather || !precipitation) {
     return (
-      <section className="card" />
+      <section id="weatherCard" className="card" />
     )
   }
 
   return (
-    <section className="card">
+    <section id="weatherCard" className="card" >
       <h3>Varsel for kl. {moment(weather.updated).format('LT')}</h3>
       <img src={'https://api.met.no/weatherapi/weathericon/1.1/?content_type=image%2Fpng&symbol=' + weather.symbol.code} alt={weather.symbol.id} />
       <h1 className="bigtext">{weather.temperature}&deg;</h1>
       <h2>{Math.round(weather.cloudiness)}% skydekke</h2>
       <h2>{weather.wind.name} - {weather.wind.mps} m/s</h2>
-
+      <h6>Vêrvarsel frå Yr, levert av NRK og Meteorologisk institutt</h6>
+      <h6>Sist oppdatert {precipitation.lastUpdated.format('LT')}</h6>
       <V.VictoryChart>
         <V.VictoryArea
           data={precipitation.chartData}
@@ -91,8 +92,6 @@ export const WeatherCard = () => {
         />
       </V.VictoryChart>
 
-      <h6>Vêrvarsel frå Yr, levert av NRK og Meteorologisk institutt</h6>
-      <h6>Sist oppdatert {precipitation.lastUpdated.format('LT')}</h6>
     </section>
   );
 };
