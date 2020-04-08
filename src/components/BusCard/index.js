@@ -65,7 +65,7 @@ export const BusCard = props => {
         alt="EnTur logo"
         className="icon"
       />
-      <table className="busTable">
+      <table>
         <tbody>
           {busData &&
             busData.map(departure => (

@@ -94,7 +94,7 @@ export const WeatherCard = () => {
       <V.VictoryChart>
         <V.VictoryArea
           data={precipitation.chartData}
-          domain={{ y: [0, 4] }}
+          domain={{ y: [0, 3] }}
         />
       </V.VictoryChart>
 

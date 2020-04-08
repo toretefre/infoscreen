@@ -20,6 +20,10 @@ body {
   background-color: black;
 }
 
+table {
+  width: 100%;
+}
+
 .article {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -60,10 +64,6 @@ body {
 .icon {
   max-height: 6rem;
   margin: 1rem 0;
-}
-
-.busTable {
-  width: 100%;
 }
 
 .rightText {

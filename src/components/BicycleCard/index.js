@@ -40,20 +40,24 @@ export const BicycleCard = () => {
         src={process.env.PUBLIC_URL + '/trondheimbysykkel.png'}
         alt="Trondheim bysykkel logo"
       />
-      <section>
-        <h2>Vollabakken</h2>
-        <h4>
-          {bikedata.vollabakken.num_bikes_available}{' '}
-          {bikedata.vollabakken.num_bikes_available === 1 ? 'sykkel' : 'syklar'}
-        </h4>
-      </section>
-      <section>
-        <h2>Elgeseter gate</h2>
-        <h4>
-          {bikedata.samfundet.num_bikes_available}{' '}
-          {bikedata.samfundet.num_bikes_available === 1 ? 'sykkel' : 'syklar'}
-        </h4>
-      </section>
+      <table>
+        <tbody>
+          <tr>
+            <th>Vollabakken</th>
+            <td>
+              {bikedata.vollabakken.num_bikes_available}{' '}
+              {bikedata.vollabakken.num_bikes_available === 1 ? 'sykkel' : 'syklar'}
+            </td>
+          </tr>
+          <tr>
+            <th>Elgeseter gate</th>
+            <td>
+              {bikedata.samfundet.num_bikes_available}{' '}
+              {bikedata.samfundet.num_bikes_available === 1 ? 'sykkel' : 'syklar'}
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </section>
   );
 };
