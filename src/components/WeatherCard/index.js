@@ -57,6 +57,8 @@ export const WeatherCard = () => {
       const newestTemperatureData = temperatureData.product.time[0];
       const symbolData = temperatureData.product.time[1].location.symbol;
 
+
+      console.log(newestTemperatureData)
       setWeather({
         symbol: {
           code: symbolData.number,
@@ -67,6 +69,7 @@ export const WeatherCard = () => {
         wind: {
           mps: newestTemperatureData.location.windSpeed.mps,
           name: newestTemperatureData.location.windSpeed.name,
+          direction: newestTemperatureData.location.windDirection.name,
         },
         updated: newestTemperatureData.from,
       });
@@ -88,7 +91,7 @@ export const WeatherCard = () => {
       <img src={'https://api.met.no/weatherapi/weathericon/1.1/?content_type=image%2Fpng&symbol=' + weather.symbol.code} alt={weather.symbol.id} />
       <h1 className="bigtext">{weather.temperature}&deg;</h1>
       <h2>{Math.round(weather.cloudiness)}% skydekke</h2>
-      <h2>{weather.wind.name} - {weather.wind.mps} m/s</h2>
+      <h2>{weather.wind.name} - {weather.wind.direction} {weather.wind.mps} m/s</h2>
       <h6>Vêrvarsel frå Yr, levert av NRK og Meteorologisk institutt</h6>
       <h6>Sist oppdatert {precipitation.lastUpdated.format('LT')}</h6>
       <V.VictoryChart>
