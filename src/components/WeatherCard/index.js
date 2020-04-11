@@ -1,17 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import * as V from 'victory';
-
-const directions = {
-  SW: "sør-vest",
-  SE: "sør-aust",
-  NW: "nord-vest",
-  NE: "nord-aust",
-  W: "vest",
-  N: "nord",
-  S: "sør",
-  E: "aust",
-}
+import directions from './directions';
 
 export const WeatherCard = () => {
   const [weather, setWeather] = useState();
