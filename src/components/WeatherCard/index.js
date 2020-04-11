@@ -4,16 +4,22 @@ import * as V from 'victory';
 import directions from './directions';
 
 export const WeatherCard = () => {
+  const [userLocation, setUserLocation] = useState({
+    lat: 63.42279,
+    lon: 10.396867,
+    msl: 10,
+  });
   const [weather, setWeather] = useState();
   const [precipitation, setPrecipitation] = useState();
 
   useEffect(() => {
     const fetchPrecipitation = async () => {
       const response = await fetch(
-        'https://api.met.no/weatherapi/nowcast/0.9/.json?lat=63.422798&lon=10.396867'
+        `https://api.met.no/weatherapi/nowcast/0.9/.json?lat=${userLocation.lat}&lon=${userLocation.lon}`
       );
       const jsfile = await response.json();
-      const lastUpdatedTime = moment(jsfile.created);
+
+      const lastUpdatedTime = jsfile.created;
       const currentPrecipitation = jsfile.product.time;
       const precipitationChartData = [];
 
@@ -36,7 +42,7 @@ export const WeatherCard = () => {
 
     const fetchForecast = async () => {
       const response = await fetch(
-        'https://api.met.no/weatherapi/locationforecast/1.9/.json?lat=63.422937&lon=10.396857&msl=10'
+        `https://api.met.no/weatherapi/locationforecast/1.9/.json?lat=${userLocation.lat}&lon=${userLocation.lon}&msl=${userLocation.msl}`
       )
       const temperatureData = await response.json();
       const forecast = temperatureData.product.time[0];
