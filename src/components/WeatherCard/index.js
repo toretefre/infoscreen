@@ -21,36 +21,23 @@ export const WeatherCard = () => {
   useEffect(() => {
     const fetchPrecipitation = async () => {
       const response = await fetch(
-        'https://cors-anywhere.herokuapp.com/https://www.yr.no/sted/Norge/Tr%C3%B8ndelag/Trondheim/Trondheim/varsel_nu.xml'
+        'https://api.met.no/weatherapi/nowcast/0.9/.json?lat=63.422798&lon=10.396867'
       );
-      const xmlfile = await response.text()
-      const jsfile = convert.xml2js(xmlfile);
-      const currentPrecipitation = jsfile.elements[0].elements;
-
-      if (!currentPrecipitation.find(element => element.name === "forecast").elements) {
-        return;
-      }
-
-      const precipitationData = currentPrecipitation
-        .find(element => element.name === "forecast")
-        .elements;
-
+      const jsfile = await response.json();
+      const lastUpdatedTime = moment(jsfile.created);
+      const currentPrecipitation = jsfile.product.time;
       const precipitationChartData = [];
-      precipitationData
+
+      currentPrecipitation
         .filter(time =>
-          moment(time.attributes.from).diff(moment(), 'minutes') >= 0
+          moment(time.from).diff(moment(), 'minutes') >= 0
         )
         .forEach(time => {
           precipitationChartData.push({
-            x: moment(time.attributes.from).diff(moment(), 'minutes'),
-            y: parseFloat(time.elements.find(element => element.name === "precipitation").attributes.value),
+            x: moment(time.from).diff(moment(), 'minutes'),
+            y: parseFloat(time.location.precipitation.value),
           });
         });
-      console.log(precipitationChartData);
-
-      const lastUpdatedTime = currentPrecipitation
-        .find(element => element.name === "meta").elements
-        .find(element => element.name === "lastupdate").elements[0].text;
 
       setPrecipitation({
         chartData: precipitationChartData,
