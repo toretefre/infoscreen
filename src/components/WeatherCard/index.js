@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
-import * as convert from 'xml-js';
 import * as V from 'victory';
 
 const directions = {
