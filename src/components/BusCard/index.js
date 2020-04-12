@@ -71,7 +71,13 @@ export const BusCard = props => {
           })
         }
         quaysWithDepartures.find(quay => quay.id === departure.quay.id).departures.push({
+          realtime: departure.realtime,
           frontText: departure.destinationDisplay.frontText,
+          line: departure.serviceJourney.journeyPattern.line.publicCode,
+          id: departure.serviceJourney.id,
+          aimedDepartureTime: departure.aimedDepartureTime,
+          expectedDepartureTime: departure.expectedDepartureTime,
+          transportMode: departure.serviceJourney.journeyPattern.line.transportMode,
         })
       })
 
@@ -91,77 +97,17 @@ export const BusCard = props => {
 
   return (
     <section id="busCard" className="card">
-      <h2>Kollektivtransport - {busData.name}</h2>
       {busData.quays.map(quay =>
         <section key={quay.id}>
           <h1>{quay.name}</h1>
           <section className="buses">
-            <div className="busContainer">
-              <div className="bus">
-                3 Lohove
-              </div>
-              2 min
-            </div>
-            <div className="busContainer">
-              <div className="bus">
-                3 Lohove
-              </div>
-              4 min
-            </div>
-            <div className="busContainer">
-              <div className="bus">
-                3 Lohove
-              </div>
-              9 min
-            </div>
-            <div className="busContainer">
-              <div className="bus">
-                3 Lohove
-              </div>
-              18:54
-            </div>
-            <div className="busContainer">
-              <div className="bus">
-                3 Lohove
-              </div>
-              18:54
-            </div>
-            <div className="busContainer">
-              <div className="bus">
-                3 Lohove
-              </div>
-              18:54
-            </div>
-            <div className="busContainer">
-              <div className="bus">
-                3 Lohove
-              </div>
-              18:54
-            </div>
-            <div className="busContainer">
-              <div className="bus">
-                3 Lohove
-              </div>
-              18:54
-            </div>
-            <div className="busContainer">
-              <div className="bus">
-                3 Lohove
-              </div>
-              18:54
-            </div>
-            <div className="busContainer">
-              <div className="bus">
-                3 Lohove
-              </div>
-              18:54
-            </div>
-            <div className="busContainer">
-              <div className="bus">
-                3 Lohove
-              </div>
-              18:54
-            </div>
+            {busData.quays.find(quay2 => quay2.id === quay.id).departures.map(departure =>
+              <div className="busContainer" key={departure.id}>
+                <div className="bus">
+                  {departure.line} - {departure.frontText}
+                </div>
+                {moment(departure.expectedDepartureTime).format('LT')}
+              </div>)}
           </section>
         </section>
       )
