@@ -26,11 +26,11 @@ table {
 
 .article {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 2fr;
   grid-template-rows: auto auto auto;
   grid-template-areas: 
-    "weather bicycle"
-    "weather time"
+    "time bicycle"
+    "weather bus"
     "weather bus";
   gap: 1rem;
   margin: 1rem;
@@ -43,6 +43,24 @@ table {
   border: 1px solid darkslategray;
   border-radius: 25px;
   overflow: hidden;
+}
+
+.busContainer {
+  margin: 1em 0;
+}
+
+.buses {
+  display: flex;
+  overflow: hidden;
+}
+
+.bus {
+  border: 1px solid green;
+  border-radius: 1em 0 0 0;
+  background-color: lightgreen;
+  color: black;
+  padding: 0.75em;
+  margin: 1em;  
 }
 
 #weatherCard {
