@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
-import * as V from 'victory';
+import { VictoryArea, VictoryChart, VictoryTheme } from 'victory';
 import directions from './directions';
 
 export const WeatherCard = () => {
@@ -11,6 +11,8 @@ export const WeatherCard = () => {
   });
   const [weather, setWeather] = useState();
   const [precipitation, setPrecipitation] = useState();
+
+  const metElements = "air_temperature, beaufort_wind_force, mean(wind_from_direction PT1H), over_time(weather_cloud_symbol PT6H), weather_type, cloud_area_fraction, over_time(thickness_of_snowfall_amount P1D), sum(duration_of_sunshine PT1H), wind_speed, wind_from_direction"
 
   useEffect(() => {
     const fetchPrecipitation = async () => {
@@ -84,14 +86,14 @@ export const WeatherCard = () => {
       <h6>Vêrvarsel frå Yr, levert av NRK og Meteorologisk institutt</h6>
       <h6>Sist oppdatert {precipitation.lastUpdated.format('LT')}</h6>
 
-      <V.VictoryChart>
-        <V.VictoryArea
+      <VictoryChart>
+        <VictoryArea
           data={precipitation.chartData}
           domain={{ y: [0, 3] }}
         />
-      </V.VictoryChart>
+      </VictoryChart>
 
-    </section>
+    </section >
   );
 };
 
