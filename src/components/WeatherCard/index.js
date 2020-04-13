@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
-import { VictoryArea, VictoryChart, VictoryTheme } from 'victory';
+import { VictoryArea, VictoryChart } from 'victory';
 import directions from './directions';
 
 export const WeatherCard = () => {
@@ -12,17 +12,15 @@ export const WeatherCard = () => {
   const [weather, setWeather] = useState();
   const [precipitation, setPrecipitation] = useState();
 
-  const metElements = "air_temperature, beaufort_wind_force, mean(wind_from_direction PT1H), over_time(weather_cloud_symbol PT6H), weather_type, cloud_area_fraction, over_time(thickness_of_snowfall_amount P1D), sum(duration_of_sunshine PT1H), wind_speed, wind_from_direction"
-
   useEffect(() => {
     const fetchPrecipitation = async () => {
       const response = await fetch(
         `https://api.met.no/weatherapi/nowcast/0.9/.json?lat=${userLocation.lat}&lon=${userLocation.lon}`
       );
-      const jsfile = await response.json();
+      const fetchedPrecipitationData = await response.json();
 
-      const lastUpdatedTime = jsfile.created;
-      const currentPrecipitation = jsfile.product.time;
+      const lastUpdatedTime = fetchedPrecipitationData.created;
+      const currentPrecipitation = fetchedPrecipitationData.product.time;
       const precipitationChartData = [];
 
       currentPrecipitation
@@ -70,11 +68,7 @@ export const WeatherCard = () => {
     fetchForecast();
   }, []);
 
-  if (!weather || !precipitation) {
-    return (
-      <section id="weatherCard" className="card" />
-    )
-  }
+  if (!weather || !precipitation) return <section id="weatherCard" className="card" />
 
   return (
     <section id="weatherCard" className="card" >

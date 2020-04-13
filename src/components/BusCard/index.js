@@ -56,9 +56,6 @@ export const BusCard = props => {
       );
       const enturJSON = await response.json();
       const data = enturJSON.data.stopPlace;
-
-      console.log(data)
-
       const departures = data.estimatedCalls;
       const quaysWithDepartures = []
 
@@ -80,8 +77,6 @@ export const BusCard = props => {
           transportMode: departure.serviceJourney.journeyPattern.line.transportMode,
         })
       })
-
-      console.log(quaysWithDepartures)
 
       setBusData({
         quays: quaysWithDepartures,
