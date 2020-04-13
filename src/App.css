@@ -55,12 +55,13 @@ table {
 }
 
 .bus {
-  border: 1px solid green;
-  border-radius: 1em 0 0 0;
-  background-color: lightgreen;
-  color: black;
-  padding: 0.75em;
+  border: 0.2em solid green;
+  border-radius: 2em 0 0 0;
+  color: white;
+  padding: 0.3em;
   margin: 1em;  
+  min-height: 3em;
+  min-width: 5rem;
 }
 
 #weatherCard {
