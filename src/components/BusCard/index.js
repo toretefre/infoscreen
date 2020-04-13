@@ -96,15 +96,17 @@ export const BusCard = props => {
         <section key={quay.id}>
           <h1>{quay.name}</h1>
           <section className="buses">
-            {busData.quays.find(quay2 => quay2.id === quay.id).departures.map(departure =>
-              <div className="busContainer" key={departure.id}>
-                <div className="bus">
-                  <h4>{departure.line}</h4>
-                  <h5>{departure.frontText.split(" ")[0]}</h5>
-                </div>
-                {(moment(departure.expectedDepartureTime).diff(moment(), "seconds") <= 120 && (moment(departure.expectedDepartureTime).diff(moment(), "seconds") + " s"))}
-                {(moment(departure.expectedDepartureTime).diff(moment(), "seconds") > 120 && (moment(departure.expectedDepartureTime).diff(moment(), "minutes") + " min"))}
-              </div>)}
+            {busData.quays.find(quay2 => quay2.id === quay.id).departures
+              .filter(departure => moment(departure.expectedDepartureTime).diff(moment(), "seconds") >= 0)
+              .map(departure =>
+                <div className="busContainer" key={departure.id}>
+                  <div className="bus">
+                    <h3>{departure.line}</h3>
+                    <h5>{departure.frontText.split(" ")[0]}</h5>
+                  </div>
+                  {(moment(departure.expectedDepartureTime).diff(moment(), "seconds") <= 120 && (moment(departure.expectedDepartureTime).diff(moment(), "seconds") + " s"))}
+                  {(moment(departure.expectedDepartureTime).diff(moment(), "seconds") > 120 && (moment(departure.expectedDepartureTime).diff(moment(), "minutes") + " min"))}
+                </div>)}
           </section>
         </section>
       )
