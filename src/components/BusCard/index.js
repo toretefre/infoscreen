@@ -104,9 +104,11 @@ export const BusCard = props => {
             {busData.quays.find(quay2 => quay2.id === quay.id).departures.map(departure =>
               <div className="busContainer" key={departure.id}>
                 <div className="bus">
-                  {departure.line} - {departure.frontText}
+                  <h4>{departure.line}</h4>
+                  <h5>{departure.frontText.split(" ")[0]}</h5>
                 </div>
-                {moment(departure.expectedDepartureTime).format('LT')}
+                {(moment(departure.expectedDepartureTime).diff(moment(), "seconds") <= 120 && (moment(departure.expectedDepartureTime).diff(moment(), "seconds") + " s"))}
+                {(moment(departure.expectedDepartureTime).diff(moment(), "seconds") > 120 && (moment(departure.expectedDepartureTime).diff(moment(), "minutes") + " min"))}
               </div>)}
           </section>
         </section>
