@@ -80,7 +80,7 @@ export const WeatherCard = () => {
       <img src={'https://api.met.no/weatherapi/weathericon/1.1/?content_type=image%2Fpng&symbol=' + weather.symbol.code} alt={weather.symbol.id} />
       <h1>{weather.temperature}&deg;</h1>
       <h2>{Math.round(weather.cloudiness)}% skydekke</h2>
-      <h2>{weather.wind.name} - {weather.wind.mps} m/s frå {directions[weather.wind.direction]}</h2>
+      <h2>{weather.wind.name} - {Math.round(weather.wind.mps)} m/s frå {directions[weather.wind.direction]}</h2>
 
       {precipitation.total === 0 && <h2>Opphald til {moment().add(precipitation.chartData[precipitation.chartData.length - 1].x, 'minutes').format('LT')}</h2>}
       {precipitation.total > 0 && <VictoryArea
