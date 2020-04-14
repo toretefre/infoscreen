@@ -30,7 +30,7 @@ export const WeatherCard = () => {
         )
         .forEach(time => {
           const p = parseFloat(time.location.precipitation.value)
-          totalPrecipitation = + p
+          totalPrecipitation += p
           precipitationChartData.push({
             x: moment(time.from).diff(moment(), 'minutes'),
             y: p,
