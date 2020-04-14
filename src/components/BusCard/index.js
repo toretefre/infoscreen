@@ -104,6 +104,7 @@ export const BusCard = props => {
                     <h3>{departure.line}</h3>
                     <h5>{departure.frontText.split(" ")[0]}</h5>
                   </div>
+                  {!departure.realtime && "ca "}
                   {(moment(departure.expectedDepartureTime).diff(moment(), "seconds") <= 120 && (moment(departure.expectedDepartureTime).diff(moment(), "seconds") + " s"))}
                   {(moment(departure.expectedDepartureTime).diff(moment(), "seconds") > 120 && (moment(departure.expectedDepartureTime).diff(moment(), "minutes") + " min"))}
                 </div>)}
