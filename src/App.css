@@ -36,6 +36,21 @@ table {
   margin: 1rem;
 }
 
+@media screen and (max-width: 900px) {
+  .article {
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+      "time"
+      "weather"
+      "bus"
+      "bicycle";
+  }
+
+  .card {
+
+  }
+ }
+
 .card {
   color: white;
   padding: 1rem;
