@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
-import { VictoryArea, VictoryChart, VictoryLabel } from 'victory';
+import { VictoryArea, VictoryLabel } from 'victory';
 import directions from './directions';
 
 export const WeatherCard = () => {
@@ -9,7 +9,7 @@ export const WeatherCard = () => {
     lon: 10.396867,
     msl: 10,
   });
-  const [weather, setWeather] = useState();
+  const [forecast, setForecast] = useState();
   const [precipitation, setPrecipitation] = useState();
 
   useEffect(() => {
@@ -52,7 +52,7 @@ export const WeatherCard = () => {
       const forecast = temperatureData.product.time[0];
       const symbolData = temperatureData.product.time[1].location.symbol;
 
-      setWeather({
+      setForecast({
         symbol: {
           code: symbolData.number,
           id: symbolData.id,
@@ -72,15 +72,15 @@ export const WeatherCard = () => {
     fetchForecast();
   }, []);
 
-  if (!weather || !precipitation) return <section id="weatherCard" className="card" />
+  if (!forecast || !precipitation) return <section id="weatherCard" className="card" />
 
   return (
     <section id="weatherCard" className="card" >
       <h6>Vêrvarsel frå Yr, levert av NRK og Meteorologisk institutt - nedbør oppdatert {precipitation.lastUpdated.format('LT')}</h6>
-      <img src={'https://api.met.no/weatherapi/weathericon/1.1/?content_type=image%2Fpng&symbol=' + weather.symbol.code} alt={weather.symbol.id} />
-      <h1>{weather.temperature}&deg;</h1>
-      <h2>{Math.round(weather.cloudiness)}% skydekke</h2>
-      <h2>{weather.wind.name} - {Math.round(weather.wind.mps)} m/s frå {directions[weather.wind.direction]}</h2>
+      <img src={'https://api.met.no/weatherapi/weathericon/1.1/?content_type=image%2Fpng&symbol=' + forecast.symbol.code} alt={forecast.symbol.id} />
+      <h1>{forecast.temperature}&deg;</h1>
+      <h2>{Math.round(forecast.cloudiness)}% skydekke</h2>
+      <h2>{forecast.wind.name} - {Math.round(forecast.wind.mps)} m/s frå {directions[forecast.wind.direction]}</h2>
 
       {precipitation.total === 0 && <h2>Opphald til {moment().add(precipitation.chartData[precipitation.chartData.length - 1].x, 'minutes').format('LT')}</h2>}
       {precipitation.total > 0 && <VictoryArea
