@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
-import { VictoryArea, VictoryChart, VictoryTheme } from 'victory';
+import { VictoryArea, VictoryChart, VictoryLabel } from 'victory';
 import directions from './directions';
 
 export const WeatherCard = () => {
@@ -12,33 +12,35 @@ export const WeatherCard = () => {
   const [weather, setWeather] = useState();
   const [precipitation, setPrecipitation] = useState();
 
-  const metElements = "air_temperature, beaufort_wind_force, mean(wind_from_direction PT1H), over_time(weather_cloud_symbol PT6H), weather_type, cloud_area_fraction, over_time(thickness_of_snowfall_amount P1D), sum(duration_of_sunshine PT1H), wind_speed, wind_from_direction"
-
   useEffect(() => {
     const fetchPrecipitation = async () => {
       const response = await fetch(
         `https://api.met.no/weatherapi/nowcast/0.9/.json?lat=${userLocation.lat}&lon=${userLocation.lon}`
       );
-      const jsfile = await response.json();
+      const fetchedPrecipitationData = await response.json();
 
-      const lastUpdatedTime = jsfile.created;
-      const currentPrecipitation = jsfile.product.time;
+      const lastUpdatedTime = fetchedPrecipitationData.created;
+      const currentPrecipitation = fetchedPrecipitationData.product.time;
       const precipitationChartData = [];
+      let totalPrecipitation = 0
 
       currentPrecipitation
         .filter(time =>
           moment(time.from).diff(moment(), 'minutes') >= 0
         )
         .forEach(time => {
+          const p = parseFloat(time.location.precipitation.value)
+          totalPrecipitation = + p
           precipitationChartData.push({
             x: moment(time.from).diff(moment(), 'minutes'),
-            y: parseFloat(time.location.precipitation.value),
+            y: p,
           });
         });
 
       setPrecipitation({
         chartData: precipitationChartData,
         lastUpdated: moment(lastUpdatedTime),
+        total: totalPrecipitation,
       });
     };
 
@@ -70,28 +72,29 @@ export const WeatherCard = () => {
     fetchForecast();
   }, []);
 
-  if (!weather || !precipitation) {
-    return (
-      <section id="weatherCard" className="card" />
-    )
-  }
+  if (!weather || !precipitation) return <section id="weatherCard" className="card" />
 
   return (
     <section id="weatherCard" className="card" >
-      <h3>Varsel for kl. {moment(weather.updated).format('LT')}</h3>
+      <h6>Vêrvarsel frå Yr, levert av NRK og Meteorologisk institutt - sist oppdatert {precipitation.lastUpdated.format('LT')}</h6>
       <img src={'https://api.met.no/weatherapi/weathericon/1.1/?content_type=image%2Fpng&symbol=' + weather.symbol.code} alt={weather.symbol.id} />
-      <h1 className="bigtext">{weather.temperature}&deg;</h1>
+      <h1>{weather.temperature}&deg;</h1>
       <h2>{Math.round(weather.cloudiness)}% skydekke</h2>
       <h2>{weather.wind.name} - {weather.wind.mps} m/s frå {directions[weather.wind.direction]}</h2>
-      <h6>Vêrvarsel frå Yr, levert av NRK og Meteorologisk institutt</h6>
-      <h6>Sist oppdatert {precipitation.lastUpdated.format('LT')}</h6>
 
-      <VictoryChart>
-        <VictoryArea
-          data={precipitation.chartData}
-          domain={{ y: [0, 3] }}
-        />
-      </VictoryChart>
+      {precipitation.total === 0 && <h2>Nedbørsfritt neste 90 min</h2>}
+      {precipitation.total > 0 && <VictoryArea
+        data={precipitation.chartData}
+        style={{
+          data: { fill: "#006edb" },
+          labels: { fill: "white" },
+          tickLabels: { fill: '#ff0000' },
+        }}
+        maxDomain={{ y: 3 }}
+        interpolation="basis"
+        labels={({ datum }) => datum.x % 2 ? datum.x : ""}
+        labelComponent={<VictoryLabel renderInPortal y={"95%"} />}
+      />}
 
     </section >
   );

@@ -24,14 +24,7 @@ export const BicycleCard = () => {
     setInterval(fetchBikedata(), 1000 * 60 * 10);
   }, []);
 
-  if (!bikedata)
-    return (
-      <section id="bicycleCard" className="card">
-        <p>
-          Trøbbel med henting av bysykkeldata, været er sikkert dritt uansett :)
-        </p>
-      </section>
-    );
+  if (!bikedata) return <section id="bicycleCard" className="card" />
 
   return (
     <section id="bicycleCard" className="card">

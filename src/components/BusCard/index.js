@@ -18,26 +18,33 @@ export const BusCard = props => {
           },
           body: JSON.stringify({
             query: `{
-              quay(id: "NSR:Quay:73102") {
+              stopPlace(id: "NSR:StopPlace:42660") {
+                id
                 name
-                estimatedCalls(startTime: "${moment(time)
-                .subtract(10, 'minutes')
-                .tz(location)
-                .toISOString()}", timeRange: 3600, numberOfDepartures: 20) {
-                  notices {
-                    text
-                    publicCode
-                  }
+                estimatedCalls(timeRange: 3600, numberOfDepartures: 100) {     
                   realtime
+                  aimedArrivalTime
                   aimedDepartureTime
+                  expectedArrivalTime
                   expectedDepartureTime
+                  date
+                  forBoarding
+                  forAlighting
                   destinationDisplay {
                     frontText
                   }
+                  quay {
+                    name
+                    id
+                  }
                   serviceJourney {
+                    id       
                     journeyPattern {
                       line {
                         publicCode
+                        id
+                        name
+                        transportMode
                       }
                     }
                   }
@@ -47,58 +54,64 @@ export const BusCard = props => {
           })
         }
       );
-      const json = await response.json();
-      const estimatedCalls = json.data.quay.estimatedCalls.filter(departure =>
-        !departure.realtime || (departure.realtime && moment().isBefore(moment(departure.expectedDepartureTime)))
-      );
-      setBusData(estimatedCalls);
-    };
-    fetchBusdata();
+      const enturJSON = await response.json();
+      const data = enturJSON.data.stopPlace;
+      const departures = data.estimatedCalls;
+      const quaysWithDepartures = []
 
+      departures.forEach(departure => {
+        if (!quaysWithDepartures.some(quay => quay.id === departure.quay.id)) {
+          quaysWithDepartures.push({
+            name: departure.quay.name,
+            id: departure.quay.id,
+            departures: [],
+          })
+        }
+        quaysWithDepartures.find(quay => quay.id === departure.quay.id).departures.push({
+          realtime: departure.realtime,
+          frontText: departure.destinationDisplay.frontText,
+          line: departure.serviceJourney.journeyPattern.line.publicCode,
+          id: departure.serviceJourney.id,
+          aimedDepartureTime: departure.aimedDepartureTime,
+          expectedDepartureTime: departure.expectedDepartureTime,
+          transportMode: departure.serviceJourney.journeyPattern.line.transportMode,
+        })
+      })
+
+      setBusData({
+        quays: quaysWithDepartures,
+        data: data,
+      });
+    };
+
+    fetchBusdata();
     setInterval(fetchBusdata, 1000 * 15);
   }, []);
 
+  if (!busData) return <section id="busCard" className="card" />
+
   return (
     <section id="busCard" className="card">
-      <img
-        src={process.env.PUBLIC_URL + 'entur.png'}
-        alt="EnTur logo"
-        className="icon"
-      />
-      <table>
-        <tbody>
-          {busData &&
-            busData.map(departure => (
-              <tr key={
-                departure.serviceJourney.publicCode +
-                departure.expectedDepartureTime
-              }
-                className={departure.realtime ? "realtime" : undefined}>
-                <td className="rightText">
-                  {departure.serviceJourney.journeyPattern.line.publicCode}
-                </td>
-                <td className="leftText">
-                  {departure.destinationDisplay.frontText}
-                </td>
-                <td>
-                  {moment(departure.expectedDepartureTime).fromNow()}
-                </td>
-                <td>
-                  {!departure.realtime ?
-                    moment(departure.expectedDepartureTime)
-                      .tz(location)
-                      .format('LT') :
-                    moment(departure.expectedDepartureTime)
-                      .tz(location)
-                      .format('LTS')
-                  }
-                  {!departure.realtime && " -ish"}
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
-    </section>
+      {busData.quays.map(quay =>
+        <section key={quay.id}>
+          <h1>{quay.name}</h1>
+          <section className="buses">
+            {busData.quays.find(quay2 => quay2.id === quay.id).departures
+              .filter(departure => moment(departure.expectedDepartureTime).diff(moment(), "seconds") >= 0)
+              .map(departure =>
+                <div className="busContainer" key={departure.id}>
+                  <div className="bus">
+                    <h3>{departure.line}</h3>
+                    <h5>{departure.frontText.split(" ")[0]}</h5>
+                  </div>
+                  {(moment(departure.expectedDepartureTime).diff(moment(), "seconds") <= 120 && (moment(departure.expectedDepartureTime).diff(moment(), "seconds") + " s"))}
+                  {(moment(departure.expectedDepartureTime).diff(moment(), "seconds") > 120 && (moment(departure.expectedDepartureTime).diff(moment(), "minutes") + " min"))}
+                </div>)}
+          </section>
+        </section>
+      )
+      }
+    </section >
   );
 };
 
