@@ -22,21 +22,25 @@ export const WeatherCard = () => {
       const lastUpdatedTime = fetchedPrecipitationData.created;
       const currentPrecipitation = fetchedPrecipitationData.product.time;
       const precipitationChartData = [];
+      let totalPrecipitation = 0
 
       currentPrecipitation
         .filter(time =>
           moment(time.from).diff(moment(), 'minutes') >= 0
         )
         .forEach(time => {
+          const p = parseFloat(time.location.precipitation.value)
+          totalPrecipitation = + p
           precipitationChartData.push({
             x: moment(time.from).diff(moment(), 'minutes'),
-            y: parseFloat(time.location.precipitation.value),
+            y: p,
           });
         });
 
       setPrecipitation({
         chartData: precipitationChartData,
         lastUpdated: moment(lastUpdatedTime),
+        total: totalPrecipitation,
       });
     };
 
@@ -78,7 +82,8 @@ export const WeatherCard = () => {
       <h2>{Math.round(weather.cloudiness)}% skydekke</h2>
       <h2>{weather.wind.name} - {weather.wind.mps} m/s frå {directions[weather.wind.direction]}</h2>
 
-      <VictoryArea
+      {precipitation.total === 0 && <h2>Nedbørsfritt neste 90 min</h2>}
+      {precipitation.total > 0 && <VictoryArea
         data={precipitation.chartData}
         style={{
           data: { fill: "#006edb" },
@@ -89,7 +94,7 @@ export const WeatherCard = () => {
         interpolation="basis"
         labels={({ datum }) => datum.x % 2 ? datum.x : ""}
         labelComponent={<VictoryLabel renderInPortal y={"95%"} />}
-      />
+      />}
 
     </section >
   );
