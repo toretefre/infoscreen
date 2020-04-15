@@ -11,7 +11,7 @@ export const Home = props => {
     const user = props.input;
     console.log(user)
     const [time, setTime] = useState();
-    const correctData = urls.find(input => urls.name === user)
+    const correctData = urls.find(input => input.name === user)
 
     const geoLocation = {
         lat: correctData.lat,
