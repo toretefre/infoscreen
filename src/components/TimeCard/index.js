@@ -42,7 +42,7 @@ export const TimeCard = props => {
       {sunData && <img className="sunSymbol" alt="Soloppgang og solnedgang" src={process.env.PUBLIC_URL + 'sun.png'} />}
       {sunData && <h3>{moment(sunData.sunrise).format('LT')} - {moment(sunData.sunset).format('LT')}</h3>}
       <h6 className="credits">Soldata frå sunrise-sunset.org</h6>
-      {holidays && <h4>Neste helligdag er {holidays[0].name} {moment(holidays[0].date, "DD.MM.YYYY").format('Do MMMM')}</h4>}
+      {holidays && <h4>Neste heilagdag er {holidays[0].name} {moment(holidays[0].date, "DD.MM.YYYY").format('Do MMMM')}</h4>}
     </section>
   );
 };
