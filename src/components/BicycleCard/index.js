@@ -28,11 +28,6 @@ export const BicycleCard = () => {
 
   return (
     <section id="bicycleCard" className="card">
-      <img
-        className="icon"
-        src={process.env.PUBLIC_URL + '/trondheimbysykkel.png'}
-        alt="Trondheim bysykkel logo"
-      />
       <table>
         <tbody>
           <tr>

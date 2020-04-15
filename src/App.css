@@ -17,7 +17,7 @@ p {
 }
 
 body {
-  background-color: black;
+  background-color: #A7AABD
 }
 
 table {
@@ -26,23 +26,24 @@ table {
 
 .article {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 40% 60%;
   grid-template-rows: auto auto auto;
   grid-template-areas: 
-    "time bicycle"
-    "weather bus"
+    "bicycle bus"
+    "time bus"
     "weather bus";
-  gap: 1rem;
-  margin: 1rem;
 }
 
 .card {
   padding: 1rem;
-  background-color: black;
+  background-color: #434656;
+  border-radius: 50px;
   color: white;
-  border: 1px solid darkslategray;
-  border-radius: 25px;
-  overflow: hidden;
+  margin: 2em;
+  -webkit-box-shadow: 0px 0px 40px 6px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 40px 6px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 40px 6px rgba(0,0,0,0.75); 
+  border: 1px solid black;
 }
 
 .busContainer {
@@ -59,9 +60,9 @@ table {
 }
 
 .bus {
-  background-color: lightgreen;
+  background-color: #006edb;
   border-radius: 2em 0 0 0;
-  color: black;
+  border: 1px solid black;  
   padding: 0.3em;
   margin: 1em;  
   min-height: 3em;
@@ -116,7 +117,7 @@ table {
 
 @media screen and (max-width: 900px) {
   .article {
-    grid-template-columns: 1fr;
+    grid-template-columns: 100%;
     grid-template-areas: 
       "time"
       "weather"

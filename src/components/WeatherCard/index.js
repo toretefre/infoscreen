@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import moment from 'moment';
 import 'moment-timezone';
 import { VictoryArea, VictoryLabel } from 'victory';
@@ -72,26 +72,32 @@ export const WeatherCard = props => {
   if (!forecast || !precipitation) return <section id="weatherCard" className="card" />
 
   return (
-    <section id="weatherCard" className="card" >
-      <h6 className="credits">Vêrvarsel frå Yr, levert av NRK og Meteorologisk institutt - nedbør oppdatert {precipitation.lastUpdated.tz('Europe/Oslo').format('LT')}</h6>
-      <img className="weatherSymbol" src={'https://api.met.no/weatherapi/weathericon/1.1/?content_type=image%2Fpng&symbol=' + forecast.symbol.code} alt={forecast.symbol.id} />
-      <h2>{forecast.temperature}&deg;</h2>
-      <h3>{Math.round(forecast.cloudiness)}% skydekke</h3>
-      <h3>{forecast.wind.name} - {Math.round(forecast.wind.mps)} m/s frå {directions[forecast.wind.direction]}</h3>
+    <Fragment>
+      <section id="weatherCard" className="card" >
+        <h6 className="credits">Vêrvarsel frå Yr, levert av NRK og Meteorologisk institutt</h6>
+        <img className="weatherSymbol" src={'https://api.met.no/weatherapi/weathericon/1.1/?content_type=image%2Fpng&symbol=' + forecast.symbol.code} alt={forecast.symbol.id} />
+        <h2>{forecast.temperature}&deg;</h2>
+        <h3>{Math.round(forecast.cloudiness)}% skydekke</h3>
+        <h3>{forecast.wind.name} - {Math.round(forecast.wind.mps)} m/s frå {directions[forecast.wind.direction]}</h3>
 
-      {precipitation.total === 0 && <h3>Opphald til {moment().add(precipitation.chartData[precipitation.chartData.length - 1].x, 'minutes').tz('Europe/Oslo').format('LT')}</h3>}
-      {precipitation.total > 0 && <VictoryArea
-        data={precipitation.chartData}
-        style={{
-          data: { fill: "#006edb" },
-          labels: { fill: "white" },
-        }}
-        maxDomain={{ y: 3 }}
-        interpolation="basis"
-        labels={({ datum }) => datum.x % 2 ? (Math.floor(datum.x / 5) * 5) : ""}
-        labelComponent={<VictoryLabel renderInPortal y={"95%"} />}
-      />}
-    </section >
+
+      </section >
+      <section id="precipitaionCard" className="card">
+        {precipitation.total === 0 && <h3>Opphald til {moment().add(precipitation.chartData[precipitation.chartData.length - 1].x, 'minutes').tz('Europe/Oslo').format('LT')}</h3>}
+        {precipitation.total > 0 && <VictoryArea
+          data={precipitation.chartData}
+          style={{
+            data: { fill: "#006edb" },
+            labels: { fill: "white" },
+          }}
+          maxDomain={{ y: 3 }}
+          interpolation="basis"
+          labels={({ datum }) => datum.x % 2 ? (Math.floor(datum.x / 5) * 5) : ""}
+          labelComponent={<VictoryLabel renderInPortal y={"95%"} />}
+        />}
+        <h6>Nedbørsvarsel oppdatert {precipitation.lastUpdated.tz('Europe/Oslo').format('LT')}, levert av Meteorologisk institutt</h6>
+      </section>
+    </Fragment>
   );
 };
 
