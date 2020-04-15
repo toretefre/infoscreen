@@ -4,6 +4,7 @@
   text-align: center;
   margin: 0;
   padding: 0;
+  color: white;
 }
 
 h1,
@@ -37,7 +38,6 @@ table {
 }
 
 .card {
-  color: white;
   padding: 1rem;
   background-color: black;
   border: 1px solid darkslategray;

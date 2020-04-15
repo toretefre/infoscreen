@@ -9,9 +9,17 @@ import Home from './containers/home'
 export const App = () => {
   moment().locale('nn');
 
+  const Help = () => (
+    <React.Fragment>
+      <h1>Heisann!</h1>
+      <p>Denne infoskjermen fungerer best om du legger til et sted på slutten av nettadressen, f.eks. /k18</p>
+    </React.Fragment>
+  )
+
   return (
     <Router>
-      <Home path="/" />
+      <Help path="/" />
+      <Home path="/:input" />
     </Router>
   );
 }

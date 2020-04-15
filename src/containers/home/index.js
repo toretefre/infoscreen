@@ -6,7 +6,9 @@ import BicycleCard from './../../components/BicycleCard';
 import TimeCard from './../../components/TimeCard';
 import BusCard from './../../components/BusCard';
 
-export const Home = () => {
+export const Home = props => {
+    const user = props.input;
+    console.log(user)
     const [time, setTime] = useState();
     const geoLocation = {
         lat: 63.42279,
