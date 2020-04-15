@@ -3,19 +3,15 @@ import moment from 'moment';
 import { VictoryArea, VictoryLabel } from 'victory';
 import directions from './directions';
 
-export const WeatherCard = () => {
-  const [userLocation, setUserLocation] = useState({
-    lat: 63.42279,
-    lon: 10.396867,
-    msl: 10,
-  });
+export const WeatherCard = props => {
+  const { geoLocation } = props;
   const [forecast, setForecast] = useState();
   const [precipitation, setPrecipitation] = useState();
 
   useEffect(() => {
     const fetchPrecipitation = async () => {
       const response = await fetch(
-        `https://api.met.no/weatherapi/nowcast/0.9/.json?lat=${userLocation.lat}&lon=${userLocation.lon}`
+        `https://api.met.no/weatherapi/nowcast/0.9/.json?lat=${geoLocation.lat}&lon=${geoLocation.lon}`
       );
       const fetchedPrecipitationData = await response.json();
 
@@ -46,7 +42,7 @@ export const WeatherCard = () => {
 
     const fetchForecast = async () => {
       const response = await fetch(
-        `https://api.met.no/weatherapi/locationforecast/1.9/.json?lat=${userLocation.lat}&lon=${userLocation.lon}&msl=${userLocation.msl}`
+        `https://api.met.no/weatherapi/locationforecast/1.9/.json?lat=${geoLocation.lat}&lon=${geoLocation.lon}&msl=${geoLocation.msl}`
       )
       const temperatureData = await response.json();
       const forecast = temperatureData.product.time[0];
