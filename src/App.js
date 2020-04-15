@@ -17,8 +17,6 @@ export const App = () => {
     msl: 10,
     timeZone: 'Europe/Oslo',
   }
-  const [holidays, setHolidays] = useState();
-
 
   useEffect(() => {
     const fetchTime = async () => {

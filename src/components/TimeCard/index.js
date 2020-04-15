@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import 'moment-timezone';
+import holidays from './holidays.json';
 
 export const TimeCard = props => {
   const { time, geoLocation } = props;
@@ -18,6 +19,12 @@ export const TimeCard = props => {
       })
     }
 
+    const findHolidays = () => {
+      const now = moment();
+      console.log(holidays)
+    }
+
+    findHolidays();
     fetchSunData();
   }, [])
 
@@ -30,8 +37,8 @@ export const TimeCard = props => {
       <h3>Veke {localTime.weeks()}</h3>
       <h3>{localTime.format('dddd Do MMMM')}</h3>
       <h1>{localTime.format('LTS')}</h1>
-      <img className="sunSymbol" alt="Soloppgang og solnedgang" src={process.env.PUBLIC_URL + 'sun.png'} />
-      <h3>{moment(sunData.sunrise).format('LT')} - {moment(sunData.sunset).format('LT')}</h3>
+      {sunData && <img className="sunSymbol" alt="Soloppgang og solnedgang" src={process.env.PUBLIC_URL + 'sun.png'} />}
+      {sunData && <h3>{moment(sunData.sunrise).format('LT')} - {moment(sunData.sunset).format('LT')}</h3>}
       <h6 className="credits">Soldata frå sunrise-sunset.org</h6>
     </section>
   );
