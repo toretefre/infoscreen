@@ -9,7 +9,6 @@ import urls from './../../urls'
 
 export const Home = props => {
     const user = props.input;
-    console.log(user)
     const [time, setTime] = useState();
     const correctData = urls.find(input => input.name === user)
 
