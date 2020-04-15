@@ -36,21 +36,6 @@ table {
   margin: 1rem;
 }
 
-@media screen and (max-width: 900px) {
-  .article {
-    grid-template-columns: 1fr;
-    grid-template-areas: 
-      "time"
-      "weather"
-      "bus"
-      "bicycle";
-  }
-
-  .card {
-
-  }
- }
-
 .card {
   color: white;
   padding: 1rem;
@@ -64,9 +49,13 @@ table {
   margin: 1em 0;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 .buses {
   display: flex;
-  overflow: hidden;
+  overflow-x: scroll;
 }
 
 .bus {
@@ -78,6 +67,8 @@ table {
   min-height: 3em;
   min-width: 5rem;
 }
+
+
 
 #weatherCard {
   grid-area: weather
@@ -112,3 +103,14 @@ table {
 .realtime {
   color: yellow;
 }
+
+@media screen and (max-width: 900px) {
+  .article {
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+      "time"
+      "weather"
+      "bus"
+      "bicycle";
+  }
+ }

@@ -77,7 +77,7 @@ export const WeatherCard = () => {
   return (
     <section id="weatherCard" className="card" >
       <h6>Vêrvarsel frå Yr, levert av NRK og Meteorologisk institutt - nedbør oppdatert {precipitation.lastUpdated.format('LT')}</h6>
-      <img src={'https://api.met.no/weatherapi/weathericon/1.1/?content_type=image%2Fpng&symbol=' + forecast.symbol.code} alt={forecast.symbol.id} />
+      <img className="weatherSymbol" src={'https://api.met.no/weatherapi/weathericon/1.1/?content_type=image%2Fpng&symbol=' + forecast.symbol.code} alt={forecast.symbol.id} />
       <h1>{forecast.temperature}&deg;</h1>
       <h2>{Math.round(forecast.cloudiness)}% skydekke</h2>
       <h2>{forecast.wind.name} - {Math.round(forecast.wind.mps)} m/s frå {directions[forecast.wind.direction]}</h2>
