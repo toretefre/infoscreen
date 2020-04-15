@@ -72,7 +72,7 @@ export const WeatherCard = props => {
 
   return (
     <section id="weatherCard" className="card" >
-      <h6>Vêrvarsel frå Yr, levert av NRK og Meteorologisk institutt - nedbør oppdatert {precipitation.lastUpdated.format('LT')}</h6>
+      <h6 className="credits">Vêrvarsel frå Yr, levert av NRK og Meteorologisk institutt - nedbør oppdatert {precipitation.lastUpdated.format('LT')}</h6>
       <img className="weatherSymbol" src={'https://api.met.no/weatherapi/weathericon/1.1/?content_type=image%2Fpng&symbol=' + forecast.symbol.code} alt={forecast.symbol.id} />
       <h2>{forecast.temperature}&deg;</h2>
       <h3>{Math.round(forecast.cloudiness)}% skydekke</h3>
