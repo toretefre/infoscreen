@@ -46,6 +46,7 @@ export const BicycleCard = () => {
           </tr>
         </tbody>
       </table>
+      <h6>Data frå UIP</h6>
     </section>
   );
 };

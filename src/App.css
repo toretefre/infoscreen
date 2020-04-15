@@ -6,13 +6,7 @@
   padding: 0;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
+h1, h2, h3, h4, h5, h6, p {
   margin: 4px 0;
 }
 
@@ -29,9 +23,38 @@ table {
   grid-template-columns: 25% 25% 50%;
   grid-template-rows: auto auto auto;
   grid-template-areas: 
-    "time sun bus"
-    "weather precipitation bus"
-    "bicycle day bus";
+    "time day bus"
+    "sun bicycle bus"
+    "weather precipitation bus";
+}
+
+#weatherCard {
+  grid-area: weather
+}
+
+#bicycleCard {
+  grid-area: bicycle
+}
+
+#busCard {
+  grid-area: bus;
+  align-items: initial;
+}
+
+#precipitationCard {
+  grid-area: precipitation;
+}
+
+#sunCard {
+  grid-area: sun
+}
+
+#timeCard {
+  grid-area: time
+}
+
+#dayCard {
+  grid-area: day
 }
 
 .card {
@@ -74,31 +97,6 @@ table {
   min-width: 5rem;
 }
 
-#weatherCard {
-  grid-area: weather
-}
-
-#bicycleCard {
-  grid-area: bicycle
-}
-
-#busCard {
-  grid-area: bus;
-  align-items: initial;
-}
-
-#precipitationCard {
-  grid-area: precipitation;
-}
-
-#sunCard {
-  grid-area: sun
-}
-
-#time {
-  grid-area: time
-}
-
 .rightText {
   text-align: right;
 }
@@ -128,10 +126,6 @@ table {
 
 .time {
   font-size: 5em;
-}
-
-.dayCard {
-  grid-area: day
 }
 
 @media screen and (max-width: 900px) {
