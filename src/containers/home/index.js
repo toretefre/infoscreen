@@ -5,16 +5,19 @@ import WeatherCard from './../../components/WeatherCard';
 import BicycleCard from './../../components/BicycleCard';
 import TimeCard from './../../components/TimeCard';
 import BusCard from './../../components/BusCard';
+import urls from './../../urls'
 
 export const Home = props => {
     const user = props.input;
     console.log(user)
     const [time, setTime] = useState();
+    const correctData = urls.find(input => urls.name === user)
+
     const geoLocation = {
-        lat: 63.42279,
-        lon: 10.396867,
-        msl: 10,
-        timeZone: 'Europe/Oslo',
+        lat: correctData.lat,
+        lon: correctData.lon,
+        msl: correctData.msl,
+        timeZone: correctData.timeZone,
     }
 
     useEffect(() => {
