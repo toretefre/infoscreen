@@ -41,6 +41,7 @@ export const Home = props => {
 
     return (
         <article className="article" >
+            <meta name="google" value="notranslate" />
             <WeatherCard time={time} geoLocation={geoLocation} />
             <TimeCard time={time} geoLocation={geoLocation} />
             <BusCard time={time} geoLocation={geoLocation} />
