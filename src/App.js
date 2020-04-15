@@ -11,8 +11,8 @@ export const App = () => {
 
   const Help = () => (
     <React.Fragment>
-      <h1>Heisann!</h1>
-      <p>Denne infoskjermen fungerer best om du legger til et sted på slutten av nettadressen, f.eks. /k18</p>
+      <h1 className="white">Heisann!</h1>
+      <p className="white">Denne infoskjermen fungerer best om du legger til et sted på slutten av nettadressen, f.eks. /k18</p>
     </React.Fragment>
   )
 

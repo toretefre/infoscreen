@@ -4,7 +4,6 @@
   text-align: center;
   margin: 0;
   padding: 0;
-  color: white;
 }
 
 h1,
@@ -40,6 +39,7 @@ table {
 .card {
   padding: 1rem;
   background-color: black;
+  color: white;
   border: 1px solid darkslategray;
   border-radius: 25px;
   overflow: hidden;
@@ -108,6 +108,10 @@ table {
 
 .weatherSymbol {
   height: 5em;
+}
+
+.white {
+  color: white
 }
 
 @media screen and (max-width: 900px) {
