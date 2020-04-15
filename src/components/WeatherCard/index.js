@@ -85,11 +85,10 @@ export const WeatherCard = props => {
         style={{
           data: { fill: "#006edb" },
           labels: { fill: "white" },
-          tickLabels: { fill: '#ff0000' },
         }}
         maxDomain={{ y: 3 }}
         interpolation="basis"
-        labels={({ datum }) => datum.x % 2 ? datum.x : ""}
+        labels={({ datum }) => datum.x % 2 ? (Math.floor(datum.x / 5) * 5) : ""}
         labelComponent={<VictoryLabel renderInPortal y={"95%"} />}
       />}
     </section >
