@@ -68,8 +68,6 @@ table {
   min-width: 5rem;
 }
 
-
-
 #weatherCard {
   grid-area: weather
 }
@@ -102,6 +100,14 @@ table {
 
 .realtime {
   color: yellow;
+}
+
+.sunSymbol {
+  height: 2em;
+}
+
+.weatherSymbol {
+  height: 5em;
 }
 
 @media screen and (max-width: 900px) {
