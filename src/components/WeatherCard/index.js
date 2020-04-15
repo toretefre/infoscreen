@@ -91,7 +91,6 @@ export const WeatherCard = props => {
         labels={({ datum }) => datum.x % 2 ? datum.x : ""}
         labelComponent={<VictoryLabel renderInPortal y={"95%"} />}
       />}
-
     </section >
   );
 };
