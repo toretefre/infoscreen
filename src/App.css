@@ -22,11 +22,11 @@ table {
   display: grid;
   min-height: 100vh;
   grid-template-columns: 25% 25% 50%;
-  grid-template-rows: auto auto auto;
+  grid-template-rows: 1fr 1fr auto;
   grid-template-areas: 
     "time day bus"
-    "sun bicycle bus"
-    "weather precipitation bus";
+    "weather sun bus"
+    "precipitation precipitation bicycle";
 }
 
 #weatherCard {
@@ -117,8 +117,8 @@ table {
 }
 
 .weatherSymbol {
-  height: 4em;
-  width: 4em;
+  height: 8em;
+  width: 8em;
 }
 
 .white {
