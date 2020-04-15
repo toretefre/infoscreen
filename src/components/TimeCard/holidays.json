@@ -1,0 +1,744 @@
+[
+    {
+        "år": 2020,
+        "navn": "1. nyttårsdag",
+        "dato": "01.01.2020",
+        "dag": "onsdag",
+        "uke": 1
+    },
+    {
+        "år": 2020,
+        "navn": "Palmesøndag",
+        "dato": "05.04.2020",
+        "dag": "søndag",
+        "uke": 14
+    },
+    {
+        "år": 2020,
+        "navn": "Skjærtorsdag",
+        "dato": "09.04.2020",
+        "dag": "torsdag",
+        "uke": 15
+    },
+    {
+        "år": 2020,
+        "navn": "Langfredag",
+        "dato": "10.04.2020",
+        "dag": "fredag",
+        "uke": 15
+    },
+    {
+        "år": 2020,
+        "navn": "1. påskedag",
+        "dato": "12.04.2020",
+        "dag": "søndag",
+        "uke": 15
+    },
+    {
+        "år": 2020,
+        "navn": "2. påskedag",
+        "dato": "13.04.2020",
+        "dag": "mandag",
+        "uke": 16
+    },
+    {
+        "år": 2020,
+        "navn": "Offentleg høgtidsdag",
+        "dato": "01.05.2020",
+        "dag": "fredag",
+        "uke": 18
+    },
+    {
+        "år": 2020,
+        "navn": "Grunnlovsdag",
+        "dato": "17.05.2020",
+        "dag": "søndag",
+        "uke": 20
+    },
+    {
+        "år": 2020,
+        "navn": "Kristi Himmelfartsdag",
+        "dato": "21.05.2020",
+        "dag": "torsdag",
+        "uke": 21
+    },
+    {
+        "år": 2020,
+        "navn": "1. pinsedag",
+        "dato": "31.05.2020",
+        "dag": "søndag",
+        "uke": 22
+    },
+    {
+        "år": 2020,
+        "navn": "2. pinsedag",
+        "dato": "01.06.2020",
+        "dag": "mandag",
+        "uke": 23
+    },
+    {
+        "år": 2020,
+        "navn": "1. juledag",
+        "dato": "25.12.2020",
+        "dag": "fredag",
+        "uke": 52
+    },
+    {
+        "år": 2020,
+        "navn": "2. juledag",
+        "dato": "26.12.2020",
+        "dag": "laurdag",
+        "uke": 52
+    },
+    {
+        "år": 2021,
+        "navn": "1. nyttårsdag",
+        "dato": "01.01.2021",
+        "dag": "fredag",
+        "uke": 53
+    },
+    {
+        "år": 2021,
+        "navn": "Palmesøndag",
+        "dato": "28.03.2021",
+        "dag": "søndag",
+        "uke": 12
+    },
+    {
+        "år": 2021,
+        "navn": "Skjærtorsdag",
+        "dato": "01.04.2021",
+        "dag": "torsdag",
+        "uke": 13
+    },
+    {
+        "år": 2021,
+        "navn": "Langfredag",
+        "dato": "02.04.2021",
+        "dag": "fredag",
+        "uke": 13
+    },
+    {
+        "år": 2021,
+        "navn": "1. påskedag",
+        "dato": "04.04.2021",
+        "dag": "søndag",
+        "uke": 13
+    },
+    {
+        "år": 2021,
+        "navn": "2. påskedag",
+        "dato": "05.04.2021",
+        "dag": "mandag",
+        "uke": 14
+    },
+    {
+        "år": 2021,
+        "navn": "Offentleg høgtidsdag",
+        "dato": "01.05.2021",
+        "dag": "laurdag",
+        "uke": 17
+    },
+    {
+        "år": 2021,
+        "navn": "Kristi Himmelfartsdag",
+        "dato": "13.05.2021",
+        "dag": "torsdag",
+        "uke": 19
+    },
+    {
+        "år": 2021,
+        "navn": "Grunnlovsdag",
+        "dato": "17.05.2021",
+        "dag": "mandag",
+        "uke": 20
+    },
+    {
+        "år": 2021,
+        "navn": "1. pinsedag",
+        "dato": "23.05.2021",
+        "dag": "søndag",
+        "uke": 20
+    },
+    {
+        "år": 2021,
+        "navn": "2. pinsedag",
+        "dato": "24.05.2021",
+        "dag": "mandag",
+        "uke": 21
+    },
+    {
+        "år": 2021,
+        "navn": "1. juledag",
+        "dato": "25.05.2021",
+        "dag": "laurdag",
+        "uke": 51
+    },
+    {
+        "år": 2021,
+        "navn": "2. juledag",
+        "dato": "26.05.2021",
+        "dag": "søndag",
+        "uke": 51
+    },
+    {
+        "år": 2022,
+        "navn": "1. nyttårsdag",
+        "dato": "01.01.2022",
+        "dag": "laurdag",
+        "uke": 52
+    },
+    {
+        "år": 2022,
+        "navn": "Palmesøndag",
+        "dato": "10.04.2022",
+        "dag": "søndag",
+        "uke": 14
+    },
+    {
+        "år": 2022,
+        "navn": "Skjærtorsdag",
+        "dato": "14.04.2022",
+        "dag": "torsdag",
+        "uke": 15
+    },
+    {
+        "år": 2022,
+        "navn": "Langfredag",
+        "dato": "15.04.2022",
+        "dag": "fredag",
+        "uke": 15
+    },
+    {
+        "år": 2022,
+        "navn": "1. påskedag",
+        "dato": "17.04.2022",
+        "dag": "søndag",
+        "uke": 15
+    },
+    {
+        "år": 2022,
+        "navn": "2. påskedag",
+        "dato": "18.04.2022",
+        "dag": "mandag",
+        "uke": 16
+    },
+    {
+        "år": 2022,
+        "navn": "Offentleg høgtidsdag",
+        "dato": "01.05.2022",
+        "dag": "søndag",
+        "uke": 17
+    },
+    {
+        "år": 2022,
+        "navn": "Grunnlovsdag",
+        "dato": "17.05.2022",
+        "dag": "tirsdag",
+        "uke": 20
+    },
+    {
+        "år": 2022,
+        "navn": "Kristi Himmelfartsdag",
+        "dato": "26.05.2022",
+        "dag": "torsdag",
+        "uke": 21
+    },
+    {
+        "år": 2022,
+        "navn": "1. pinsedag",
+        "dato": "05.06.2022",
+        "dag": "søndag",
+        "uke": 22
+    },
+    {
+        "år": 2022,
+        "navn": "2. pinsedag",
+        "dato": "06.06.2022",
+        "dag": "mandag",
+        "uke": 23
+    },
+    {
+        "år": 2022,
+        "navn": "1. juledag",
+        "dato": "25.12.2022",
+        "dag": "søndag",
+        "uke": 51
+    },
+    {
+        "år": 2022,
+        "navn": "2. juledag",
+        "dato": "26.12.2022",
+        "dag": "mandag",
+        "uke": 52
+    },
+    {
+        "år": 2023,
+        "navn": "1. nyttårsdag",
+        "dato": "01.01.2023",
+        "dag": "søndag",
+        "uke": 52
+    },
+    {
+        "år": 2023,
+        "navn": "Palmesøndag",
+        "dato": "02.04.2023",
+        "dag": "søndag",
+        "uke": 13
+    },
+    {
+        "år": 2023,
+        "navn": "Skjærtorsdag",
+        "dato": "06.04.2023",
+        "dag": "torsdag",
+        "uke": 14
+    },
+    {
+        "år": 2023,
+        "navn": "Langfredag",
+        "dato": "07.04.2023",
+        "dag": "fredag",
+        "uke": 14
+    },
+    {
+        "år": 2023,
+        "navn": "1. påskedag",
+        "dato": "09.04.2023",
+        "dag": "søndag",
+        "uke": 14
+    },
+    {
+        "år": 2023,
+        "navn": "2. påskedag",
+        "dato": "10.04.2023",
+        "dag": "mandag",
+        "uke": 15
+    },
+    {
+        "år": 2023,
+        "navn": "Offentleg høgtidsdag",
+        "dato": "01.05.2023",
+        "dag": "mandag",
+        "uke": 18
+    },
+    {
+        "år": 2023,
+        "navn": "Grunnlovsdag",
+        "dato": "17.05.2023",
+        "dag": "onsdag",
+        "uke": 20
+    },
+    {
+        "år": 2023,
+        "navn": "Kristi Himmelfartsdag",
+        "dato": "18.05.2023",
+        "dag": "torsdag",
+        "uke": 20
+    },
+    {
+        "år": 2023,
+        "navn": "1. pinsedag",
+        "dato": "28.05.2023",
+        "dag": "søndag",
+        "uke": 21
+    },
+    {
+        "år": 2023,
+        "navn": "2. pinsedag",
+        "dato": "29.05.2023",
+        "dag": "mandag",
+        "uke": 22
+    },
+    {
+        "år": 2023,
+        "navn": "1. juledag",
+        "dato": "25.12.2023",
+        "dag": "mandag",
+        "uke": 52
+    },
+    {
+        "år": 2023,
+        "navn": "2. juledag",
+        "dato": "26.12.2023",
+        "dag": "tirsdag",
+        "uke": 52
+    },
+    {
+        "år": 2024,
+        "navn": "1. nyttårsdag",
+        "dato": "01.01.2024",
+        "dag": "mandag",
+        "uke": 1
+    },
+    {
+        "år": 2024,
+        "navn": "Palmesøndag",
+        "dato": "24.03.2024",
+        "dag": "søndag",
+        "uke": 12
+    },
+    {
+        "år": 2024,
+        "navn": "Skjærtorsdag",
+        "dato": "28.03.2024",
+        "dag": "torsdag",
+        "uke": 13
+    },
+    {
+        "år": 2024,
+        "navn": "Langfredag",
+        "dato": "29.03.2024",
+        "dag": "fredag",
+        "uke": 13
+    },
+    {
+        "år": 2024,
+        "navn": "1. påskedag",
+        "dato": "31.03.2024",
+        "dag": "søndag",
+        "uke": 13
+    },
+    {
+        "år": 2024,
+        "navn": "2. påskedag",
+        "dato": "01.04.2024",
+        "dag": "mandag",
+        "uke": 14
+    },
+    {
+        "år": 2024,
+        "navn": "Offentleg høgtidsdag",
+        "dato": "01.05.2024",
+        "dag": "onsdag",
+        "uke": 18
+    },
+    {
+        "år": 2024,
+        "navn": "Kristi Himmelfartsdag",
+        "dato": "09.05.2024",
+        "dag": "torsdag",
+        "uke": 19
+    },
+    {
+        "år": 2024,
+        "navn": "Grunnlovsdag",
+        "dato": "17.05.2024",
+        "dag": "fredag",
+        "uke": 20
+    },
+    {
+        "år": 2024,
+        "navn": "1. pinsedag",
+        "dato": "19.05.2024",
+        "dag": "søndag",
+        "uke": 20
+    },
+    {
+        "år": 2024,
+        "navn": "2. pinsedag",
+        "dato": "20.05.2024",
+        "dag": "mandag",
+        "uke": 21
+    },
+    {
+        "år": 2024,
+        "navn": "1. juledag",
+        "dato": "25.12.2024",
+        "dag": "onsdag",
+        "uke": 52
+    },
+    {
+        "år": 2024,
+        "navn": "2. juledag",
+        "dato": "26.12.2024",
+        "dag": "torsdag",
+        "uke": 52
+    },
+    {
+        "år": 2025,
+        "navn": "1. nyttårsdag",
+        "dato": "01.01.2025",
+        "dag": "onsdag",
+        "uke": "01"
+    },
+    {
+        "år": 2025,
+        "navn": "Palmesøndag",
+        "dato": "13.04.2025",
+        "dag": "søndag",
+        "uke": 15
+    },
+    {
+        "år": 2025,
+        "navn": "Skjærtorsdag",
+        "dato": "17.04.2025",
+        "dag": "torsdag",
+        "uke": 16
+    },
+    {
+        "år": 2025,
+        "navn": "Langfredag",
+        "dato": "18.04.2025",
+        "dag": "fredag",
+        "uke": 16
+    },
+    {
+        "år": 2025,
+        "navn": "1. påskedag",
+        "dato": "20.04.2025",
+        "dag": "søndag",
+        "uke": 16
+    },
+    {
+        "år": 2025,
+        "navn": "2. påskedag",
+        "dato": "21.04.2025",
+        "dag": "mandag",
+        "uke": 17
+    },
+    {
+        "år": 2025,
+        "navn": "Offentleg høgtidsdag",
+        "dato": "01.05.2025",
+        "dag": "torsdag",
+        "uke": 18
+    },
+    {
+        "år": 2025,
+        "navn": "Grunnlovsdag",
+        "dato": "17.05.2025",
+        "dag": "laurdag",
+        "uke": 20
+    },
+    {
+        "år": 2025,
+        "navn": "Kristi Himmelfartsdag",
+        "dato": "29.05.2025",
+        "dag": "torsdag",
+        "uke": 22
+    },
+    {
+        "år": 2025,
+        "navn": "1. pinsedag",
+        "dato": "08.06.2025",
+        "dag": "søndag",
+        "uke": 23
+    },
+    {
+        "år": 2025,
+        "navn": "2. pinsedag",
+        "dato": "09.06.2025",
+        "dag": "mandag",
+        "uke": 24
+    },
+    {
+        "år": 2025,
+        "navn": "1. juledag",
+        "dato": "25.12.2025",
+        "dag": "torsdag",
+        "uke": 52
+    },
+    {
+        "år": 2025,
+        "navn": "2. juledag",
+        "dato": "26.12.2025",
+        "dag": "fredag",
+        "uke": 52
+    },
+    {
+        "år": 2026,
+        "navn": "1. nyttårsdag",
+        "dato": "01.01.2026",
+        "dag": "torsdag",
+        "uke": "01"
+    },
+    {
+        "år": 2026,
+        "navn": "Palmesøndag",
+        "dato": "29.03.2026",
+        "dag": "søndag",
+        "uke": 13
+    },
+    {
+        "år": 2026,
+        "navn": "Skjærtorsdag",
+        "dato": "02.04.2026",
+        "dag": "torsdag",
+        "uke": 14
+    },
+    {
+        "år": 2026,
+        "navn": "Langfredag",
+        "dato": "03.04.2026",
+        "dag": "fredag",
+        "uke": 14
+    },
+    {
+        "år": 2026,
+        "navn": "1. påskedag",
+        "dato": "05.04.2026",
+        "dag": "søndag",
+        "uke": 14
+    },
+    {
+        "år": 2026,
+        "navn": "2. påskedag",
+        "dato": "06.04.2026",
+        "dag": "mandag",
+        "uke": 15
+    },
+    {
+        "år": 2026,
+        "navn": "Offentleg høgtidsdag",
+        "dato": "01.05.2026",
+        "dag": "fredag",
+        "uke": 18
+    },
+    {
+        "år": 2026,
+        "navn": "Kristi Himmelfartsdag",
+        "dato": "14.05.2026",
+        "dag": "torsdag",
+        "uke": 20
+    },
+    {
+        "år": 2026,
+        "navn": "Grunnlovsdag",
+        "dato": "17.05.2026",
+        "dag": "søndag",
+        "uke": 20
+    },
+    {
+        "år": 2026,
+        "navn": "1. pinsedag",
+        "dato": "24.05.2026",
+        "dag": "søndag",
+        "uke": 21
+    },
+    {
+        "år": 2026,
+        "navn": "2. pinsedag",
+        "dato": "25.05.2026",
+        "dag": "mandag",
+        "uke": 22
+    },
+    {
+        "år": 2026,
+        "navn": "1. juledag",
+        "dato": "25.12.2026",
+        "dag": "fredag",
+        "uke": 52
+    },
+    {
+        "år": 2026,
+        "navn": "2. juledag",
+        "dato": "26.12.2026",
+        "dag": "laurdag",
+        "uke": 52
+    },
+    {
+        "år": 2027,
+        "navn": "1. nyttårsdag",
+        "dato": "01.01.2027",
+        "dag": "laurdag",
+        "uke": 53
+    },
+    {
+        "år": 2027,
+        "navn": "Palmesøndag",
+        "dato": "21.03.2027",
+        "dag": "søndag",
+        "uke": 11
+    },
+    {
+        "år": 2027,
+        "navn": "Skjærtorsdag",
+        "dato": "25.03.2027",
+        "dag": "torsdag",
+        "uke": 12
+    },
+    {
+        "år": 2027,
+        "navn": "Langfredag",
+        "dato": "26.03.2027",
+        "dag": "fredag",
+        "uke": 12
+    },
+    {
+        "år": 2027,
+        "navn": "1. påskedag",
+        "dato": "28.03.2027",
+        "dag": "søndag",
+        "uke": 12
+    },
+    {
+        "år": 2027,
+        "navn": "2. påskedag",
+        "dato": "29.03.2027",
+        "dag": "mandag",
+        "uke": 13
+    },
+    {
+        "år": 2027,
+        "navn": "Offentleg høgtidsdag",
+        "dato": "01.05.2027",
+        "dag": "søndag",
+        "uke": 17
+    },
+    {
+        "år": 2027,
+        "navn": "Kristi Himmelfartsdag",
+        "dato": "06.05.2027",
+        "dag": "torsdag",
+        "uke": 18
+    },
+    {
+        "år": 2027,
+        "navn": "1. pinsedag",
+        "dato": "16.05.2027",
+        "dag": "søndag",
+        "uke": 19
+    },
+    {
+        "år": 2027,
+        "navn": "2. pinsedag",
+        "dato": "17.05.2027",
+        "dag": "mandag",
+        "uke": 20
+    },
+    {
+        "år": 2027,
+        "navn": "Grunnlovsdag",
+        "dato": "17.05.2027",
+        "dag": "mandag",
+        "uke": 20
+    },
+    {
+        "år": 2027,
+        "navn": "1. pinsedag",
+        "dato": "16.05.2027",
+        "dag": "søndag",
+        "uke": 22
+    },
+    {
+        "år": 2027,
+        "navn": "2. pinsedag",
+        "dato": "17.05.2027",
+        "dag": "mandag",
+        "uke": 23
+    },
+    {
+        "år": 2027,
+        "navn": "1. juledag",
+        "dato": "25.12.2027",
+        "dag": "laurdag",
+        "uke": 51
+    },
+    {
+        "år": 2027,
+        "navn": "2. juledag",
+        "dato": "26.12.2027",
+        "dag": "søndag",
+        "uke": 51
+    }
+]

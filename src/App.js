@@ -17,6 +17,8 @@ export const App = () => {
     msl: 10,
     timeZone: 'Europe/Oslo',
   }
+  const [holidays, setHolidays] = useState();
+
 
   useEffect(() => {
     const fetchTime = async () => {
@@ -46,6 +48,6 @@ export const App = () => {
       <BicycleCard geoLocation={geoLocation} />
     </article>
   );
-};
+}
 
 export default App;
