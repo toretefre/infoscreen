@@ -49,7 +49,7 @@ export const TimeCard = props => {
       <section id="sunCard" className="card">
         {sunData && <img className="sunSymbol" alt="Soloppgang og solnedgang" src={process.env.PUBLIC_URL + 'sun.png'} />}
         {sunData && <h3>{moment(sunData.sunrise).tz('Europe/Oslo').format('LT')} - {moment(sunData.sunset).tz('Europe/Oslo').format('LT')}</h3>}
-        <h6 className="credits">Soldata frå sunrise-sunset.org</h6>
+        <h6 className="credits">Data frå sunrise-sunset.org</h6>
       </section>
     </Fragment>
 
