@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 import 'moment/locale/nn';
 import moment from 'moment';
-import 'moment-timezone';
 import { Router } from '@reach/router'
 import Home from './containers/home'
 
