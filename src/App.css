@@ -21,12 +21,12 @@ table {
 .article {
   display: grid;
   min-height: 100vh;
-  grid-template-columns: 25% 25% 50%;
-  grid-template-rows: 1fr 1fr auto;
+  grid-template-columns: 30% 20% 50%;
+  grid-template-rows: auto auto auto;
   grid-template-areas: 
     "time day bus"
     "weather sun bus"
-    "precipitation precipitation bicycle";
+    "bicycle bicycle precipitation";
 }
 
 #weatherCard {
