@@ -21,12 +21,12 @@ table {
 .article {
   display: grid;
   min-height: 100vh;
-  grid-template-columns: 30% 20% 50%;
-  grid-template-rows: auto auto auto;
+  grid-template-columns: 15% 15% 15% 55%;
+  grid-template-rows: auto auto auto auto;
   grid-template-areas: 
-    "time day bus"
-    "weather sun bus"
-    "bicycle bicycle precipitation";
+    "precipitation precipitation precipitation bus"
+    "weather time time bus"
+    "weather sun bicycle day";
 }
 
 #weatherCard {
@@ -63,11 +63,11 @@ table {
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  padding: 1rem;
+  padding: 1em;
   background-color: #434656;
   border-radius: 50px;
   color: white;
-  margin: 2em;
+  margin: 1em;
   -webkit-box-shadow: 0px 0px 40px 6px rgba(0,0,0,0.75);
   -moz-box-shadow: 0px 0px 40px 6px rgba(0,0,0,0.75);
   box-shadow: 0px 0px 40px 6px rgba(0,0,0,0.75); 
