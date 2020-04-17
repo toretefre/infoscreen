@@ -79,6 +79,7 @@ export const BicycleCard = props => {
               {bikedata.closestStation.num_bikes_available}{' '}
               {bikedata.closestStation.num_bikes_available === 1 ? 'sykkel' : 'syklar'}
             </td>
+            <td>{closestStations[0].distance.toFixed(2)} km</td>
           </tr>
           <tr>
             <th>{closestStations[1].name}</th>
@@ -86,6 +87,7 @@ export const BicycleCard = props => {
               {bikedata.secondClosestStation.num_bikes_available}{' '}
               {bikedata.secondClosestStation.num_bikes_available === 1 ? 'sykkel' : 'syklar'}
             </td>
+            <td>{closestStations[1].distance.toFixed(2)} km</td>
           </tr>
         </tbody>
       </table>
