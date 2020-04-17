@@ -19,7 +19,8 @@ export const WeatherCard = props => {
       const lastUpdatedTime = fetchedPrecipitationData.created;
       const currentPrecipitation = fetchedPrecipitationData.product.time;
       const precipitationChartData = [];
-      const startTime = fetchedPrecipitationData.product.time[0].from
+      const startTime = fetchedPrecipitationData.product.time[0].from;
+      const endTime = fetchedPrecipitationData.product.time[fetchedPrecipitationData.product.time.length - 1].to;
       let totalPrecipitation = 0
 
       currentPrecipitation
@@ -39,6 +40,7 @@ export const WeatherCard = props => {
         chartData: precipitationChartData,
         lastUpdated: lastUpdatedTime,
         startTime: startTime,
+        endTime: endTime,
         total: totalPrecipitation,
       });
     };
@@ -82,7 +84,7 @@ export const WeatherCard = props => {
         <h3>{forecast.wind.name} - {Math.round(forecast.wind.mps)} m/s frå {directions[forecast.wind.direction]}</h3>
       </section >
       <section id="precipitationCard" className="card">
-        {precipitation.total === 0 && <h3>Opphald til {moment().add(precipitation.chartData[precipitation.chartData.length - 1].x, 'minutes').tz('Europe/Oslo').format('LT')}</h3>}
+        {precipitation.total === 0 && <h3>Opphald til {moment(precipitation.endTime).tz('Europe/Oslo').format('LT')}</h3>}
         {precipitation.total > 0 &&
           <Fragment>
             <VictoryArea
