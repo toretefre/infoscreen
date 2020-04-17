@@ -83,18 +83,22 @@ export const WeatherCard = props => {
       </section >
       <section id="precipitationCard" className="card">
         {precipitation.total === 0 && <h3>Opphald til {moment().add(precipitation.chartData[precipitation.chartData.length - 1].x, 'minutes').tz('Europe/Oslo').format('LT')}</h3>}
-        {precipitation.total > 0 && <VictoryArea
-          data={precipitation.chartData}
-          style={{
-            data: { fill: "#006edb" },
-            labels: { fill: "white" },
-          }}
-          maxDomain={{ y: 3 }}
-          interpolation="basis"
-          labels={({ datum }) => datum.x % 2 ? (Math.floor(datum.x / 5) * 5) : ""}
-          labelComponent={<VictoryLabel renderInPortal y={"95%"} />}
-        />}
-        <h3>Minutt fra {moment(precipitation.startTime).tz('Europe/Oslo').format('LT')}</h3>
+        {precipitation.total > 0 &&
+          <Fragment>
+            <VictoryArea
+              data={precipitation.chartData}
+              style={{
+                data: { fill: "#006edb" },
+                labels: { fill: "white" },
+              }}
+              maxDomain={{ y: 3 }}
+              interpolation="basis"
+              labels={({ datum }) => datum.x % 2 ? (Math.floor(datum.x / 5) * 5) : ""}
+              labelComponent={<VictoryLabel renderInPortal y={"95%"} />}
+            />
+            <h3>Minutt fra {moment(precipitation.startTime).tz('Europe/Oslo').format('LT')}</h3>
+          </Fragment>
+        }
         <h6>All meteorologisk data fra Meteorologisk institutt - nedbørsvarsel henta {moment(precipitation.lastUpdated).tz('Europe/Oslo').format('LT')}</h6>
       </section>
     </Fragment>
