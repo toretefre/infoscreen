@@ -5,13 +5,13 @@ import WeatherCard from './../../components/WeatherCard';
 import BicycleCard from './../../components/BicycleCard';
 import TimeCard from './../../components/TimeCard';
 import BusCard from './../../components/BusCard';
-import urls from './../../urls'
+import identifiers from '../../identifiers'
 
 export const Home = props => {
     const [time, setTime] = useState();
 
     const user = props.input;
-    const correctData = urls.find(input => input.identifer === user)
+    const correctData = identifiers.find(input => input.identifer === user)
     const geoLocation = {
         lat: correctData.lat,
         lon: correctData.lon,

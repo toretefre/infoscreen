@@ -1,4 +1,4 @@
-export const urls = [
+export const identifiers = [
     {
         identifer: "k18",
         name: "Klostergata 18",
@@ -29,4 +29,4 @@ export const urls = [
     }
 ]
 
-export default urls;
+export default identifiers;
