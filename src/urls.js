@@ -18,7 +18,7 @@ export const urls = [
         msl: 50,
     }
     {
-        name: "posttterminalen",
+        name: "postterminalen",
         lat: 63.396095,
         lon: 10.395323,
         msl: 20,
