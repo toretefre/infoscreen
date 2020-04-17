@@ -108,6 +108,11 @@ export const BusCard = props => {
 
   if (!busData) return <section id="busCard" className="card" />
 
+  if (busData.data.name && busData.data.estimatedCalls.length === 0) return (<section id="busCard" className="card">
+    <p>Ingen avganger fra {busData.data.name} den neste timen 😢</p>
+  </section>
+  )
+
   return (
     <section id="busCard" className="card">
       {busData.quays.map(quay =>
