@@ -31,7 +31,7 @@ export const TimeCard = props => {
 
     fetchSunData();
     findHolidays();
-  }, [])
+  }, [geoLocation.lat, geoLocation.lon])
 
   if (!time) return <section id="timeCard" className="card" />;
 

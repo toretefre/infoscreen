@@ -69,7 +69,7 @@ export const WeatherCard = props => {
 
     fetchPrecipitation();
     fetchForecast();
-  }, []);
+  }, [geoLocation.lat, geoLocation.lon, geoLocation.msl]);
 
   if (!forecast || !precipitation) return <section id="weatherCard" className="card" />
 

@@ -28,7 +28,7 @@ export const Home = props => {
             setTime(moment.unix(json.unixtime));
         };
 
-        fetchTime(geoLocation);
+        fetchTime();
 
         setInterval(() => {
             setTime(moment(time).add(1, 'second'));
@@ -37,7 +37,7 @@ export const Home = props => {
         setInterval(() => {
             window.location.reload(true);
         }, 1000 * 60 * 5);
-    }, []);
+    }, [geoLocation.timeZone]);
 
     return (
         <article className="article" >
