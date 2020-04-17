@@ -8,10 +8,10 @@ import BusCard from './../../components/BusCard';
 import urls from './../../urls'
 
 export const Home = props => {
-    const user = props.input;
     const [time, setTime] = useState();
-    const correctData = urls.find(input => input.name === user)
 
+    const user = props.input;
+    const correctData = urls.find(input => input.name === user)
     const geoLocation = {
         lat: correctData.lat,
         lon: correctData.lon,
