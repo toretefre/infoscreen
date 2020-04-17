@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import 'moment/locale/nn';
 import moment from 'moment';
-import { Router } from '@reach/router'
+import { Router, Link } from '@reach/router'
 import Home from './containers/home'
 
 export const App = () => {
@@ -11,7 +11,9 @@ export const App = () => {
   const Help = () => (
     <React.Fragment>
       <h1 className="white">Heisann!</h1>
-      <p className="white">Denne infoskjermen fungerer best om du legger til et sted på slutten av nettadressen, f.eks. /k18</p>
+      <p className="white">
+        Denne infoskjermen fungerer best om du legger til et sted på slutten av nettadressen, f.eks.
+        <Link to="/k18">/k18</Link></p>
     </React.Fragment>
   )
 

@@ -19,6 +19,7 @@ export const WeatherCard = props => {
       const lastUpdatedTime = fetchedPrecipitationData.created;
       const currentPrecipitation = fetchedPrecipitationData.product.time;
       const precipitationChartData = [];
+      const startTime = fetchedPrecipitationData.product.time[0].from
       let totalPrecipitation = 0
 
       currentPrecipitation
@@ -36,7 +37,8 @@ export const WeatherCard = props => {
 
       setPrecipitation({
         chartData: precipitationChartData,
-        lastUpdated: moment(lastUpdatedTime),
+        lastUpdated: lastUpdatedTime,
+        startTime: startTime,
         total: totalPrecipitation,
       });
     };
@@ -93,7 +95,8 @@ export const WeatherCard = props => {
           labels={({ datum }) => datum.x % 2 ? (Math.floor(datum.x / 5) * 5) : ""}
           labelComponent={<VictoryLabel renderInPortal y={"95%"} />}
         />}
-        <h6>Nedbørsvarsel frå met.no - oppdatert {precipitation.lastUpdated.tz('Europe/Oslo').format('LT')}</h6>
+        <h3>Minutt fra {moment(precipitation.startTime).tz('Europe/Oslo').format('LT')}</h3>
+        <h6>Nedbørsvarsel frå met.no - oppdatert {moment(precipitation.lastUpdated).tz('Europe/Oslo').format('LT')}</h6>
       </section>
     </Fragment>
   );

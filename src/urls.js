@@ -4,8 +4,13 @@ export const urls = [
         lat: 63.42279,
         lon: 10.396867,
         msl: 10,
-        timeZone: 'Europe/Oslo',
     },
+    {
+        name: "dragvoll",
+        lat: 63.408106,
+        lon: 10.470524,
+        msl: 200,
+    }
 ]
 
 export default urls;

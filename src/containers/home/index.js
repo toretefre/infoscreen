@@ -16,7 +16,7 @@ export const Home = props => {
         lat: correctData.lat,
         lon: correctData.lon,
         msl: correctData.msl,
-        timeZone: correctData.timeZone,
+        timeZone: 'Europe/Oslo',
     }
 
     useEffect(() => {
