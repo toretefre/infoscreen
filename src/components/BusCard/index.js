@@ -23,7 +23,6 @@ export const BusCard = props => {
 
   useEffect(() => {
     const fetchBusdata = async () => {
-      console.log("nearestVenue:", nearestVenue)
       if (nearestVenue) {
         const response = await fetch(
           'https://api.entur.io/journey-planner/v2/graphql',
