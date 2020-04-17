@@ -5,7 +5,7 @@ import WeatherCard from './../../components/WeatherCard';
 import BicycleCard from './../../components/BicycleCard';
 import TimeCard from './../../components/TimeCard';
 import BusCard from './../../components/BusCard';
-import identifiers from '../../identifiers'
+import identifiers from '../../identifiers.json'
 
 export const Home = props => {
     const [time, setTime] = useState();
