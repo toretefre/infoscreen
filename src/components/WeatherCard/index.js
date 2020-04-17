@@ -80,7 +80,6 @@ export const WeatherCard = props => {
         <h2>{forecast.temperature}&deg;</h2>
         <h3>{Math.round(forecast.cloudiness)}% skydekke</h3>
         <h3>{forecast.wind.name} - {Math.round(forecast.wind.mps)} m/s frå {directions[forecast.wind.direction]}</h3>
-        <h6 className="credits">Vêrvarsel frå met.no</h6>
       </section >
       <section id="precipitationCard" className="card">
         {precipitation.total === 0 && <h3>Opphald til {moment().add(precipitation.chartData[precipitation.chartData.length - 1].x, 'minutes').tz('Europe/Oslo').format('LT')}</h3>}
@@ -96,7 +95,7 @@ export const WeatherCard = props => {
           labelComponent={<VictoryLabel renderInPortal y={"95%"} />}
         />}
         <h3>Minutt fra {moment(precipitation.startTime).tz('Europe/Oslo').format('LT')}</h3>
-        <h6>Nedbørsvarsel frå met.no - oppdatert {moment(precipitation.lastUpdated).tz('Europe/Oslo').format('LT')}</h6>
+        <h6>All meteorologisk data fra Meteorologisk institutt - nedbørsvarsel henta {moment(precipitation.lastUpdated).tz('Europe/Oslo').format('LT')}</h6>
       </section>
     </Fragment>
   );

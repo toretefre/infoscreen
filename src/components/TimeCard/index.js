@@ -10,14 +10,17 @@ export const TimeCard = props => {
 
   useEffect(() => {
     const fetchSunData = async () => {
-      const response = await fetch(`https://api.sunrise-sunset.org/json?lat=${geoLocation.lat}&lng=${geoLocation.lon}&formatted=0`)
+      const now = moment()
+      const response = await fetch(
+        `https://api.met.no/weatherapi/sunrise/2.0/.json?date=${now.format('YYYY-MM-DD')}&lat=${geoLocation.lat}&lon=${geoLocation.lon}&offset=%2B02%3A00`
+      )
       const json = await response.json();
-      const results = json.results;
+      const data = json.location.time[0]
 
       setSunData({
-        sunrise: results.sunrise,
-        sunset: results.sunset,
-      });
+        sunrise: data.sunrise.time,
+        sunset: data.sunset.time,
+      })
     }
 
     const findHolidays = () => {
@@ -49,7 +52,6 @@ export const TimeCard = props => {
       <section id="sunCard" className="card">
         {sunData && <img className="sunSymbol" alt="Soloppgang og solnedgang" src={process.env.PUBLIC_URL + 'sun.png'} />}
         {sunData && <h3>{moment(sunData.sunrise).tz('Europe/Oslo').format('LT')} - {moment(sunData.sunset).tz('Europe/Oslo').format('LT')}</h3>}
-        <h6 className="credits">Data frå sunrise-sunset.org</h6>
       </section>
     </Fragment>
 
