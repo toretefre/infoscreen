@@ -11,7 +11,7 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 body {
-  background-color: #A7AABD
+  background-color: black;
 }
 
 table {
@@ -65,17 +65,9 @@ table {
   justify-content: space-around;
   padding: 1em;
   background-color: #434656;
-  border-radius: 50px;
+  border-radius: 4px;
   color: white;
   margin: 1em;
-  -webkit-box-shadow: 0px 0px 40px 6px rgba(0,0,0,0.75);
-  -moz-box-shadow: 0px 0px 40px 6px rgba(0,0,0,0.75);
-  box-shadow: 0px 0px 40px 6px rgba(0,0,0,0.75); 
-  border: 1px solid black;
-}
-
-.busContainer {
-  margin: 1em 0;
 }
 
 ::-webkit-scrollbar {
@@ -117,8 +109,8 @@ table {
 }
 
 .weatherSymbol {
-  height: 8em;
-  width: 8em;
+  height: 6em;
+  width: 6em;
 }
 
 .white {
@@ -133,5 +125,5 @@ table {
   .article {
     display: flex;
     flex-direction: column;
- }
+  }
 }
