@@ -12,8 +12,6 @@ import PrecipitationCard from '../../components/PrecipitationCard';
 import SunCard from '../../components/SunCard';
 import DateCard from '../../components/DateCard';
 
-
-
 export const Home = props => {
     const [time, setTime] = useState();
     const [geoLocation, setGeoLocation] = useState();

@@ -64,7 +64,7 @@ table {
   align-items: center;
   justify-content: space-around;
   padding: 1em;
-  background-color: #434656;
+  background-color: #28161C;
   border-radius: 4px;
   color: white;
   margin: 1em;
@@ -81,13 +81,14 @@ table {
 }
 
 .bus {
-  background-color: #006edb;
+  background-color: #F9F871;
   border-radius: 2em 0 0 0;
   border: 1px solid black;  
   padding: 0.3em;
   margin: 1em;  
   min-height: 3em;
   min-width: 5rem;
+  color: black;
 }
 
 .rightText {
