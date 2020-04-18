@@ -101,7 +101,7 @@ export const WeatherCard = props => {
             <h3>Minutt fra {moment(precipitation.startTime).tz('Europe/Oslo').format('LT')}</h3>
           </Fragment>
         }
-        <h6>All meteorologisk data fra Meteorologisk institutt - nedbørsvarsel henta {moment(precipitation.lastUpdated).tz('Europe/Oslo').format('LT')}</h6>
+        <h6>All meteorologisk data fra Meteorologisk institutt - nedbørsvarsel generert {moment(precipitation.lastUpdated).tz('Europe/Oslo').format('LT')}</h6>
       </section>
     </Fragment>
   );
