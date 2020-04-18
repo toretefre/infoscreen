@@ -26,7 +26,7 @@ table {
   grid-template-areas: 
     "precipitation precipitation precipitation bus"
     "weather time time bus"
-    "weather sun bicycle day";
+    "sun day day bicycle";
 }
 
 #weatherCard {
