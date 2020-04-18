@@ -26,5 +26,19 @@
         "lat": 63.396095,
         "lon": 10.395323,
         "msl": 20
+    },
+    {
+        "identifier": "hundvebakke",
+        "name": "Hundvebakke",
+        "lat": 61.462169,
+        "lon": 5.849788,
+        "msl": 100
+    },
+    {
+        "identifier": "furehogen",
+        "name": "Furehogen",
+        "lat": 61.489152,
+        "lon": 6.068663,
+        "msl": 220
     }
 ]
