@@ -133,8 +133,8 @@ export const BusCard = props => {
                 </div>)}
           </section>
         </section>
-      )
-      }
+      )}
+      <h6>Kollektivdata i sanntid frå Entur</h6>
     </section >
   );
 };
