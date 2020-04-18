@@ -45,7 +45,6 @@ export const BicycleCard = props => {
 
   useEffect(() => {
     if (closestStations) {
-      console.log(closestStations)
       const fetchBikedata = async () => {
         const response = await fetch(
           'https://gbfs.urbansharing.com/trondheimbysykkel.no/station_status.json'
