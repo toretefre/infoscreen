@@ -1,4 +1,4 @@
-React information screen application that for a given geolocation includes public transport data from Entur, city bike data from Trondheim Bysykkel, and weather data from Yr.no and Meteorologisk institutt.
+React information screen application that for a given geolocation includes public transport data from Entur, city bike data from Trondheim Bysykkel, and weather data from The Norwegian Meteorological Institute.
 
 ## Available Scripts
 
