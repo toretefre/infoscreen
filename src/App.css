@@ -11,7 +11,7 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 body {
-  background-color: black;
+  background-color: #28161C;
 }
 
 table {
@@ -64,7 +64,7 @@ table {
   align-items: center;
   justify-content: space-around;
   padding: 1em;
-  background-color: #28161C;
+  background-color: black;
   border-radius: 4px;
   color: white;
   margin: 0.5em;
