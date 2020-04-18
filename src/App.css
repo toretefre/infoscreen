@@ -127,4 +127,8 @@ table {
     display: flex;
     flex-direction: column;
   }
+
+  .card {
+    margin: 0.5em 0;
+  }
 }
