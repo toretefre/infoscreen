@@ -23,6 +23,7 @@ export const BicycleCard = props => {
   const { geoLocation } = props;
   const [bikedata, setBikedata] = useState();
   const [closestStations, setClosestStations] = useState();
+  const numberOfStations = 3;
 
   useEffect(() => {
     const findNearestStation = async () => {
@@ -51,14 +52,13 @@ export const BicycleCard = props => {
         );
         const json = await response.json();
 
-        const closestStation = json.data.stations.find(
-          station => station.station_id === closestStations[0].station_id
-        );
-        const secondClosestStation = json.data.stations.find(
-          station => station.station_id === closestStations[1].station_id
-        );
-        const newbikedata = { closestStation, secondClosestStation };
-        setBikedata(newbikedata);
+        json.data.stations.forEach(station => {
+          const correctElement = closestStations.find(stationToUpdate => station.station_id === stationToUpdate.station_id)
+          correctElement.num_bikes_available = station.num_bikes_available;
+          correctElement.num_docks_available = station.num_docks_available;
+        })
+
+        setBikedata(closestStations);
       };
 
       // fetch citybike data every 5 minutes
@@ -72,22 +72,16 @@ export const BicycleCard = props => {
     <section id="bicycleCard" className="card">
       <table>
         <tbody>
-          <tr>
-            <th>{closestStations[0].name}</th>
-            <td>
-              {bikedata.closestStation.num_bikes_available}{' '}
-              {bikedata.closestStation.num_bikes_available === 1 ? 'sykkel' : 'syklar'}
-            </td>
-            <td>{closestStations[0].distance.toFixed(1)} km</td>
-          </tr>
-          <tr>
-            <th>{closestStations[1].name}</th>
-            <td>
-              {bikedata.secondClosestStation.num_bikes_available}{' '}
-              {bikedata.secondClosestStation.num_bikes_available === 1 ? 'sykkel' : 'syklar'}
-            </td>
-            <td>{closestStations[1].distance.toFixed(1)} km</td>
-          </tr>
+          {bikedata.slice(0, numberOfStations).map(station => (
+            <tr key={station.station_id}>
+              <th>{station.name}</th>
+              <td>
+                {station.num_bikes_available}{' '}
+                {station.num_bikes_available === 1 ? 'sykkel' : 'syklar'}
+              </td>
+              <td>{station.distance.toFixed(1)} km</td>
+            </tr>
+          ))}
         </tbody>
       </table>
       <h6>Data frå UIP</h6>
