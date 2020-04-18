@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import moment from 'moment';
 import 'moment-timezone';
 import directions from './directions';
 
