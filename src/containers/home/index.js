@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import 'moment-timezone';
+import { Link } from '@reach/router'
 import WeatherCard from './../../components/WeatherCard';
 import BicycleCard from './../../components/BicycleCard';
 import TimeCard from './../../components/TimeCard';
@@ -14,7 +15,7 @@ export const Home = props => {
     useEffect(() => {
         if (props.input) {
             const user = props.input;
-            const correctData = identifiers.find(input => input.identifer === user)
+            const correctData = identifiers.find(input => input.identifier === user)
             setGeoLocation({
                 lat: correctData.lat,
                 lon: correctData.lon,
@@ -23,7 +24,7 @@ export const Home = props => {
         }
 
         else {
-            let options = {
+            const options = {
                 enableHighAccuracy: true,
                 timeout: 10000,
                 maximumAge: 0
@@ -32,15 +33,10 @@ export const Home = props => {
             const success = pos => {
                 var crd = pos.coords;
 
-                console.log('Your current position is:');
-                console.log(`Latitude : ${crd.latitude}`);
-                console.log(`Longitude: ${crd.longitude}`);
-                console.log(`More or less ${crd.accuracy} meters.`);
-                console.log(crd.altitude);
                 setGeoLocation({
                     lat: crd.latitude,
                     lon: crd.longitude,
-                    msl: crd.altitude || 0,
+                    msl: crd.altitude || 5,
                 })
             }
 
@@ -72,7 +68,16 @@ export const Home = props => {
         }, 1000 * 60 * 5);
     }, []);
 
-    if (!geoLocation) return null;
+    if (!geoLocation) return (
+        <article>
+            <h1>Kanskje du vil sjekke data for en forhåndsbestemt lokasjon?</h1>
+            <ul>
+                {identifiers.map(loc => (
+                    <li key={loc.identifier}><Link to={"/" + loc.identifier}>{loc.name}</Link></li>
+                ))}
+            </ul>
+        </article>
+    )
 
     return (
         <article className="article" >
