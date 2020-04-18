@@ -11,38 +11,46 @@ export const WeatherCard = props => {
 
   useEffect(() => {
     const fetchPrecipitation = async () => {
-      const response = await fetch(
-        `https://api.met.no/weatherapi/nowcast/0.9/.json?lat=${geoLocation.lat}&lon=${geoLocation.lon}`
-      );
-      const fetchedPrecipitationData = await response.json();
+      try {
+        const response = await fetch(
+          `https://api.met.no/weatherapi/nowcast/0.9/.json?lat=${geoLocation.lat}&lon=${geoLocation.lon}`
+        );
+        const fetchedPrecipitationData = await response.json();
 
-      const lastUpdatedTime = fetchedPrecipitationData.created;
-      const currentPrecipitation = fetchedPrecipitationData.product.time;
-      const precipitationChartData = [];
-      const startTime = fetchedPrecipitationData.product.time[0].from;
-      const endTime = fetchedPrecipitationData.product.time[fetchedPrecipitationData.product.time.length - 1].to;
-      let totalPrecipitation = 0
+        const lastUpdatedTime = fetchedPrecipitationData.created;
+        const currentPrecipitation = fetchedPrecipitationData.product.time;
+        const precipitationChartData = [];
+        const startTime = fetchedPrecipitationData.product.time[0].from;
+        const endTime = fetchedPrecipitationData.product.time[fetchedPrecipitationData.product.time.length - 1].to;
+        let totalPrecipitation = 0
 
-      currentPrecipitation
-        .filter(time =>
-          moment(time.from).diff(moment(), 'minutes') >= 0
-        )
-        .forEach(time => {
-          const p = parseFloat(time.location.precipitation.value)
-          totalPrecipitation += p
-          precipitationChartData.push({
-            x: moment(time.from).diff(moment(), 'minutes'),
-            y: p,
+        currentPrecipitation
+          .filter(time =>
+            moment(time.from).diff(moment(), 'minutes') >= 0
+          )
+          .forEach(time => {
+            const p = parseFloat(time.location.precipitation.value)
+            totalPrecipitation += p
+            precipitationChartData.push({
+              x: moment(time.from).diff(moment(), 'minutes'),
+              y: p,
+            });
           });
-        });
 
-      setPrecipitation({
-        chartData: precipitationChartData,
-        lastUpdated: lastUpdatedTime,
-        startTime: startTime,
-        endTime: endTime,
-        total: totalPrecipitation,
-      });
+        setPrecipitation({
+          chartData: precipitationChartData,
+          lastUpdated: lastUpdatedTime,
+          startTime: startTime,
+          endTime: endTime,
+          total: totalPrecipitation,
+        });
+      }
+      catch {
+        console.log("Gikk i dass")
+        setPrecipitation({
+          error: "Nedbørsvarsel er diverre ikkje tilgjengeleg nett no 😢"
+        })
+      }
     };
 
     const fetchForecast = async () => {
@@ -84,6 +92,7 @@ export const WeatherCard = props => {
         <h3>{forecast.wind.name} - {Math.round(forecast.wind.mps)} m/s frå {directions[forecast.wind.direction]}</h3>
       </section >
       <section id="precipitationCard" className="card">
+        {precipitation.error && precipitation.error}
         {precipitation.total === 0 && <h3>Opphald til {moment(precipitation.endTime).tz('Europe/Oslo').format('LT')}</h3>}
         {precipitation.total > 0 &&
           <Fragment>
