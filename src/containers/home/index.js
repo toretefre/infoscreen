@@ -7,6 +7,7 @@ import BicycleCard from './../../components/BicycleCard';
 import TimeCard from './../../components/TimeCard';
 import BusCard from './../../components/BusCard';
 import identifiers from '../../identifiers.json'
+import { PrecipitationCard } from '../../components/PrecipitationCard';
 
 export const Home = props => {
     const [time, setTime] = useState();
@@ -83,6 +84,7 @@ export const Home = props => {
 
     return (
         <article className="article" >
+            <PrecipitationCard time={time} geoLocation={geoLocation} />
             <WeatherCard time={time} geoLocation={geoLocation} />
             <TimeCard time={time} geoLocation={geoLocation} />
             <BusCard time={time} geoLocation={geoLocation} />
