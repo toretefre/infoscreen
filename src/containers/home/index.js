@@ -16,11 +16,13 @@ export const Home = props => {
         if (props.input) {
             const user = props.input;
             const correctData = identifiers.find(input => input.identifier === user)
-            setGeoLocation({
-                lat: correctData.lat,
-                lon: correctData.lon,
-                msl: correctData.msl,
-            });
+            if (correctData) {
+                setGeoLocation({
+                    lat: correctData.lat,
+                    lon: correctData.lon,
+                    msl: correctData.msl,
+                });
+            }
         }
 
         else {
