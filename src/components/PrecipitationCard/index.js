@@ -80,3 +80,5 @@ export const PrecipitationCard = props => {
         </section>
     )
 }
+
+export default PrecipitationCard;

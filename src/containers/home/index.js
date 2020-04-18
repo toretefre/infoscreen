@@ -2,12 +2,17 @@ import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import 'moment-timezone';
 import { Link } from '@reach/router'
+import identifiers from '../../identifiers.json'
+
 import WeatherCard from './../../components/WeatherCard';
 import BicycleCard from './../../components/BicycleCard';
-import TimeCard from './../../components/TimeCard';
+import TimeCard from '../../components/TimeCard';
 import BusCard from './../../components/BusCard';
-import identifiers from '../../identifiers.json'
-import { PrecipitationCard } from '../../components/PrecipitationCard';
+import PrecipitationCard from '../../components/PrecipitationCard';
+import SunCard from '../../components/SunCard';
+import DateCard from '../../components/DateCard';
+
+
 
 export const Home = props => {
     const [time, setTime] = useState();
@@ -86,9 +91,11 @@ export const Home = props => {
         <article className="article" >
             <PrecipitationCard time={time} geoLocation={geoLocation} />
             <WeatherCard time={time} geoLocation={geoLocation} />
-            <TimeCard time={time} geoLocation={geoLocation} />
+            <SunCard geoLocation={geoLocation} />
             <BusCard time={time} geoLocation={geoLocation} />
             <BicycleCard geoLocation={geoLocation} />
+            <TimeCard time={time} geoLocation={geoLocation} />
+            <DateCard time={time} />
         </article>
     )
 }
