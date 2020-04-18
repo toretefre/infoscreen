@@ -89,7 +89,7 @@ export const BusCard = props => {
             line: departure.serviceJourney.journeyPattern.line.publicCode,
             id: departure.serviceJourney.id,
             aimedDepartureTime: departure.aimedDepartureTime,
-            expectedDepartureTime: departure.expectedDepartureTime,
+            expectedArrivalTime: departure.expectedArrivalTime,
             transportMode: departure.serviceJourney.journeyPattern.line.transportMode,
           })
         })
@@ -107,9 +107,10 @@ export const BusCard = props => {
 
   if (!busData) return <section id="busCard" className="card" />
 
-  if (busData.data.name && busData.data.estimatedCalls.length === 0) return (<section id="busCard" className="card">
-    <p>Ingen avganger fra {busData.data.name} den neste timen 😢</p>
-  </section>
+  if (busData.data.name && busData.data.estimatedCalls.length === 0) return (
+    <section id="busCard" className="card">
+      <p>Ingen avganger fra {busData.data.name} den neste timen 😢</p>
+    </section>
   )
 
   return (
@@ -119,7 +120,7 @@ export const BusCard = props => {
           <h1>{quay.name}</h1>
           <section className="buses">
             {busData.quays.find(quay2 => quay2.id === quay.id).departures
-              .filter(departure => moment(departure.expectedDepartureTime).diff(moment(), "seconds") >= 0)
+              .filter(departure => moment(departure.expectedArrivalTime).diff(moment(), "seconds") >= 0)
               .map(departure =>
                 <div className="busContainer" key={departure.id}>
                   <div className="bus">
@@ -127,8 +128,8 @@ export const BusCard = props => {
                     <h5>{departure.frontText.split(" ")[0]}</h5>
                   </div>
                   {!departure.realtime && "ca "}
-                  {(moment(departure.expectedDepartureTime).diff(moment(), "seconds") <= 120 && (moment(departure.expectedDepartureTime).diff(moment(), "seconds") + " s"))}
-                  {(moment(departure.expectedDepartureTime).diff(moment(), "seconds") > 120 && (moment(departure.expectedDepartureTime).diff(moment(), "minutes") + " min"))}
+                  {(moment(departure.expectedArrivalTime).diff(moment(), "seconds") <= 120 && (moment(departure.expectedArrivalTime).diff(moment(), "seconds") + " s"))}
+                  {(moment(departure.expectedArrivalTime).diff(moment(), "seconds") > 120 && (moment(departure.expectedArrivalTime).diff(moment(), "minutes") + " min"))}
                 </div>)}
           </section>
         </section>
