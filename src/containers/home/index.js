@@ -9,20 +9,53 @@ import identifiers from '../../identifiers.json'
 
 export const Home = props => {
     const [time, setTime] = useState();
+    const [geoLocation, setGeoLocation] = useState();
 
-    const user = props.input;
-    const correctData = identifiers.find(input => input.identifer === user)
-    const geoLocation = {
-        lat: correctData.lat,
-        lon: correctData.lon,
-        msl: correctData.msl,
-        timeZone: 'Europe/Oslo',
-    }
+    useEffect(() => {
+        if (props.input) {
+            const user = props.input;
+            const correctData = identifiers.find(input => input.identifer === user)
+            setGeoLocation({
+                lat: correctData.lat,
+                lon: correctData.lon,
+                msl: correctData.msl,
+            });
+        }
+
+        else {
+            let options = {
+                enableHighAccuracy: true,
+                timeout: 10000,
+                maximumAge: 0
+            };
+
+            const success = pos => {
+                var crd = pos.coords;
+
+                console.log('Your current position is:');
+                console.log(`Latitude : ${crd.latitude}`);
+                console.log(`Longitude: ${crd.longitude}`);
+                console.log(`More or less ${crd.accuracy} meters.`);
+                console.log(crd.altitude);
+                setGeoLocation({
+                    lat: crd.latitude,
+                    lon: crd.longitude,
+                    msl: crd.altitude || 0,
+                })
+            }
+
+            const error = err => {
+                console.warn(`ERROR(${err.code}): ${err.message}`);
+            }
+
+            navigator.geolocation.getCurrentPosition(success, error, options);
+        }
+    }, [props.input])
 
     useEffect(() => {
         const fetchTime = async () => {
             const response = await fetch(
-                `https://worldtimeapi.org/api/timezone/${geoLocation.timeZone}`
+                `https://worldtimeapi.org/api/timezone/Europe/Oslo`
             );
             const json = await response.json();
             setTime(moment.unix(json.unixtime));
@@ -37,7 +70,9 @@ export const Home = props => {
         setInterval(() => {
             window.location.reload(true);
         }, 1000 * 60 * 5);
-    }, [geoLocation.timeZone]);
+    }, []);
+
+    if (!geoLocation) return null;
 
     return (
         <article className="article" >
