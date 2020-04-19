@@ -76,7 +76,7 @@ export const Home = props => {
 
     if (!geoLocation) return (
         <article>
-            <h1 className="white">Kanskje du vil sjekke data for en forhåndsbestemt lokasjon?</h1>
+            <h1 className="white">Kanskje du vil sjekke data for ein førehandsbestemt stad?</h1>
             <ul>
                 {identifiers
                     .sort((a, b) => a.name.localeCompare(b.name))
