@@ -1,8 +1,14 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "skjer.men",
+  "name": "Infoskjermen",
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "rgba(20, 20, 150, 0.3)",
-  "background_color": "#000000"
+  "theme_color": "#28161C",
+  "background_color": "black",
+  "categories": [
+    "infoscreen",
+    "weather",
+    "bus"
+  ],
+  "lang": "nn-NO"
 }
