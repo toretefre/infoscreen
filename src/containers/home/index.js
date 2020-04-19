@@ -4,10 +4,10 @@ import 'moment-timezone';
 import { Link } from '@reach/router'
 import identifiers from '../../identifiers.json'
 
-import WeatherCard from './../../components/WeatherCard';
-import BicycleCard from './../../components/BicycleCard';
+import WeatherCard from '../../components/WeatherCard';
+import BicycleCard from '../../components/BicycleCard';
 import TimeCard from '../../components/TimeCard';
-import BusCard from './../../components/BusCard';
+import BusCard from '../../components/BusCard';
 import PrecipitationCard from '../../components/PrecipitationCard';
 import SunCard from '../../components/SunCard';
 import DateCard from '../../components/DateCard';

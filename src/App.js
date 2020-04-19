@@ -3,8 +3,8 @@ import './App.css';
 import 'moment/locale/nn';
 import moment from 'moment';
 import { Router } from '@reach/router'
-import Home from './containers/home'
-import Places from './containers/places';
+import Home from './containers/Home'
+import Places from './containers/Places';
 
 export const App = () => {
   moment().locale('nn');

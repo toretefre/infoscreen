@@ -1,5 +1,5 @@
-import React from './node_modules/react';
-import * as firebase from './node_modules/firebase'
+import React from 'react';
+import * as firebase from 'firebase'
 
 export const Places = () => {
     const config = {
