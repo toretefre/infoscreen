@@ -8,37 +8,40 @@ export const WeatherCard = props => {
 
   useEffect(() => {
     const fetchForecast = async () => {
-      const response = await fetch(
-        `https://api.met.no/weatherapi/locationforecast/1.9/.json?lat=${geoLocation.lat}&lon=${geoLocation.lon}&msl=${geoLocation.msl}`
-      )
-      const temperatureData = await response.json();
-      const forecast = temperatureData.product.time[0];
-      const symbolData = temperatureData.product.time[1].location.symbol;
+      try {
+        const response = await fetch(
+          `https://api.met.no/weatherapi/locationforecast/1.9/.json?lat=${geoLocation.lat}&lon=${geoLocation.lon}&msl=${geoLocation.msl.toFixed()}`
+        )
+        const temperatureData = await response.json();
+        const forecast = temperatureData.product.time[0];
+        const symbolData = temperatureData.product.time[1].location.symbol;
 
-      setForecast({
-        symbol: {
-          code: symbolData.number,
-          id: symbolData.id,
-        },
-        temperature: forecast.location.temperature.value,
-        cloudiness: forecast.location.cloudiness.percent,
-        wind: {
-          mps: forecast.location.windSpeed.mps,
-          name: forecast.location.windSpeed.name,
-          direction: forecast.location.windDirection.name,
-        },
-        updated: forecast.from,
-      });
+        setForecast({
+          symbol: {
+            code: symbolData.number,
+            id: symbolData.id,
+          },
+          temperature: forecast.location.temperature.value,
+          cloudiness: forecast.location.cloudiness.percent,
+          wind: {
+            mps: forecast.location.windSpeed.mps,
+            name: forecast.location.windSpeed.name,
+            direction: forecast.location.windDirection.name,
+          },
+          updated: forecast.from,
+        });
+      }
+      catch {
+        setForecast({
+          error: "Henting av vêr feila, truleg er det regn uansett 😥",
+        })
+      }
     }
 
     fetchForecast();
   }, [geoLocation.lat, geoLocation.lon, geoLocation.msl]);
 
-  if (!forecast) return <section id="weatherCard" className="card">
-    <p>
-      {"lat: " + geoLocation.lat + "lon: " + geoLocation.lon + "høyde: " + geoLocation.msl}
-    </p>
-  </section>
+  if (!forecast.error) return <section id="weatherCard" className="card">{forecast.error}</section>
 
   return (
     <section id="weatherCard" className="card" >
