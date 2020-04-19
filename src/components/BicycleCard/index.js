@@ -68,6 +68,12 @@ export const BicycleCard = props => {
 
   if (!bikedata) return <section id="bicycleCard" className="card" />
 
+  if (bikedata[0].distance > 10) return (
+    <section id="bicycleCard" className="card">
+      Du er meir enn 10 kilometer unna næraste bysykkelstativ, kanskje det finst ein traktor i nærleiken?
+    </section>
+  )
+
   return (
     <section id="bicycleCard" className="card">
       <table>
