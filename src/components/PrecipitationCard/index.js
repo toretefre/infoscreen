@@ -59,7 +59,7 @@ export const PrecipitationCard = props => {
 
     return (
         <section id="precipitationCard" className="card">
-            {precipitation.total === 0 && <h3>Opphald til {moment(precipitation.endTime).tz('Europe/Oslo').format('LT')}</h3>}
+            {precipitation.total === 0 && <p className="precipText">Opphald til {moment(precipitation.endTime).tz('Europe/Oslo').format('LT')}</p>}
             {precipitation.total > 0 &&
                 <Fragment>
                     <VictoryArea

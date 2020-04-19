@@ -8,7 +8,7 @@ export const TimeCard = props => {
 
   return (
     <section id="timeCard" className="card">
-      <h1 className="time">{time.tz('Europe/Oslo').format('LTS')}</h1>
+      <p className="time">{time.tz('Europe/Oslo').format('LTS')}</p>
     </section>
   );
 };
