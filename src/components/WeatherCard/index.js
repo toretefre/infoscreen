@@ -34,7 +34,11 @@ export const WeatherCard = props => {
     fetchForecast();
   }, [geoLocation.lat, geoLocation.lon, geoLocation.msl]);
 
-  if (!forecast) return <section id="weatherCard" className="card" />
+  if (!forecast) return <section id="weatherCard" className="card">
+    <p>
+      {"lat: " + geoLocation.lat + "lon: " + geoLocation.lon + "høyde: " + geoLocation.msl}
+    </p>
+  </section>
 
   return (
     <section id="weatherCard" className="card" >
