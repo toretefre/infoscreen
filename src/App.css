@@ -20,13 +20,16 @@ table {
 
 .article {
   display: grid;
-  min-height: 100vh;
+  min-height: calc(100vh - 1em);
+  width: calc(100% - 2.5em);
   grid-template-columns: 15% 15% 15% 55%;
-  grid-template-rows: auto auto auto auto;
+  grid-template-rows: auto auto auto;
   grid-template-areas: 
     "precipitation precipitation precipitation bus"
     "weather time time bus"
     "sun date date bicycle";
+  gap: 0.5em;
+  padding: 0.5em;
 }
 
 #weatherCard {
@@ -67,7 +70,6 @@ table {
   background-color: black;
   border-radius: 4px;
   color: white;
-  margin: 0.5em;
 }
 
 ::-webkit-scrollbar {
@@ -126,6 +128,7 @@ table {
   .article {
     display: flex;
     flex-direction: column;
+    height: auto;
   }
 
   .card {
