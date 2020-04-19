@@ -129,9 +129,13 @@ table {
     display: flex;
     flex-direction: column;
     height: auto;
+    width: 100vw;
+    gap: 0;
+    padding: 0;
   }
 
   .card {
-    margin: 0.5em 0;
+    border-radius: 0%;
+    border-bottom: 1px solid gray;
   }
 }
