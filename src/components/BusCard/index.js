@@ -11,7 +11,13 @@ export const BusCard = props => {
     const fetchVenue = async () => {
       const numberOfVenues = 1;
       const response = await fetch(
-        `https://api.entur.io/geocoder/v1/reverse?point.lat=${geoLocation.lat}&point.lon=${geoLocation.lon}&boundary.circle.radius=1&size=${numberOfVenues}&layers=venue`
+        `https://api.entur.io/geocoder/v1/reverse?point.lat=${geoLocation.lat}&point.lon=${geoLocation.lon}&boundary.circle.radius=1&size=${numberOfVenues}&layers=venue`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'ET-Client-Name': 'toretefre - infoscreen'
+          }
+        },
       )
       const data = await response.json();
       const nearestVenue = data.features[0]
