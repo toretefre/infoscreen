@@ -108,7 +108,7 @@ export const BusCard = props => {
     }
 
     fetchBusdata()
-    setInterval(fetchBusdata, 1000 * 15);
+    setInterval(fetchBusdata, 1000 * 60);
   }, [nearestVenue])
 
   if (!busData) return <section id="busCard" className="card" />
