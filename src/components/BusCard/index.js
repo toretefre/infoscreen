@@ -121,25 +121,27 @@ export const BusCard = props => {
 
   return (
     <section id="busCard" className="card">
-      {busData.quays.map(quay =>
-        <section key={quay.id}>
-          <h1>{quay.name}</h1>
-          <section className="buses">
-            {busData.quays.find(quay2 => quay2.id === quay.id).departures
-              .filter(departure => moment(departure.expectedArrivalTime).diff(moment(), "seconds") >= 0)
-              .map(departure =>
-                <div className="busContainer" key={departure.id}>
-                  <div className="bus">
-                    <h3>{departure.line}</h3>
-                    <h5>{departure.frontText.split(" ")[0]}</h5>
-                  </div>
-                  {!departure.realtime && "ca "}
-                  {(moment(departure.expectedArrivalTime).diff(moment(), "seconds") <= 120 && (moment(departure.expectedArrivalTime).diff(moment(), "seconds") + " s"))}
-                  {(moment(departure.expectedArrivalTime).diff(moment(), "seconds") > 120 && (moment(departure.expectedArrivalTime).diff(moment(), "minutes") + " min"))}
-                </div>)}
+      {busData.quays
+        .sort((a, b) => a.id - b.id)
+        .map(quay =>
+          <section key={quay.id}>
+            <h1>{quay.name}</h1>
+            <section className="buses">
+              {busData.quays.find(quay2 => quay2.id === quay.id).departures
+                .filter(departure => moment(departure.expectedArrivalTime).diff(moment(), "seconds") >= 0)
+                .map(departure =>
+                  <div className="busContainer" key={departure.id}>
+                    <div className="bus">
+                      <h3>{departure.line}</h3>
+                      <h5>{departure.frontText.split(" ")[0]}</h5>
+                    </div>
+                    {!departure.realtime && "ca "}
+                    {(moment(departure.expectedArrivalTime).diff(moment(), "seconds") <= 120 && (moment(departure.expectedArrivalTime).diff(moment(), "seconds") + " s"))}
+                    {(moment(departure.expectedArrivalTime).diff(moment(), "seconds") > 120 && (moment(departure.expectedArrivalTime).diff(moment(), "minutes") + " min"))}
+                  </div>)}
+            </section>
           </section>
-        </section>
-      )}
+        )}
       <h6>Kollektivdata i sanntid frå Entur</h6>
     </section >
   );
