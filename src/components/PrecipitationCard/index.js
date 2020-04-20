@@ -44,7 +44,6 @@ export const PrecipitationCard = props => {
                 });
             }
             catch {
-                console.log("Gikk i dass")
                 setPrecipitation({
                     error: "Nedbørsvarsel er diverre ikkje tilgjengeleg nett no 😢"
                 })
