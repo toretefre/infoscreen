@@ -19,8 +19,8 @@ export const BicycleCard = props => {
           body: JSON.stringify({
             query: `{
                 bikeRentalStationsByBbox(minimumLatitude: ${geoLocation.lat -
-              0.01}, maximumLatitude: ${geoLocation.lat + 0.01}, minimumLongitude: ${geoLocation.lon -
-              0.01}, maximumLongitude: ${geoLocation.lon + 0.01}) {
+              0.02}, maximumLatitude: ${geoLocation.lat + 0.02}, minimumLongitude: ${geoLocation.lon -
+              0.02}, maximumLongitude: ${geoLocation.lon + 0.02}) {
                   id
                   name
                   bikesAvailable
@@ -36,14 +36,15 @@ export const BicycleCard = props => {
       );
       const enturJSON = await response.json();
       const data = enturJSON.data.bikeRentalStationsByBbox;
-      console.log(data)
-      if (data.length < 1) setCitybikeData({ status: "nobikes" })
 
-      data.forEach(station => {
-        station.distance = getDistanceFromLatLonInKm(geoLocation.lat, geoLocation.lon, station.latitude, station.longitude);
-      })
-      data.sort((a, b) => a.distance - b.distance);
-      setCitybikeData(data);
+      if (data.length < 1) setCitybikeData({ error: "nobikes" })
+      else {
+        data.forEach(station => {
+          station.distance = getDistanceFromLatLonInKm(geoLocation.lat, geoLocation.lon, station.latitude, station.longitude);
+        })
+        data.sort((a, b) => a.distance - b.distance);
+        setCitybikeData(data);
+      }
     }
 
     fetchCitybikeData()
@@ -52,9 +53,9 @@ export const BicycleCard = props => {
 
   if (!citybikeData) return <section id="bicycleCard" className="card" />
 
-  if (citybikeData[0].distance > 10000) return (
+  if (citybikeData.error === "nobikes") return (
     <section id="bicycleCard" className="card">
-      Du er meir enn 10 kilometer unna næraste bysykkelstativ, kanskje det finst ein traktor i nærleiken?
+      Ingen bysyklar i nærleiken, kanskje du ser en traktor?
     </section>
   )
 
