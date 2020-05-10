@@ -35,7 +35,7 @@ export const ScooterCard = props => {
                 {scooter.battery}% batteri
               </td>
               <td>
-                {(getDistanceFromLatLonInKm(geoLocation.lat, geoLocation.lon, scooter.lat, scooter.lon) * 1000).toFixed(0)} meter unna
+                {(getDistanceFromLatLonInKm(geoLocation.lat, geoLocation.lon, scooter.lat, scooter.lon)).toFixed(0)} meter unna
               </td>
             </tr>)
           )}

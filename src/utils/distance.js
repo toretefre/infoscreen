@@ -4,7 +4,7 @@ export const deg2rad = (deg) => {
 }
 
 export const getDistanceFromLatLonInKm = (lat1, lon1, lat2, lon2) => {
-    var R = 6371; // Radius of the earth in km
+    var R = 6378100; // Radius of the earth in m
     var dLat = deg2rad(lat2 - lat1);  // deg2rad below
     var dLon = deg2rad(lon2 - lon1);
     var a =
@@ -13,6 +13,6 @@ export const getDistanceFromLatLonInKm = (lat1, lon1, lat2, lon2) => {
         Math.sin(dLon / 2) * Math.sin(dLon / 2)
         ;
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    var d = R * c; // Distance in km
+    var d = R * c; // Distance in m
     return d;
 }

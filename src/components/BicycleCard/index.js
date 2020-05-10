@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import 'moment-timezone';
+import { getDistanceFromLatLonInKm } from './../../utils/distance'
 
 export const BicycleCard = props => {
   const { geoLocation } = props;
@@ -37,16 +38,21 @@ export const BicycleCard = props => {
       const data = enturJSON.data.bikeRentalStationsByBbox;
       console.log(data)
       if (data.length < 1) setCitybikeData({ status: "nobikes" })
+
+      data.forEach(station => {
+        station.distance = getDistanceFromLatLonInKm(geoLocation.lat, geoLocation.lon, station.latitude, station.longitude);
+      })
+      data.sort((a, b) => a.distance - b.distance);
       setCitybikeData(data);
     }
 
     fetchCitybikeData()
-    setInterval(fetchCitybikeData, 1000 * 60);
+    setInterval(fetchCitybikeData, 1000 * 60 * 5);
   }, [geoLocation.lat, geoLocation.lon])
 
   if (!citybikeData) return <section id="bicycleCard" className="card" />
 
-  if (citybikeData[0].distance > 10) return (
+  if (citybikeData[0].distance > 10000) return (
     <section id="bicycleCard" className="card">
       Du er meir enn 10 kilometer unna næraste bysykkelstativ, kanskje det finst ein traktor i nærleiken?
     </section>
@@ -62,7 +68,7 @@ export const BicycleCard = props => {
               {station.bikesAvailable}{' '}
               {station.bikesAvailable === 1 ? 'sykkel' : 'syklar'}
             </td>
-            <td>uvisst km</td>
+            <td>{station.distance.toFixed(0)} m</td>
           </tr>
         ))}
       </tbody>
