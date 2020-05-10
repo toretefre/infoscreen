@@ -90,7 +90,7 @@ export const BicycleCard = props => {
           ))}
         </tbody>
       </table>
-      <h6>Data frå UIP</h6>
+      <h6>Bysykkeldata levert av UIP</h6>
     </section>
   );
 };
