@@ -3,7 +3,6 @@ import moment from 'moment';
 import 'moment-timezone';
 import { Link } from '@reach/router'
 import identifiers from '../../identifiers.json'
-
 import WeatherCard from '../../components/WeatherCard';
 import BicycleCard from '../../components/BicycleCard';
 import TimeCard from '../../components/TimeCard';

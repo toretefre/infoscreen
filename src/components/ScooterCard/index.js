@@ -8,7 +8,7 @@ export const ScooterCard = props => {
   useEffect(() => {
     const fetchScooters = async () => {
       const response = await fetch(
-        `https://api.entur.io/mobility/v1/scooters?lat=${geoLocation.lat}&lon=${geoLocation.lon}&display=10`,
+        `https://api.entur.io/mobility/v1/scooters?lat=${geoLocation.lat}&lon=${geoLocation.lon}&max=3`,
         {
           headers: {
             'ET-Client-Name': 'toretefre - infoscreen'
@@ -29,7 +29,7 @@ export const ScooterCard = props => {
       <table>
         <tbody>
           {scooterData.slice(0, 3).map(scooter =>
-            (<tr>
+            (<tr key={scooter.id}>
               <th>{scooter.operator}</th>
               <td>
                 {scooter.battery}% batteri
