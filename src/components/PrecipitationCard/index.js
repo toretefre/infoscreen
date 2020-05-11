@@ -30,7 +30,7 @@ export const PrecipitationCard = props => {
                         const p = parseFloat(time.location.precipitation.value)
                         totalPrecipitation += p
                         precipitationChartData.push({
-                            x: moment(time.from).format('LT'),
+                            x: moment(time.from).tz('Europe/Oslo').format('LT'),
                             y: p,
                         });
                     });
