@@ -30,7 +30,7 @@ export const PrecipitationCard = props => {
                         const p = parseFloat(time.location.precipitation.value)
                         totalPrecipitation += p
                         precipitationChartData.push({
-                            x: moment(time.from).format('mm'),
+                            x: moment(time.from).format('LT'),
                             y: p,
                         });
                     });
@@ -65,6 +65,33 @@ export const PrecipitationCard = props => {
                     style={{
                         labels: { fill: "white" },
                     }}>
+                    <VictoryAxis dependentAxis
+                        tickFormat={t => `${t}`}
+                        style={{
+                            axis: {
+                                stroke: 'transparent'
+                            },
+                            ticks: {
+                                stroke: 'transparent'
+                            },
+                            tickLabels: {
+                                fill: "white"
+                            }
+                        }}
+                    />
+                    <VictoryAxis
+                        tickCount={6}
+                        style={{
+                            ticks: {
+                                stroke: 'white',
+                                size: 2,
+                            },
+                            tickLabels: {
+                                fill: "white",
+                                angle: 0,
+                            }
+                        }}
+                    />
                     <VictoryArea
                         height="auto"
                         data={precipitation.chartData}
@@ -72,12 +99,14 @@ export const PrecipitationCard = props => {
                         style={{
                             data: { fill: "#006edb" },
                             labels: { fill: "white" },
+
                         }}
-                        interpolation="basis"
-                    />
+                        interpolation="natural"
+                    >
+                    </VictoryArea>
                 </VictoryChart>
             }
-            <h6>All meteorologisk data frå Meteorologisk institutt - nedbørsvarsel oppdatert {moment(precipitation.lastUpdated).tz('Europe/Oslo').format('LT')}</h6>
+            <h6>Meteorologisk data levert av Meteorologisk institutt - nedbørsvarsel oppdatert {moment(precipitation.lastUpdated).tz('Europe/Oslo').format('LT')}</h6>
         </section >
     )
 }

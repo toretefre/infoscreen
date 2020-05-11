@@ -30,9 +30,12 @@ export const ScooterCard = props => {
         <tbody>
           {scooterData.slice(0, 3).map(scooter =>
             (<tr key={scooter.id}>
-              <th>{scooter.operator}</th>
+              <th>
+                {scooter.operator.charAt(0).toUpperCase() + scooter.operator.slice(1)}
+              </th>
+              {scooter.code === "-" ? <td /> : <td>{scooter.code}</td>}
               <td>
-                {scooter.battery}% batteri
+                {scooter.battery}%
               </td>
               <td>
                 {(getDistanceFromLatLonInKm(geoLocation.lat, geoLocation.lon, scooter.lat, scooter.lon)).toFixed(0)} meter unna
