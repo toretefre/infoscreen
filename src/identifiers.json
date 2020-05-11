@@ -47,5 +47,12 @@
         "lat": 59.941032,
         "lon": 10.807453,
         "msl": 200
+    },
+    {
+        "identifier": "torgallmenningen",
+        "name": "Torgallmenningen",
+        "lat": 60.393540,
+        "lon": 5.324604,
+        "msl": 5
     }
 ]
