@@ -25,7 +25,7 @@ export const ScooterCard = props => {
   if (!scooterData) return <section id="scooter" className="card" />
 
   return (
-    <section id="scooter" className="card">
+    <section id="scooterCard" className="card">
       <table>
         <tbody>
           {scooterData.slice(0, 3).map(scooter =>
@@ -41,7 +41,6 @@ export const ScooterCard = props => {
           )}
         </tbody>
       </table>
-      <h6>Sparkesykkeldata levert av Entur</h6>
     </section>
   );
 }

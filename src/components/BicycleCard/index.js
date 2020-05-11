@@ -74,7 +74,6 @@ export const BicycleCard = props => {
         ))}
       </tbody>
     </table>
-    <h6>Bysykkeldata levert av Entur</h6>
   </section>)
 }
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import moment from 'moment';
 import 'moment-timezone';
-import { VictoryArea, VictoryLabel } from 'victory';
+import { VictoryArea, VictoryChart, VictoryLabel, VictoryAxis, VictoryTheme } from 'victory';
 
 export const PrecipitationCard = props => {
     const { geoLocation } = props;
@@ -30,7 +30,7 @@ export const PrecipitationCard = props => {
                         const p = parseFloat(time.location.precipitation.value)
                         totalPrecipitation += p
                         precipitationChartData.push({
-                            x: moment(time.from).diff(moment(), 'minutes'),
+                            x: moment(time.from).format('mm'),
                             y: p,
                         });
                     });
@@ -60,23 +60,25 @@ export const PrecipitationCard = props => {
         <section id="precipitationCard" className="card">
             {precipitation.total === 0 && <p className="precipText">Opphald til {moment(precipitation.endTime).tz('Europe/Oslo').format('LT')}</p>}
             {precipitation.total > 0 &&
-                <Fragment>
+                <VictoryChart
+                    height={200}
+                    style={{
+                        labels: { fill: "white" },
+                    }}>
                     <VictoryArea
+                        height="auto"
                         data={precipitation.chartData}
+                        domain={{ y: [0, 2] }}
                         style={{
                             data: { fill: "#006edb" },
                             labels: { fill: "white" },
                         }}
-                        maxDomain={{ y: 3 }}
                         interpolation="basis"
-                        labels={({ datum }) => datum.x % 2 ? (Math.floor(datum.x / 5) * 5) : ""}
-                        labelComponent={<VictoryLabel renderInPortal y={"95%"} />}
                     />
-                    <h3>Nedbør i minutt frå {moment(precipitation.startTime).tz('Europe/Oslo').format('LT')}</h3>
-                </Fragment>
+                </VictoryChart>
             }
-            <h6>All meteorologisk data frå Meteorologisk institutt - nedbørsvarsel generert {moment(precipitation.lastUpdated).tz('Europe/Oslo').format('LT')}</h6>
-        </section>
+            <h6>All meteorologisk data frå Meteorologisk institutt - nedbørsvarsel oppdatert {moment(precipitation.lastUpdated).tz('Europe/Oslo').format('LT')}</h6>
+        </section >
     )
 }
 

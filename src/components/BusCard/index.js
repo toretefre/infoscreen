@@ -142,7 +142,7 @@ export const BusCard = props => {
             </section>
           </section>
         )}
-      <h6>Kollektivdata i sanntid frå Entur</h6>
+      <h6>All mobilitetsdata er levert i sanntid av Entur</h6>
     </section >
   );
 };
