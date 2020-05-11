@@ -80,7 +80,7 @@ export const PrecipitationCard = props => {
                         }}
                     />
                     <VictoryAxis
-                        tickCount={6}
+                        tickFormat={t => t.slice(3, 5) % 15 === 0 ? t : null}
                         style={{
                             ticks: {
                                 stroke: 'white',
