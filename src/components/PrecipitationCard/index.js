@@ -24,7 +24,7 @@ export const PrecipitationCard = props => {
 
                 currentPrecipitation
                     .filter(time =>
-                        moment(time.from).diff(moment(), 'minutes') >= 0
+                        moment(time.from).diff(moment(), 'minutes') >= -5
                     )
                     .forEach(time => {
                         const p = parseFloat(time.location.precipitation.value)
