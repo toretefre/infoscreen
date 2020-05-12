@@ -74,7 +74,7 @@ export const PrecipitationCard = props => {
                     }}>
                     <VictoryAxis dependentAxis
                         tickCount={3}
-                        tickFormat={t => imageSelection(t)}
+                        tickFormat={t => `${t}`}
                         style={{
                             axis: {
                                 stroke: 'transparent'
