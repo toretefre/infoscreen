@@ -56,6 +56,13 @@ export const PrecipitationCard = props => {
 
     if (precipitation.error) return <section id="precipitationCard" className="card"><h3>{precipitation.error}</h3></section>
 
+    const imageSelection = millimeters => {
+        if (millimeters === 1) return "🌦️"
+        if (millimeters === 2) return "🌧️"
+        if (millimeters === 3) return "☔"
+        return millimeters
+    }
+
     return (
         <section id="precipitationCard" className="card">
             {precipitation.total === 0 && <p className="precipText">Opphald til {moment(precipitation.endTime).tz('Europe/Oslo').format('LT')}</p>}
@@ -66,7 +73,8 @@ export const PrecipitationCard = props => {
                         labels: { fill: "white" },
                     }}>
                     <VictoryAxis dependentAxis
-                        tickFormat={t => `${t}`}
+                        tickCount={3}
+                        tickFormat={t => imageSelection(t)}
                         style={{
                             axis: {
                                 stroke: 'transparent'
@@ -95,7 +103,7 @@ export const PrecipitationCard = props => {
                     <VictoryArea
                         height="auto"
                         data={precipitation.chartData}
-                        domain={{ y: [0, 2] }}
+                        domain={{ y: [0, 3] }}
                         style={{
                             data: { fill: "#006edb" },
                             labels: { fill: "white" },
