@@ -5,6 +5,52 @@ import { getDistanceFromLatLonInKm } from './../../utils/distance'
 export const ScooterCard = props => {
   const { geoLocation } = props;
   const [scooterData, setScooterData] = useState();
+  const [citybikeData, setCitybikeData] = useState();
+
+  useEffect(() => {
+    const fetchCitybikeData = async () => {
+      const response = await fetch(
+        'https://api.entur.io/journey-planner/v2/graphql',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'ET-Client-Name': 'toretefre - infoscreen'
+          },
+          body: JSON.stringify({
+            query: `{
+                bikeRentalStationsByBbox(minimumLatitude: ${geoLocation.lat -
+              0.02}, maximumLatitude: ${geoLocation.lat + 0.02}, minimumLongitude: ${geoLocation.lon -
+              0.02}, maximumLongitude: ${geoLocation.lon + 0.02}) {
+                  id
+                  name
+                  bikesAvailable
+                  spacesAvailable
+                  networks
+                  latitude
+                  longitude
+                  networks
+                }
+              }`
+          })
+        }
+      );
+      const enturJSON = await response.json();
+      const data = enturJSON.data.bikeRentalStationsByBbox;
+
+      if (data.length < 1) setCitybikeData({ error: "nobikes" })
+      else {
+        data.forEach(station => {
+          station.distance = getDistanceFromLatLonInKm(geoLocation.lat, geoLocation.lon, station.latitude, station.longitude);
+        })
+        data.sort((a, b) => a.distance - b.distance);
+        setCitybikeData(data);
+      }
+    }
+
+    fetchCitybikeData()
+    setInterval(fetchCitybikeData, 1000 * 60 * 5);
+  }, [geoLocation.lat, geoLocation.lon])
 
   useEffect(() => {
     const fetchScooters = async () => {
@@ -23,14 +69,16 @@ export const ScooterCard = props => {
     fetchScooters();
   }, [geoLocation.lat, geoLocation.lon]);
 
-  if (!scooterData) return <section id="scooter" className="card" />
+  if (!scooterData || !citybikeData) return <section id="scooter" className="card" />
 
+  console.log(scooterData)
+  console.log(citybikeData)
 
   if ("hey") return (
     <section id="scooterCard" className="card">
       <Map
         center={[geoLocation.lat, geoLocation.lon]}
-        zoom={15}
+        zoom={16}
         zoomControl={false}
       >
         <TileLayer
@@ -47,7 +95,21 @@ export const ScooterCard = props => {
             position={[scooter.lat, scooter.lon]}
           >
             <Popup>
-              Voi
+              Voi <br />
+              {scooter.code} <br />
+              {scooter.battery}% batteri
+            </Popup>
+          </Marker>)
+        )}
+        {citybikeData.slice(0, 3).map(station =>
+          (<Marker
+            key={station.id}
+            position={[station.latitude, station.longitude]}
+          >
+            <Popup>
+              {station.name} bysykkelstativ <br />
+              {station.bikesAvailable} tilgjenglige syklar <br />
+              {station.spacesAvailable} ledige stativ
             </Popup>
           </Marker>)
         )}

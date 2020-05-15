@@ -88,11 +88,11 @@ export const Home = props => {
 
     return (
         <article className="article" >
+            <BusCard time={time} geoLocation={geoLocation} />
             <PrecipitationCard time={time} geoLocation={geoLocation} />
             <WeatherCard time={time} geoLocation={geoLocation} />
             <ScooterCard time={time} geoLocation={geoLocation} />
             <BicycleCard geoLocation={geoLocation} />
-            <BusCard time={time} geoLocation={geoLocation} />
             <DateCard time={time} />
             <TimeCard time={time} geoLocation={geoLocation} />
         </article>
