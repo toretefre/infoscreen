@@ -89,7 +89,7 @@ export const ScooterCard = props => {
             Deg
           </Popup>
         </Marker>
-        {scooterData.slice(0, 3).map(scooter =>
+        {scooterData.map(scooter =>
           (<Marker
             key={scooter.id}
             position={[scooter.lat, scooter.lon]}
@@ -101,7 +101,7 @@ export const ScooterCard = props => {
             </Popup>
           </Marker>)
         )}
-        {citybikeData.slice(0, 3).map(station =>
+        {citybikeData.map(station =>
           (<Marker
             key={station.id}
             position={[station.latitude, station.longitude]}
