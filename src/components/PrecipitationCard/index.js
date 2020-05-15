@@ -68,7 +68,7 @@ export const PrecipitationCard = props => {
             {precipitation.total === 0 && <p className="precipText">Opphald til {moment(precipitation.endTime).tz('Europe/Oslo').format('LT')}</p>}
             {precipitation.total > 0 &&
                 <VictoryChart
-                    height={200}
+                    height={300}
                     style={{
                         labels: { fill: "white" },
                     }}>
