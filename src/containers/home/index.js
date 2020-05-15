@@ -4,12 +4,11 @@ import 'moment-timezone';
 import { Link } from '@reach/router'
 import identifiers from '../../identifiers.json'
 import WeatherCard from '../../components/WeatherCard';
-import BicycleCard from '../../components/BicycleCard';
 import TimeCard from '../../components/TimeCard';
 import BusCard from '../../components/BusCard';
 import PrecipitationCard from '../../components/PrecipitationCard';
 import DateCard from '../../components/DateCard';
-import ScooterCard from '../../components/ScooterCard';
+import MapCard from '../../components/MapCard';
 
 export const Home = props => {
     const [time, setTime] = useState();
@@ -91,8 +90,7 @@ export const Home = props => {
             <BusCard time={time} geoLocation={geoLocation} />
             <PrecipitationCard time={time} geoLocation={geoLocation} />
             <WeatherCard time={time} geoLocation={geoLocation} />
-            <ScooterCard time={time} geoLocation={geoLocation} />
-            <BicycleCard geoLocation={geoLocation} />
+            <MapCard time={time} geoLocation={geoLocation} />
             <DateCard time={time} />
             <TimeCard time={time} geoLocation={geoLocation} />
         </article>

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
-import { getDistanceFromLatLonInKm } from './../../utils/distance'
+import { getDistanceFromLatLonInKm } from '../../utils/distance'
 
-export const ScooterCard = props => {
+export const MapCard = props => {
   const { geoLocation } = props;
   const [scooterData, setScooterData] = useState();
   const [citybikeData, setCitybikeData] = useState();
@@ -71,11 +71,8 @@ export const ScooterCard = props => {
 
   if (!scooterData || !citybikeData) return <section id="scooter" className="card" />
 
-  console.log(scooterData)
-  console.log(citybikeData)
-
-  if ("hey") return (
-    <section id="scooterCard" className="card">
+  return (
+    <section id="mapCard" className="card">
       <Map
         center={[geoLocation.lat, geoLocation.lon]}
         zoom={16}
@@ -117,29 +114,6 @@ export const ScooterCard = props => {
       <h6>Kartdata levert av OpenStreetMap gjennom Leaflet</h6>
     </section>
   );
-
-  return (
-    <section id="scooterCard" className="card">
-      <table>
-        <tbody>
-          {scooterData.slice(0, 3).map(scooter =>
-            (<tr key={scooter.id}>
-              <th>
-                {scooter.operator.charAt(0).toUpperCase() + scooter.operator.slice(1)}
-              </th>
-              {scooter.code === "-" ? <td /> : <td>{scooter.code}</td>}
-              <td>
-                {scooter.battery}%
-              </td>
-              <td>
-                {(getDistanceFromLatLonInKm(geoLocation.lat, geoLocation.lon, scooter.lat, scooter.lon)).toFixed(0)} meter unna
-              </td>
-            </tr>)
-          )}
-        </tbody>
-      </table>
-    </section>
-  );
 }
 
-export default ScooterCard;
+export default MapCard;
