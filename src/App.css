@@ -27,8 +27,8 @@ table {
   grid-template-rows: auto auto auto;
   grid-template-areas: 
     " precipitation precipitation bus bus"
-    "weather time bus bus"
-    " date date scooter bicycle";
+    "weather scooter bus bus"
+    " date date time bicycle";
   gap: 0.5em;
   padding: 0.5em;
 }
@@ -131,6 +131,11 @@ table {
 
 .precipText {
   font-size: 3em;
+}
+
+.leaflet-container {
+  height: 100%;
+  width: 100%;
 }
 
 @media screen and (max-width: 900px) {

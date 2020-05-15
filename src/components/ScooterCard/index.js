@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
 import { getDistanceFromLatLonInKm } from './../../utils/distance'
 
 export const ScooterCard = props => {
@@ -23,6 +24,37 @@ export const ScooterCard = props => {
   }, [geoLocation.lat, geoLocation.lon]);
 
   if (!scooterData) return <section id="scooter" className="card" />
+
+
+  if ("hey") return (
+    <section id="scooterCard" className="card">
+      <Map
+        center={[geoLocation.lat, geoLocation.lon]}
+        zoom={15}
+        zoomControl={false}
+      >
+        <TileLayer
+          url='https://{s}.tile.osm.org/{z}/{x}/{y}.png'
+        />
+        <Marker position={[geoLocation.lat, geoLocation.lon]}>
+          <Popup>
+            Deg
+          </Popup>
+        </Marker>
+        {scooterData.slice(0, 3).map(scooter =>
+          (<Marker
+            key={scooter.id}
+            position={[scooter.lat, scooter.lon]}
+          >
+            <Popup>
+              Voi
+            </Popup>
+          </Marker>)
+        )}
+      </Map>
+      <h6>Kartdata levert av OpenStreetMap gjennom Leaflet</h6>
+    </section>
+  );
 
   return (
     <section id="scooterCard" className="card">
