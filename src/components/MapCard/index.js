@@ -55,7 +55,7 @@ export const MapCard = props => {
   useEffect(() => {
     const fetchScooters = async () => {
       const response = await fetch(
-        `https://api.entur.io/mobility/v1/scooters?lat=${geoLocation.lat}&lon=${geoLocation.lon}&max=3`,
+        `https://api.entur.io/mobility/v1/scooters?lat=${geoLocation.lat}&lon=${geoLocation.lon}&max=100`,
         {
           headers: {
             'ET-Client-Name': 'toretefre - infoscreen'
