@@ -54,5 +54,12 @@
         "lat": 60.393540,
         "lon": 5.324604,
         "msl": 5
+    },
+    {
+        "identifier": "trafikanten",
+        "name": "Trafikanten - Oslo S",
+        "lat": 59.911359, 
+        "lon": 10.750315,
+        "msl": 5
     }
 ]
