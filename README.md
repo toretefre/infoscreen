@@ -2,6 +2,8 @@
 
 Information screen web application built with [React](https://github.com/facebook/react).
 
+![Skjermbilde 18.05.20](public/skjer.men_180520.png)
+
 The following data should be visible in skjer.men:
 - [Real-time precipitation data](https://api.met.no/weatherapi/nowcast/0.9/documentation)
 - [Current weather - temperature, cloud coverage, and winds](https://api.met.no/weatherapi/locationforecast/1.9/documentation)
