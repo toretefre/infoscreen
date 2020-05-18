@@ -92,7 +92,7 @@ export const MapCard = props => {
             position={[scooter.lat, scooter.lon]}
           >
             <Popup>
-              Voi <br />
+              {scooter.operator.slice(0, 1).toUpperCase() + scooter.operator.slice(1)} <br />
               {scooter.code} <br />
               {scooter.battery}% batteri
             </Popup>
