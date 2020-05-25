@@ -139,6 +139,12 @@ table {
   min-height: 400px;
 }
 
+.scooterpopup {
+  fill: yellow;
+  color: yellow;
+  background-color: yellow;
+}
+
 @media screen and (max-width: 900px) {
   .article {
     display: flex;

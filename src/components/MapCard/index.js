@@ -63,13 +63,23 @@ export const MapCard = props => {
         },
       )
       const data = await response.json();
+      data.forEach(scooter => {
+        scooter.distance = getDistanceFromLatLonInKm(geoLocation.lat, geoLocation.lon, scooter.lat, scooter.lon);
+      })
+      data.sort((a, b) => a.distance - b.distance);
       setScooterData(data)
     }
 
     fetchScooters();
   }, [geoLocation.lat, geoLocation.lon]);
 
-  if (!scooterData || !citybikeData) return <section id="scooter" className="card" />
+  if (!scooterData || !citybikeData) return <section id="mapCard" className="card" />
+
+  if (scooterData[0].distance > (1000 * 10) && citybikeData.error) return (
+    <section id="mapCard" className="card">
+      <h1>Næraste elektriske sparkesykkel er {(scooterData[0].distance / 1000).toFixed(0)} km unna</h1>
+    </section>
+  )
 
   return (
     <section id="mapCard" className="card">
@@ -86,10 +96,11 @@ export const MapCard = props => {
             Deg
           </Popup>
         </Marker>
-        {scooterData.map(scooter =>
+        {scooterData && scooterData.map(scooter =>
           (<Marker
             key={scooter.id}
             position={[scooter.lat, scooter.lon]}
+            className="scooterpopup"
           >
             <Popup>
               {scooter.operator.slice(0, 1).toUpperCase() + scooter.operator.slice(1)} <br />
@@ -98,7 +109,7 @@ export const MapCard = props => {
             </Popup>
           </Marker>)
         )}
-        {citybikeData.map(station =>
+        {!citybikeData.error && citybikeData.map(station =>
           (<Marker
             key={station.id}
             position={[station.latitude, station.longitude]}
