@@ -9,7 +9,7 @@ export const BusCard = props => {
 
   useEffect(() => {
     const fetchVenue = async () => {
-      const numberOfVenues = 1;
+      const numberOfVenues = 10;
       const response = await fetch(
         `https://api.entur.io/geocoder/v1/reverse?point.lat=${geoLocation.lat}&point.lon=${geoLocation.lon}&boundary.circle.radius=1&size=${numberOfVenues}&layers=venue`,
         {
@@ -21,7 +21,7 @@ export const BusCard = props => {
       )
       const data = await response.json();
       const nearestVenue = data.features[0]
-      setNearestVenue(nearestVenue.properties.id)
+      if (nearestVenue) setNearestVenue(nearestVenue.properties.id)
     }
 
     fetchVenue();
