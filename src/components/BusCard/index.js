@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import 'moment-timezone';
-import { getDistanceFromLatLonInKm } from '../../utils/distance'
-import { getCompassDirection } from 'geolib';
+import { getDistance, getCompassDirection } from 'geolib';
 
 export const BusCard = props => {
   const { geoLocation } = props;
@@ -96,10 +95,13 @@ export const BusCard = props => {
             stopId: venueToSearchFor,
             lat: departure.quay.latitude,
             lon: departure.quay.longitude,
-            distance: getDistanceFromLatLonInKm(departure.quay.latitude, departure.quay.longitude, geoLocation.lat, geoLocation.lon).toFixed(0),
+            distance: getDistance(
+              { lat: geoLocation.lat, lon: geoLocation.lon },
+              { lat: departure.quay.latitude, lon: departure.quay.longitude }
+            ),
             bearing: getCompassDirection(
-              { latitude: geoLocation.lat, longitude: geoLocation.lon },
-              { latitude: departure.quay.latitude, longitude: departure.quay.longitude }
+              { lat: geoLocation.lat, lon: geoLocation.lon },
+              { lat: departure.quay.latitude, lon: departure.quay.longitude }
             ),
             departures: [],
           })

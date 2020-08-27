@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
 import { getDistanceFromLatLonInKm } from '../../utils/distance'
+import { getDistance } from 'geolib';
 
 export const MapCard = props => {
   const { geoLocation } = props;
@@ -41,7 +42,10 @@ export const MapCard = props => {
       if (data.length < 1) setCitybikeData({ error: "nobikes" })
       else {
         data.forEach(station => {
-          station.distance = getDistanceFromLatLonInKm(geoLocation.lat, geoLocation.lon, station.latitude, station.longitude);
+          station.distance = getDistance(
+            { lat: station.latitude, lon: station.longitude },
+            { lat: geoLocation.lat, lon: geoLocation.lon }
+          )
         })
         data.sort((a, b) => a.distance - b.distance);
         setCitybikeData(data);
@@ -65,10 +69,13 @@ export const MapCard = props => {
       const data = await response.json();
       console.log(data)
       data.forEach(scooter => {
-        scooter.distance = getDistanceFromLatLonInKm(geoLocation.lat, geoLocation.lon, scooter.lat, scooter.lon);
-      })
+        scooter.distance = getDistance(
+          { lat: geoLocation.lat, lon: geoLocation.lon },
+          { lat: scooter.lat, lon: scooter.lon }
+        );
+      });
       data.sort((a, b) => a.distance - b.distance);
-      setScooterData(data)
+      setScooterData(data);
     }
 
     fetchScooters();
