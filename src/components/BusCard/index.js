@@ -134,11 +134,10 @@ export const BusCard = props => {
 
   if (busData.length < 1) return <section id="busCard" className="card" />
 
-  console.log("busdata", busData)
-
   return (
     <section id="busCard" className="card">
       {busData
+        .slice(0, numberOfQuays)
         .map(quay =>
           <section key={quay.id}>
             <h1>{quay.name}</h1>
