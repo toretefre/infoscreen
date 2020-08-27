@@ -136,6 +136,9 @@ export const BusCard = props => {
 
   return (
     <section id="busCard" className="card">
+      <div>
+        <input id="quayAmountSlider" type="range" min="1" max="10" defaultValue={numberOfQuays} onChange={e => setNumberOfQuays(e.target.value)} />
+      </div>
       {busData
         .slice(0, numberOfQuays)
         .map(quay =>
@@ -157,9 +160,6 @@ export const BusCard = props => {
             </section>
           </section>
         )}
-      <div>
-        <input type="range" min="1" max="10" defaultValue={numberOfQuays} onChange={e => setNumberOfQuays(e.target.value)} />
-      </div>
       <h6>Mobilitetsdata for {numberOfQuays} holdeplasser levert i sanntid av Entur</h6>
     </section >
   );
