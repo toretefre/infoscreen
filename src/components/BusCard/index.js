@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import 'moment-timezone';
+import { getDistanceFromLatLonInKm } from '../../utils/distance'
 
 export const BusCard = props => {
   const { geoLocation } = props;
@@ -61,6 +62,8 @@ export const BusCard = props => {
                   quay {
                     name
                     id
+                    latitude
+                    longitude
                   }
                   serviceJourney {
                     id
@@ -87,9 +90,12 @@ export const BusCard = props => {
       departures.forEach(departure => {
         if (!quaysWithDepartures.some(quay => quay.id === departure.quay.id)) {
           quaysWithDepartures.push({
-            name: departure.quay.name,
             id: departure.quay.id,
+            name: departure.quay.name,
             stopId: venueToSearchFor,
+            lat: departure.quay.latitude,
+            lon: departure.quay.longitude,
+            distance: getDistanceFromLatLonInKm(departure.quay.latitude, departure.quay.longitude, geoLocation.lat, geoLocation.lon).toFixed(0),
             departures: [],
           })
         }
@@ -140,10 +146,11 @@ export const BusCard = props => {
         <input id="quayAmountSlider" type="range" min="1" max="10" defaultValue={numberOfQuays} onChange={e => setNumberOfQuays(e.target.value)} />
       </div>
       {busData
+        .sort((a, b) => a.distance - b.distance)
         .slice(0, numberOfQuays)
         .map(quay =>
           <section key={quay.id}>
-            <h1>{quay.name}</h1>
+            <h1>{quay.name} - {quay.distance} meter unna</h1>
             <section className="buses">
               {busData.find(quay2 => quay2.id === quay.id).departures
                 .filter(departure => moment(departure.expectedArrivalTime).diff(moment(), "seconds") >= 0)
