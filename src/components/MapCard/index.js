@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
-import { getDistanceFromLatLonInKm } from '../../utils/distance'
 import { getDistance } from 'geolib';
 
 export const MapCard = props => {
