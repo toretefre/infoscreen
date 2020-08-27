@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import 'moment-timezone';
 import { getDistanceFromLatLonInKm } from '../../utils/distance'
+import { getCompassDirection } from 'geolib';
 
 export const BusCard = props => {
   const { geoLocation } = props;
@@ -96,6 +97,10 @@ export const BusCard = props => {
             lat: departure.quay.latitude,
             lon: departure.quay.longitude,
             distance: getDistanceFromLatLonInKm(departure.quay.latitude, departure.quay.longitude, geoLocation.lat, geoLocation.lon).toFixed(0),
+            bearing: getCompassDirection(
+              { latitude: geoLocation.lat, longitude: geoLocation.lon },
+              { latitude: departure.quay.latitude, longitude: departure.quay.longitude }
+            ),
             departures: [],
           })
         }
@@ -150,7 +155,7 @@ export const BusCard = props => {
         .slice(0, numberOfQuays)
         .map(quay =>
           <section key={quay.id}>
-            <h1>{quay.name} - {quay.distance} meter unna</h1>
+            <h1>{quay.name} - {quay.distance} meter {quay.bearing}</h1>
             <section className="buses">
               {busData.find(quay2 => quay2.id === quay.id).departures
                 .filter(departure => moment(departure.expectedArrivalTime).diff(moment(), "seconds") >= 0)
