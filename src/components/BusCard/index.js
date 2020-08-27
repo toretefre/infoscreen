@@ -138,7 +138,7 @@ export const BusCard = props => {
     }
   }, [nearestVenues])
 
-  if (busData.length < 1) return <section id="busCard" className="card" />
+  if (busData.length < 1) return null;
 
   return (
     <section id="busCard" className="card">

@@ -52,9 +52,9 @@ export const PrecipitationCard = props => {
         fetchPrecipitation();
     }, [geoLocation.lat, geoLocation.lon])
 
-    if (!precipitation) return <section id="precipitationCard" className="card" />
+    if (!precipitation) return null;
 
-    if (precipitation.error) return <section id="precipitationCard" className="card"><h3>{precipitation.error}</h3></section>
+    if (precipitation.error) return null;
 
     const imageSelection = millimeters => {
         if (millimeters === 1) return "🌦️"

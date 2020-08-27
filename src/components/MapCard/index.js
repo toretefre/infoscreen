@@ -55,7 +55,7 @@ export const MapCard = props => {
   useEffect(() => {
     const fetchScooters = async () => {
       const response = await fetch(
-        `https://api.entur.io/mobility/v1/scooters?lat=${geoLocation.lat}&lon=${geoLocation.lon}&max=100`,
+        `https://api.entur.io/mobility/v1/scooters?lat=${geoLocation.lat}&lon=${geoLocation.lon}&range=1000&max=50`,
         {
           headers: {
             'ET-Client-Name': 'toretefre - infoscreen'
@@ -63,6 +63,7 @@ export const MapCard = props => {
         },
       )
       const data = await response.json();
+      console.log(data)
       data.forEach(scooter => {
         scooter.distance = getDistanceFromLatLonInKm(geoLocation.lat, geoLocation.lon, scooter.lat, scooter.lon);
       })
@@ -73,13 +74,9 @@ export const MapCard = props => {
     fetchScooters();
   }, [geoLocation.lat, geoLocation.lon]);
 
-  if (!scooterData || !citybikeData) return <section id="mapCard" className="card" />
+  if (!scooterData || !citybikeData) return null;
 
-  if (scooterData[0].distance > (1000 * 10) && citybikeData.error) return (
-    <section id="mapCard" className="card">
-      <h1>Næraste elektriske sparkesykkel er {(scooterData[0].distance / 1000).toFixed(0)} km unna</h1>
-    </section>
-  )
+  if (!scooterData[0] && citybikeData.error) return null;
 
   return (
     <section id="mapCard" className="card">
