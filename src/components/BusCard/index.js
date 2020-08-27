@@ -4,8 +4,10 @@ import 'moment-timezone';
 
 export const BusCard = props => {
   const { geoLocation } = props;
-  const [busData, setBusData] = useState();
+  const [busData, setBusData] = useState([]);
   const [nearestVenue, setNearestVenue] = useState();
+  const [nearestVenues, setNearestVenues] = useState();
+  const [numberOfQuays, setNumberOfQuays] = useState(4);
 
   useEffect(() => {
     const fetchVenue = async () => {
@@ -20,114 +22,128 @@ export const BusCard = props => {
         },
       )
       const data = await response.json();
+      const newVenues = data.features;
       const nearestVenue = data.features[0]
+      if (newVenues) setNearestVenues(newVenues);
       if (nearestVenue) setNearestVenue(nearestVenue.properties.id)
     }
 
     fetchVenue();
   }, [geoLocation.lat, geoLocation.lon]);
 
-  useEffect(() => {
-    const fetchBusdata = async () => {
-      if (nearestVenue) {
-        const response = await fetch(
-          'https://api.entur.io/journey-planner/v2/graphql',
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'ET-Client-Name': 'toretefre - infoscreen'
-            },
-            body: JSON.stringify({
-              query: `{
-                stopPlace(id: "${nearestVenue}") {
-                  id
-                  name
-                  estimatedCalls(timeRange: 3600, numberOfDepartures: 100) {
-                    realtime
-                    aimedArrivalTime
-                    aimedDepartureTime
-                    expectedArrivalTime
-                    expectedDepartureTime
-                    date
-                    forBoarding
-                    forAlighting
-                    destinationDisplay {
-                      frontText
-                    }
-                    quay {
-                      name
-                      id
-                    }
-                    serviceJourney {
-                      id
-                      journeyPattern {
-                        line {
-                          publicCode
-                          id
-                          name
-                          transportMode
-                        }
+  const fetchBusdata = async venueToSearchFor => {
+    if (venueToSearchFor) {
+      const response = await fetch(
+        'https://api.entur.io/journey-planner/v2/graphql',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'ET-Client-Name': 'toretefre - infoscreen'
+          },
+          body: JSON.stringify({
+            query: `{
+              stopPlace(id: "${venueToSearchFor}") {
+                id
+                name
+                estimatedCalls(timeRange: 3600, numberOfDepartures: 100) {
+                  realtime
+                  aimedArrivalTime
+                  aimedDepartureTime
+                  expectedArrivalTime
+                  expectedDepartureTime
+                  date
+                  forBoarding
+                  forAlighting
+                  destinationDisplay {
+                    frontText
+                  }
+                  quay {
+                    name
+                    id
+                  }
+                  serviceJourney {
+                    id
+                    journeyPattern {
+                      line {
+                        publicCode
+                        id
+                        name
+                        transportMode
                       }
                     }
                   }
                 }
-              }`
-            })
-          }
-        );
-        const enturJSON = await response.json();
-        const data = enturJSON.data.stopPlace;
-        const departures = data.estimatedCalls;
-        const quaysWithDepartures = []
-
-        departures.forEach(departure => {
-          if (!quaysWithDepartures.some(quay => quay.id === departure.quay.id)) {
-            quaysWithDepartures.push({
-              name: departure.quay.name,
-              id: departure.quay.id,
-              departures: [],
-            })
-          }
-          quaysWithDepartures.find(quay => quay.id === departure.quay.id).departures.push({
-            realtime: departure.realtime,
-            frontText: departure.destinationDisplay.frontText,
-            line: departure.serviceJourney.journeyPattern.line.publicCode,
-            id: departure.serviceJourney.id,
-            aimedDepartureTime: departure.aimedDepartureTime,
-            expectedArrivalTime: departure.expectedArrivalTime,
-            transportMode: departure.serviceJourney.journeyPattern.line.transportMode,
+              }
+            }`
           })
-        })
+        }
+      );
+      const enturJSON = await response.json();
+      const data = enturJSON.data.stopPlace;
+      const departures = data.estimatedCalls;
+      const quaysWithDepartures = []
 
-        setBusData({
-          quays: quaysWithDepartures,
-          data: data,
-        });
-      }
+      departures.forEach(departure => {
+        if (!quaysWithDepartures.some(quay => quay.id === departure.quay.id)) {
+          quaysWithDepartures.push({
+            name: departure.quay.name,
+            id: departure.quay.id,
+            stopId: venueToSearchFor,
+            departures: [],
+          })
+        }
+        quaysWithDepartures.find(quay => quay.id === departure.quay.id).departures.push({
+          realtime: departure.realtime,
+          frontText: departure.destinationDisplay.frontText,
+          line: departure.serviceJourney.journeyPattern.line.publicCode,
+          id: departure.serviceJourney.id,
+          aimedDepartureTime: departure.aimedDepartureTime,
+          expectedArrivalTime: departure.expectedArrivalTime,
+          transportMode: departure.serviceJourney.journeyPattern.line.transportMode,
+        })
+      })
+
+      return quaysWithDepartures;
+    }
+  }
+
+  useEffect(() => {
+    fetchBusdata(nearestVenue)
+    setInterval(fetchBusdata, 1000 * 60);
+  }, [nearestVenue, numberOfQuays])
+
+  useEffect(() => {
+    const fetchManyDepartures = async () => {
+      const newDepartures = [];
+      nearestVenues.forEach(async venue => {
+        const newData = await fetchBusdata(venue.properties.id)
+        newData.forEach(quay => {
+          newDepartures.push(quay)
+        })
+      })
+      console.log("new busData set", newDepartures)
+      setBusData(newDepartures);
     }
 
-    fetchBusdata()
-    setInterval(fetchBusdata, 1000 * 60);
-  }, [nearestVenue])
+    console.log("nearestVenues", nearestVenues);
+    if (nearestVenues) {
+      fetchManyDepartures();
+    }
+  }, [nearestVenues])
 
-  if (!busData) return <section id="busCard" className="card" />
+  if (busData.length < 1) return <section id="busCard" className="card" />
 
-  if (busData.data.name && busData.data.estimatedCalls.length === 0) return (
-    <section id="busCard" className="card">
-      <p>Vi fann diverre ingen avgangar frå {busData.data.name} den neste timen 😢</p>
-    </section>
-  )
+  console.log("busdata", busData)
 
   return (
     <section id="busCard" className="card">
-      {busData.quays
-        .sort((a, b) => a.id - b.id)
+      {busData
         .map(quay =>
           <section key={quay.id}>
             <h1>{quay.name}</h1>
             <section className="buses">
-              {busData.quays.find(quay2 => quay2.id === quay.id).departures
+              {busData.find(quay2 => quay2.id === quay.id).departures
                 .filter(departure => moment(departure.expectedArrivalTime).diff(moment(), "seconds") >= 0)
                 .map(departure =>
                   <div className="busContainer" key={departure.id}>
@@ -142,7 +158,10 @@ export const BusCard = props => {
             </section>
           </section>
         )}
-      <h6>Mobilitetsdata levert i sanntid av Entur</h6>
+      <div>
+        <input type="range" min="1" max="10" defaultValue={numberOfQuays} onChange={e => setNumberOfQuays(e.target.value)} />
+      </div>
+      <h6>Mobilitetsdata for {numberOfQuays} holdeplasser levert i sanntid av Entur</h6>
     </section >
   );
 };
