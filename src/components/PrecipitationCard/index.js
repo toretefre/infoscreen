@@ -114,7 +114,8 @@ export const PrecipitationCard = props => {
                     </VictoryArea>
                 </VictoryChart>
             }
-            <h6>Meteorologisk data levert av Meteorologisk institutt - nedbørsvarsel oppdatert {moment(precipitation.lastUpdated).tz('Europe/Oslo').format('LT')}</h6>
+            <h6>Meteorologisk data levert av Meteorologisk institutt</h6>
+            <h6>Nedbørsvarsel oppdatert {moment(precipitation.lastUpdated).tz('Europe/Oslo').format('LT')}</h6>
         </section >
     )
 }
