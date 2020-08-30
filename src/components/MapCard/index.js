@@ -88,7 +88,7 @@ export const MapCard = props => {
     <section id="mapCard" className="card">
       <Map
         center={[geoLocation.lat, geoLocation.lon]}
-        zoom={16}
+        zoom={17}
         zoomControl={false}
       >
         <TileLayer
