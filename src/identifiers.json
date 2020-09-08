@@ -16,8 +16,8 @@
     {
         "identifier": "glos",
         "name": "Gløshaugen",
-        "lat": 63.416611,
-        "lon": 10.407270,
+        "lat": 63.415418,
+        "lon": 10.404673,
         "msl": 50
     },
     {
@@ -58,7 +58,7 @@
     {
         "identifier": "trafikanten",
         "name": "Trafikanten - Oslo S",
-        "lat": 59.911359, 
+        "lat": 59.911359,
         "lon": 10.750315,
         "msl": 5
     }
