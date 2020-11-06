@@ -151,11 +151,12 @@ table {
 }
 
 .voi-icon {
-  background-color: red;
+  background-color: #f56c64;
 }
 
 .tier-icon {
-  background-color: green;
+  background-color: #69d2aa;
+  color: black;
 }
 
 @media screen and (max-width: 900px) {
