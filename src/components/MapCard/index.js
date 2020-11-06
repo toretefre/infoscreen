@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
+import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
+import { divIcon } from 'leaflet';
+import ReactDOMServer from 'react-dom/server';
 import { getDistance } from 'geolib';
 
 export const MapCard = props => {
@@ -103,7 +105,12 @@ export const MapCard = props => {
           (<Marker
             key={scooter.id}
             position={[scooter.lat, scooter.lon]}
-            className="scooterpopup"
+            icon={divIcon({
+              className: `scooter-icon ${scooter.operator}-icon`,
+              html: ReactDOMServer.renderToString(<p>{scooter.battery}</p>),
+              iconSize: null,
+              iconAnchor: [13, 0],
+            })}
           >
             <Popup>
               {scooter.operator.slice(0, 1).toUpperCase() + scooter.operator.slice(1)} <br />
@@ -116,17 +123,24 @@ export const MapCard = props => {
           (<Marker
             key={station.id}
             position={[station.latitude, station.longitude]}
+            icon={divIcon({
+              className: "citybike-icon",
+              html: ReactDOMServer.renderToString(<p>{`${station.bikesAvailable}/${station.spacesAvailable + station.bikesAvailable}`}</p>),
+              iconSize: null,
+              iconAnchor: [18, 20],
+              popupAnchor: [0, -20],
+            })}
           >
             <Popup>
               {station.name} bysykkelstativ <br />
-              {station.bikesAvailable} tilgjenglige syklar <br />
+              {station.bikesAvailable} tilgjengelege syklar <br />
               {station.spacesAvailable} ledige stativ
             </Popup>
           </Marker>)
         )}
       </Map>
-      <h6>Kartdata levert av OpenStreetMap gjennom Leaflet</h6>
-    </section>
+      <h6>Kartdata levert av OpenStreetMap gjennom React Leaflet</h6>
+    </section >
   );
 }
 
