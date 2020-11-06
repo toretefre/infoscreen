@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import { divIcon } from 'leaflet';
+import ReactDOMServer from 'react-dom/server';
 import { getDistance } from 'geolib';
 
 export const MapCard = props => {
@@ -104,7 +105,11 @@ export const MapCard = props => {
           (<Marker
             key={scooter.id}
             position={[scooter.lat, scooter.lon]}
-            icon={divIcon({ className: `scooter-icon ${scooter.operator}-icon`, iconSize: null })}
+            icon={divIcon({
+              className: `scooter-icon ${scooter.operator}-icon`,
+              html: ReactDOMServer.renderToString(<p>{scooter.battery}</p>),
+              iconSize: null,
+            })}
           >
             <Popup>
               {scooter.operator.slice(0, 1).toUpperCase() + scooter.operator.slice(1)} <br />
