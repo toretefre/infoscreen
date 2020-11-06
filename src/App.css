@@ -141,7 +141,21 @@ table {
   min-height: 400px;
 }
 
+.citybike-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 36px;
+  width: 36px;
+  background-color: yellow;
+  color: black;
+  border: 1px solid black;
+}
+
 .scooter-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-image: url("/public/electric-scooter.png");
   height: 24px;
   width: 24px;

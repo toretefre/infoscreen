@@ -109,6 +109,7 @@ export const MapCard = props => {
               className: `scooter-icon ${scooter.operator}-icon`,
               html: ReactDOMServer.renderToString(<p>{scooter.battery}</p>),
               iconSize: null,
+              iconAnchor: [13, 0],
             })}
           >
             <Popup>
@@ -122,16 +123,23 @@ export const MapCard = props => {
           (<Marker
             key={station.id}
             position={[station.latitude, station.longitude]}
+            icon={divIcon({
+              className: "citybike-icon",
+              html: ReactDOMServer.renderToString(<p>{`${station.bikesAvailable}/${station.spacesAvailable + station.bikesAvailable}`}</p>),
+              iconSize: null,
+              iconAnchor: [18, 20],
+              popupAnchor: [0, -20],
+            })}
           >
             <Popup>
               {station.name} bysykkelstativ <br />
-              {station.bikesAvailable} tilgjenglige syklar <br />
+              {station.bikesAvailable} tilgjengelege syklar <br />
               {station.spacesAvailable} ledige stativ
             </Popup>
           </Marker>)
         )}
       </Map>
-      <h6>Kartdata levert av OpenStreetMap gjennom Leaflet</h6>
+      <h6>Kartdata levert av OpenStreetMap gjennom React Leaflet</h6>
     </section >
   );
 }
