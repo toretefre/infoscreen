@@ -141,10 +141,21 @@ table {
   min-height: 400px;
 }
 
-.scooterpopup {
-  fill: yellow;
-  color: yellow;
-  background-color: yellow;
+.scooter-icon {
+  background-image: url("/public/electric-scooter.png");
+  height: 24px;
+  width: 24px;
+  background-color: purple;
+  border: 1px solid black;
+  border-radius: 50%;
+}
+
+.voi-icon {
+  background-color: red;
+}
+
+.tier-icon {
+  background-color: green;
 }
 
 @media screen and (max-width: 900px) {

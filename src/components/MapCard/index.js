@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
+import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
+import { divIcon } from 'leaflet';
 import { getDistance } from 'geolib';
 
 export const MapCard = props => {
@@ -103,7 +104,7 @@ export const MapCard = props => {
           (<Marker
             key={scooter.id}
             position={[scooter.lat, scooter.lon]}
-            className="scooterpopup"
+            icon={divIcon({ className: `scooter-icon ${scooter.operator}-icon`, iconSize: null })}
           >
             <Popup>
               {scooter.operator.slice(0, 1).toUpperCase() + scooter.operator.slice(1)} <br />
@@ -126,7 +127,7 @@ export const MapCard = props => {
         )}
       </Map>
       <h6>Kartdata levert av OpenStreetMap gjennom Leaflet</h6>
-    </section>
+    </section >
   );
 }
 
