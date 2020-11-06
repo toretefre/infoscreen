@@ -146,17 +146,26 @@ table {
   height: 24px;
   width: 24px;
   background-color: purple;
+  color: black;
   border: 1px solid black;
   border-radius: 50%;
 }
 
 .voi-icon {
   background-color: #f56c64;
+  color: white;
 }
 
 .tier-icon {
   background-color: #69d2aa;
-  color: black;
+}
+
+.lime-icon {
+  background-color: #56b949;
+}
+
+.bolt-icon {
+  background-color: #35d187;
 }
 
 @media screen and (max-width: 900px) {
