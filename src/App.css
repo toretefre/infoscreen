@@ -156,7 +156,6 @@ table {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url("/public/electric-scooter.png");
   height: 24px;
   width: 24px;
   background-color: purple;
