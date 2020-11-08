@@ -48,12 +48,12 @@ export const WeatherCard = props => {
 
   return (
     <section id="weatherCard" className="card" >
+      <h2 className="time">{forecast.temperature}&deg;</h2>
       <img
         className="weatherSymbol"
         src={process.env.PUBLIC_URL + '/weather_icons/' + forecast.symbol + '.svg'}
         alt={forecast.symbol.id}
       />
-      <h2 className="time">{forecast.temperature}&deg;</h2>
       <h3>{Math.round(forecast.cloudiness)}% skydekke</h3>
       <h3>{forecast.wind.name}</h3>
       <h3>{Math.round(forecast.wind.mps)} m/s frå {Math.round(forecast.wind.direction)} grader</h3>
