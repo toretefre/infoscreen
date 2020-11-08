@@ -10,25 +10,26 @@ export const WeatherCard = props => {
     const fetchForecast = async () => {
       try {
         const response = await fetch(
-          `https://api.met.no/weatherapi/locationforecast/1.9/.json?lat=${geoLocation.lat}&lon=${geoLocation.lon}&msl=${geoLocation.msl.toFixed()}`
+          `https://api.met.no/weatherapi/locationforecast/2.0/complete?altitude=${geoLocation.msl.toFixed()}&lat=${geoLocation.lat.toFixed(4)}&lon=${geoLocation.lon.toFixed(4)}`
         )
         const temperatureData = await response.json();
-        const forecast = temperatureData.product.time[0];
-        const symbolData = temperatureData.product.time[1].location.symbol;
+        console.log(temperatureData.properties.timeseries[0].data.instant.details);
+        const newForecast = temperatureData.properties;
+        const newForecastUpdated = newForecast.meta.updated_at;
+        const newForecastData = newForecast.timeseries;
+        const newCurrentForecastData = newForecastData[0].data.instant.details;
+
+        console.log(newCurrentForecastData);
 
         setForecast({
-          symbol: {
-            code: symbolData.number,
-            id: symbolData.id,
-          },
-          temperature: forecast.location.temperature.value,
-          cloudiness: forecast.location.cloudiness.percent,
+          symbol: newForecastData[0].data.next_1_hours.summary.symbol_code,
+          temperature: newCurrentForecastData.air_temperature,
+          cloudiness: newCurrentForecastData.cloud_area_fraction,
           wind: {
-            mps: forecast.location.windSpeed.mps,
-            name: forecast.location.windSpeed.name,
-            direction: forecast.location.windDirection.name,
+            mps: newCurrentForecastData.wind_speed,
+            direction: newCurrentForecastData.wind_from_direction,
           },
-          updated: forecast.from,
+          updated: newForecastUpdated,
         });
       }
       catch {
@@ -47,11 +48,15 @@ export const WeatherCard = props => {
 
   return (
     <section id="weatherCard" className="card" >
+      <img
+        className="weatherSymbol"
+        src={process.env.PUBLIC_URL + '/weather_icons/' + forecast.symbol + '.svg'}
+        alt={forecast.symbol.id}
+      />
       <h2 className="time">{forecast.temperature}&deg;</h2>
-      <img className="weatherSymbol" src={'https://api.met.no/weatherapi/weathericon/1.1/?content_type=image%2Fpng&symbol=' + forecast.symbol.code} alt={forecast.symbol.id} />
       <h3>{Math.round(forecast.cloudiness)}% skydekke</h3>
       <h3>{forecast.wind.name}</h3>
-      <h3>{Math.round(forecast.wind.mps)} m/s frå {directions[forecast.wind.direction]}</h3>
+      <h3>{Math.round(forecast.wind.mps)} m/s frå {Math.round(forecast.wind.direction)} grader</h3>
     </section>
   )
 }
