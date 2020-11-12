@@ -11,13 +11,18 @@ export const DateCard = props => {
         const findHolidays = () => {
             const now = moment()
             const futureHolidays = holidayFile.filter(holiday => moment(holiday.date, "DD.MM.YYYY").isAfter(now))
-            setHolidays(futureHolidays)
-        }
 
+            if (futureHolidays[0].name === "1. juledag") {
+                setHolidays(<h4>Det er {moment("24.12.2020-17:00", "DD.MM.YYYY-hh:mm").diff(now, 'days')} dagar til jul! 🎄</h4>)
+            }
+            else {
+                setHolidays(<h4>Neste heilagdag er {futureHolidays[0].name} {moment(futureHolidays[0].date, "DD.MM.YYYY").format('Do MMMM')}</h4>)
+            }
+        }
         findHolidays();
     }, [])
 
-    if (!time) return <section id="dateCard" className="card" />
+    if (!time) return null;
 
     const localTime = time.tz('Europe/Oslo')
 
@@ -25,7 +30,7 @@ export const DateCard = props => {
         <section id="dateCard" className="card">
             <h3>Veke {localTime.weeks()}</h3>
             <h3>{localTime.format('dddd Do MMMM')}</h3>
-            {holidays && <h4>Neste heilagdag er {holidays[0].name} {moment(holidays[0].date, "DD.MM.YYYY").format('Do MMMM')}</h4>}
+            {holidays}
         </section>
     )
 }
