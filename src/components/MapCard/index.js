@@ -30,7 +30,7 @@ export const MapCard = props => {
           body: JSON.stringify({
             query: `{
                 bikeRentalStationsByBbox(minimumLatitude: ${geoLocation.lat -
-              0.02}, maximumLatitude: ${geoLocation.lat + 0.02}, minimumLongitude: ${geoLocation.lon -
+              0.01}, maximumLatitude: ${geoLocation.lat + 0.01}, minimumLongitude: ${geoLocation.lon -
               0.02}, maximumLongitude: ${geoLocation.lon + 0.02}) {
                   id
                   name
@@ -70,7 +70,6 @@ export const MapCard = props => {
     }
 
     fetchCitybikes()
-    setInterval(fetchCitybikes, 1000 * 60 * 5);
   }, [geoLocation.lat, geoLocation.lon])
 
   useEffect(() => {
@@ -109,8 +108,6 @@ export const MapCard = props => {
   }, [geoLocation.lat, geoLocation.lon]);
 
   if (scooters.status === "fetching" || citybikes.status === "fetching") return <h1>Fetching data...</h1>
-
-  console.log("Scooter:", scooters.status, "Bike:", citybikes.status)
 
   return (
     <section id="mapCard" className="card">
