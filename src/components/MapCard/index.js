@@ -6,11 +6,19 @@ import { getDistance } from 'geolib';
 
 export const MapCard = props => {
   const { geoLocation } = props;
-  const [scooterData, setScooterData] = useState();
-  const [citybikeData, setCitybikeData] = useState();
+  const [scooters, setScooters] = useState({
+    status: 'fetching',
+    data: null,
+    error: null,
+  });
+  const [citybikes, setCitybikes] = useState({
+    status: 'fetching',
+    data: null,
+    error: null,
+  });
 
   useEffect(() => {
-    const fetchCitybikeData = async () => {
+    const fetchCitybikes = async () => {
       const response = await fetch(
         'https://api.entur.io/journey-planner/v2/graphql',
         {
@@ -38,23 +46,31 @@ export const MapCard = props => {
         }
       );
       const enturJSON = await response.json();
-      const data = enturJSON.data.bikeRentalStationsByBbox;
+      const fetchedData = enturJSON.data.bikeRentalStationsByBbox;
 
-      if (data.length < 1) setCitybikeData({ error: "nobikes" })
+      if (fetchedData.length < 1) setCitybikes({
+        ...citybikes,
+        status: "complete",
+        error: "nodata",
+      })
       else {
-        data.forEach(station => {
+        fetchedData.forEach(station => {
           station.distance = getDistance(
             { lat: station.latitude, lon: station.longitude },
             { lat: geoLocation.lat, lon: geoLocation.lon }
           )
         })
-        data.sort((a, b) => a.distance - b.distance);
-        setCitybikeData(data);
+        fetchedData.sort((a, b) => a.distance - b.distance);
+        setCitybikes({
+          ...citybikes,
+          data: fetchedData,
+          status: "complete",
+        })
       }
     }
 
-    fetchCitybikeData()
-    setInterval(fetchCitybikeData, 1000 * 60 * 5);
+    fetchCitybikes()
+    setInterval(fetchCitybikes, 1000 * 60 * 5);
   }, [geoLocation.lat, geoLocation.lon])
 
   useEffect(() => {
@@ -67,24 +83,34 @@ export const MapCard = props => {
           }
         },
       )
-      const data = await response.json();
-      console.log(data)
-      data.forEach(scooter => {
-        scooter.distance = getDistance(
-          { lat: geoLocation.lat, lon: geoLocation.lon },
-          { lat: scooter.lat, lon: scooter.lon }
-        );
-      });
-      data.sort((a, b) => a.distance - b.distance);
-      setScooterData(data);
+      const fetchedData = await response.json();
+      if (fetchedData.length < 1) setScooters({
+        ...scooters,
+        status: "complete",
+        error: "noscooters"
+      })
+      else {
+        fetchedData.forEach(scooter => {
+          scooter.distance = getDistance(
+            { lat: geoLocation.lat, lon: geoLocation.lon },
+            { lat: scooter.lat, lon: scooter.lon }
+          );
+        });
+        fetchedData.sort((a, b) => a.distance - b.distance);
+        setScooters({
+          ...scooters,
+          data: fetchedData,
+          status: "complete",
+        })
+      }
     }
 
     fetchScooters();
   }, [geoLocation.lat, geoLocation.lon]);
 
-  if (!scooterData || !citybikeData) return null;
+  if (scooters.status === "fetching" || citybikes.status === "fetching") return <h1>Fetching data...</h1>
 
-  if (!scooterData[0] && citybikeData.error) return null;
+  console.log("Scooter:", scooters.status, "Bike:", citybikes.status)
 
   return (
     <section id="mapCard" className="card">
@@ -101,7 +127,7 @@ export const MapCard = props => {
             Deg
           </Popup>
         </Marker>
-        {scooterData && scooterData.map(scooter =>
+        {!scooters.error && scooters.data.map(scooter =>
           (<Marker
             key={scooter.id}
             position={[scooter.lat, scooter.lon]}
@@ -119,7 +145,7 @@ export const MapCard = props => {
             </Popup>
           </Marker>)
         )}
-        {!citybikeData.error && citybikeData.map(station =>
+        {!citybikes.error && citybikes.data.map(station =>
           (<Marker
             key={station.id}
             position={[station.latitude, station.longitude]}
