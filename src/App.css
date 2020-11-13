@@ -180,7 +180,8 @@ table {
   background-color: #35d187;
 }
 
-@media screen and (max-width: 900px) {
+
+@media (orientation: portrait) {
   .article {
     display: flex;
     flex-direction: column;
@@ -193,5 +194,11 @@ table {
   .card {
     border-radius: 0%;
     border-bottom: 1px solid gray;
+  }
+}
+
+@media (orientation: landscape) {
+  #quayAmountSlider {
+    display: none;
   }
 }
