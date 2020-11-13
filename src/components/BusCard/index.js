@@ -64,6 +64,8 @@ export const BusCard = props => {
                     id
                     latitude
                     longitude
+                    publicCode
+                    description
                   }
                   serviceJourney {
                     id
@@ -95,6 +97,8 @@ export const BusCard = props => {
             stopId: venueToSearchFor,
             lat: departure.quay.latitude,
             lon: departure.quay.longitude,
+            quayNumber: departure.quay.publicCode,
+            description: departure.quay.description,
             distance: getDistance(
               { lat: geoLocation.lat, lon: geoLocation.lon },
               { lat: departure.quay.latitude, lon: departure.quay.longitude }
@@ -135,17 +139,19 @@ export const BusCard = props => {
           newDepartures.push(quay)
         })
       })
-      console.log("new busData set", newDepartures)
       setBusData(newDepartures);
     }
 
-    console.log("nearestVenues", nearestVenues);
     if (nearestVenues) {
       fetchManyDepartures();
     }
   }, [nearestVenues])
 
-  if (busData.length < 1) return null;
+  if (busData.length < 1) return (
+    <section id="busCard" className="card">
+      <h1>Ingen kollektivavgangar nære deg den neste timen</h1>
+    </section>
+  );
 
   return (
     <section id="busCard" className="card">
@@ -157,7 +163,10 @@ export const BusCard = props => {
         .slice(0, numberOfQuays)
         .map(quay =>
           <section key={quay.id}>
-            <h1>{quay.name} - {quay.distance} meter {quay.bearing}</h1>
+            {quay.quayNumber && <h1>{`${quay.name} ${quay.quayNumber}`} - {quay.distance} meter {quay.bearing}</h1>}
+            {!quay.quayNumber && <h1>{quay.name} - {quay.distance} meter {quay.bearing}</h1>}
+
+            {quay.description && <p>{quay.description}</p>}
             <section className="buses">
               {busData.find(quay2 => quay2.id === quay.id).departures
                 .filter(departure => moment(departure.expectedArrivalTime).diff(moment(), "seconds") >= 0)
