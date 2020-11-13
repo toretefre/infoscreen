@@ -13,13 +13,10 @@ export const WeatherCard = props => {
           `https://api.met.no/weatherapi/locationforecast/2.0/complete?altitude=${geoLocation.msl.toFixed()}&lat=${geoLocation.lat.toFixed(4)}&lon=${geoLocation.lon.toFixed(4)}`
         )
         const temperatureData = await response.json();
-        console.log(temperatureData.properties.timeseries[0].data.instant.details);
         const newForecast = temperatureData.properties;
         const newForecastUpdated = newForecast.meta.updated_at;
         const newForecastData = newForecast.timeseries;
         const newCurrentForecastData = newForecastData[0].data.instant.details;
-
-        console.log(newCurrentForecastData);
 
         setForecast({
           symbol: newForecastData[0].data.next_1_hours.summary.symbol_code,
@@ -27,6 +24,7 @@ export const WeatherCard = props => {
           cloudiness: newCurrentForecastData.cloud_area_fraction,
           wind: {
             mps: newCurrentForecastData.wind_speed,
+            gust: newCurrentForecastData.wind_speed_of_gust,
             direction: newCurrentForecastData.wind_from_direction,
           },
           updated: newForecastUpdated,
@@ -56,7 +54,7 @@ export const WeatherCard = props => {
       />
       <h3>{Math.round(forecast.cloudiness)}% skydekke</h3>
       <h3>{forecast.wind.name}</h3>
-      <h3>{Math.round(forecast.wind.mps)} m/s frå {Math.round(forecast.wind.direction)} grader</h3>
+      <h3>{Math.round(forecast.wind.mps)} m/s frå {Math.round(forecast.wind.direction)} grader ({Math.round(forecast.wind.gust)} m/s vindkast)</h3>
     </section>
   )
 }
