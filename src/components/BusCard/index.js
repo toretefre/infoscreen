@@ -175,7 +175,8 @@ export const BusCard = props => {
                   <div className="busContainer" key={departure.id}>
                     <div className="bus">
                       <h3>{departure.line}</h3>
-                      <h5>{departure.frontText.split(" ")[0]}</h5>
+                      {departure.frontText.split(" ")[1] === "S" && <h5>{departure.frontText.split(" ")[0]} {departure.frontText.split(" ")[1]}</h5>}
+                      {departure.frontText.split(" ")[1] !== "S" && <h5>{departure.frontText.split(" ")[0]}</h5>}
                     </div>
                     {!departure.realtime && "ca "}
                     {(moment(departure.expectedArrivalTime).diff(moment(), "seconds") <= 120 && (moment(departure.expectedArrivalTime).diff(moment(), "seconds") + " s"))}
