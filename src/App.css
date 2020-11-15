@@ -180,6 +180,29 @@ table {
   background-color: #35d187;
 }
 
+input[type=range] {
+  -webkit-appearance: none;
+  width: 90vw;
+  height: 0.25em;
+  margin: 2.5em 0;
+  background-color: gray;
+  outline: none;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  background: url("images/metrobuss.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 4em;
+  width: 3.5em;
+  border-radius: 5%;
+  outline: none;
+}
+
+input[type=range]:focus {
+  outline: none;
+}
 
 @media (orientation: portrait) {
   .article {
