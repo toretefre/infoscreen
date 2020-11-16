@@ -136,9 +136,9 @@ export const MapCard = props => {
             })}
           >
             <Popup>
-              {scooter.operator.slice(0, 1).toUpperCase() + scooter.operator.slice(1)} <br />
-              {scooter.code} <br />
-              {scooter.battery}% batteri
+              {scooter.operator && `${scooter.operator.slice(0, 1).toUpperCase() + scooter.operator.slice(1)} `}<br />
+              {scooter.code && `${scooter.code} `}<br />
+              {scooter.battery && `${scooter.battery}% batteri`}
             </Popup>
           </Marker>)
         )}
