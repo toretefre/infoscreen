@@ -5,11 +5,7 @@
   "display": "standalone",
   "theme_color": "#28161C",
   "background_color": "black",
-  "categories": [
-    "infoscreen",
-    "weather",
-    "bus"
-  ],
+  "categories": ["infoscreen", "weather", "bus"],
   "lang": "nn-NO",
   "icons": [
     {
