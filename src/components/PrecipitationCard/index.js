@@ -11,26 +11,27 @@ export const PrecipitationCard = props => {
         const fetchPrecipitation = async () => {
             try {
                 const response = await fetch(
-                    `https://api.met.no/weatherapi/nowcast/0.9/.json?lat=${geoLocation.lat}&lon=${geoLocation.lon}`
+                    `https://api.met.no/weatherapi/nowcast/2.0/complete?lat=${geoLocation.lat}&lon=${geoLocation.lon}`
                 );
-                const fetchedPrecipitationData = await response.json();
+                const responseJson = await response.json();
+                const fetchedNowcast = responseJson.properties
 
-                const lastUpdatedTime = fetchedPrecipitationData.created;
-                const currentPrecipitation = fetchedPrecipitationData.product.time;
+                const lastUpdatedTime = fetchedNowcast.meta.updated_at;
+                const currentData = fetchedNowcast.timeseries;
                 const precipitationChartData = [];
-                const startTime = fetchedPrecipitationData.product.time[0].from;
-                const endTime = fetchedPrecipitationData.product.time[fetchedPrecipitationData.product.time.length - 1].to;
+                const startTime = fetchedNowcast.timeseries[0].time;
+                const endTime = fetchedNowcast.timeseries[fetchedNowcast.timeseries.length - 1].time + 60*5;
                 let totalPrecipitation = 0
-
-                currentPrecipitation
+                
+                currentData
                     .filter(time =>
-                        moment(time.from).diff(moment(), 'minutes') >= -5
+                        moment(time.time).diff(moment(), 'minutes') >= -5
                     )
                     .forEach(time => {
-                        const p = parseFloat(time.location.precipitation.value)
+                        const p = parseFloat(time.data.instant.details.precipitation_rate)
                         totalPrecipitation += p
                         precipitationChartData.push({
-                            x: moment(time.from).tz('Europe/Oslo').format('LT'),
+                            x: moment(time.time).tz('Europe/Oslo').format('LT'),
                             y: p,
                         });
                     });
