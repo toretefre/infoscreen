@@ -1,14 +1,14 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import 'moment-timezone';
-import { VictoryArea, VictoryChart, VictoryLabel, VictoryAxis, VictoryTheme } from 'victory';
+import { VictoryArea, VictoryChart, VictoryAxis } from 'victory';
 
-export const PrecipitationCard = props => {
+export const CurrentWeatherCard = props => {
     const { geoLocation } = props;
     const [precipitation, setPrecipitation] = useState();
 
     useEffect(() => {
-        const fetchPrecipitation = async () => {
+        const fetchCurrentWeather = async () => {
             try {
                 const response = await fetch(
                     `https://api.met.no/weatherapi/nowcast/2.0/complete?lat=${geoLocation.lat}&lon=${geoLocation.lon}`
@@ -50,7 +50,7 @@ export const PrecipitationCard = props => {
                 })
             }
         };
-        fetchPrecipitation();
+        fetchCurrentWeather();
     }, [geoLocation.lat, geoLocation.lon])
 
     if (!precipitation) return null;
@@ -121,4 +121,4 @@ export const PrecipitationCard = props => {
     )
 }
 
-export default PrecipitationCard;
+export default CurrentWeatherCard;

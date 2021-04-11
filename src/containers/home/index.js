@@ -6,7 +6,7 @@ import identifiers from '../../identifiers.json'
 import WeatherCard from '../../components/WeatherCard';
 import TimeCard from '../../components/TimeCard';
 import BusCard from '../../components/BusCard';
-import PrecipitationCard from '../../components/PrecipitationCard';
+import CurrentWeatherCard from '../../components/CurrentWeatherCard';
 import DateCard from '../../components/DateCard';
 import MapCard from '../../components/MapCard';
 
@@ -88,7 +88,7 @@ export const Home = props => {
     return (
         <article className="article" >
             <BusCard time={time} geoLocation={geoLocation} />
-            <PrecipitationCard time={time} geoLocation={geoLocation} />
+            <CurrentWeatherCard time={time} geoLocation={geoLocation} />
             <WeatherCard time={time} geoLocation={geoLocation} />
             <MapCard time={time} geoLocation={geoLocation} />
             <DateCard time={time} />
