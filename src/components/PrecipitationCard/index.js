@@ -20,7 +20,7 @@ export const PrecipitationCard = props => {
                 const currentData = fetchedNowcast.timeseries;
                 const precipitationChartData = [];
                 const startTime = fetchedNowcast.timeseries[0].time;
-                const endTime = fetchedNowcast.timeseries[fetchedNowcast.timeseries.length - 1].time + 60*5;
+                const endTime = fetchedNowcast.timeseries[fetchedNowcast.timeseries.length - 1].time;
                 let totalPrecipitation = 0
                 
                 currentData
