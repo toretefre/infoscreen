@@ -52,16 +52,6 @@ export const Home = props => {
     }, [props.input])
 
     useEffect(() => {
-        const fetchTime = async () => {
-            const response = await fetch(
-                `https://worldtimeapi.org/api/timezone/Europe/Oslo`
-            );
-            const json = await response.json();
-            setTime(moment.unix(json.unixtime));
-        };
-
-        fetchTime();
-
         setInterval(() => {
             setTime(moment(time).add(1, 'second'));
         }, 1000);
