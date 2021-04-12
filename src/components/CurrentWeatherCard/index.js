@@ -6,32 +6,36 @@ import { VictoryArea, VictoryChart, VictoryAxis } from 'victory';
 export const CurrentWeatherCard = props => {
     const { weather } = props;
 
-    if (!weather.precipitation) return <p>Ingen værdata</p>;
-    if (weather.loading) return <p>Laster</p>;
-    if (weather.error) return <p>Feil</p>;
-
-    const imageSelection = millimeters => {
-        if (millimeters === 1) return "🌦️"
-        if (millimeters === 2) return "🌧️"
-        if (millimeters === 3) return "☔"
-        return millimeters
-    }
-
     if (weather.loading) return (
         <section id="precipitationCard" className="card">
             <p>Laster...</p>
         </section>
     )
+
     if (!weather.precipitation.radarCoverage) return (
         <section id="precipitationCard" className="card">
             <p>Du er utanfor radardekning</p>
         </section>
     )
+
     if (weather.precipitation.radarCoverage === "temporarily_unavailable") return (
         <section id="precipitationCard" className="card">
             <p>Værradar ute av drift</p>
         </section>
-    )
+    );
+
+    if (weather.error) return (
+        <section id="precipitationCard" className="card">
+            <p>Feil</p>
+        </section>
+    );
+
+    if (!weather.precipitation) return (
+        <section id="precipitationCard" className="card">
+            <p>Værradar ute av drift</p>
+        </section>
+    );
+
 
     return (
         <section id="precipitationCard" className="card">
