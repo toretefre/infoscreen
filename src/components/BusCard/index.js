@@ -156,7 +156,7 @@ export const BusCard = props => {
   return (
     <section id="busCard" className="card">
       <div id="quayAmountSlider">
-        <p>Viser kollektivavgangar frå dine {numberOfQuays} næraste haldeplassar</p>
+        <p>Kollektivavgangar frå dine {numberOfQuays} næraste haldeplassar</p>
         <input type="range" min="1" max="10" defaultValue={numberOfQuays} onChange={e => setNumberOfQuays(e.target.value)} />
       </div>
       {busData
