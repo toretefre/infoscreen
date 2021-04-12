@@ -3,7 +3,7 @@ import 'moment-timezone';
 import directions from './directions';
 
 export const WeatherCard = props => {
-  const { geoLocation } = props;
+  const { geoLocation, weather } = props;
   const [forecast, setForecast] = useState();
 
   useEffect(() => {
@@ -44,9 +44,11 @@ export const WeatherCard = props => {
 
   if (forecast.error) return <section id="weatherCard" className="card">{forecast.error}</section>
 
+  if (weather.loading) return <section id="weatherCard" className="card"><p>Laster...</p></section>
+
   return (
     <section id="weatherCard" className="card" >
-      <h2 className="time">{forecast.temperature}&deg;</h2>
+      <h2 className="time">{weather.data.airTemperature}&deg;</h2>
       <img
         className="weatherSymbol"
         src={process.env.PUBLIC_URL + '/weather_icons/' + forecast.symbol + '.svg'}
@@ -54,7 +56,7 @@ export const WeatherCard = props => {
       />
       <h3>{Math.round(forecast.cloudiness)}% skydekke</h3>
       <h3>{forecast.wind.name}</h3>
-      <h3>{Math.round(forecast.wind.mps)} m/s frå {Math.round(forecast.wind.direction)} grader ({Math.round(forecast.wind.gust)} m/s vindkast)</h3>
+      <h3>{Math.round(weather.data.wind.speed)} m/s frå {Math.round(weather.data.wind.direction)} grader ({Math.round(weather.data.wind.gustSpeed)} m/s vindkast)</h3>
     </section>
   )
 }

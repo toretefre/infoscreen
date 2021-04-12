@@ -6,7 +6,7 @@ import WeatherCard from '../WeatherCard';
 
 export const WeatherModule = props => {
     const { time, geoLocation } = props;
-    const [weather, setWeather] = useState({
+    const [precipitation, setPrecipitation] = useState({
         loading: true,
         error: null,
         lastUpdated: null,
@@ -15,6 +15,12 @@ export const WeatherModule = props => {
             radarCoverage: null,
         },
     });
+    const [weather, setWeather] = useState({
+        loading: true,
+        error: null,
+        lastUpdated: null,
+        data: null,
+    })
 
     useEffect(() => {
         const fetchCurrentWeather = async () => {
@@ -33,6 +39,8 @@ export const WeatherModule = props => {
                 const radarStatus = fetchedNowcast.meta.radar_coverage;
                 const radarCoverage = (radarStatus === "ok") ? true : (radarStatus === "temporarily_unavailable" ? "temporarily_unavailable" : false)
                 let totalPrecipitation = 0
+
+                const currentWeatherData = fetchedNowcast.timeseries[0].data
                 
                 currentData
                     .filter(time =>
@@ -47,9 +55,7 @@ export const WeatherModule = props => {
                         });
                     });
 
-                setWeather({
-                    loading: false,
-                    error: null,
+                setPrecipitation({
                     lastUpdated: lastUpdatedTime,
                     precipitation: {
                         radarCoverage: radarCoverage,
@@ -59,11 +65,29 @@ export const WeatherModule = props => {
                             endTime: endTime,
                             total: totalPrecipitation,
                         }
-                    }
+                    },
+                    error: null,
+                    loading: false,
                 });
+
+                setWeather({
+                    lastUpdated: lastUpdatedTime,
+                    data: {
+                        airTemperature: currentWeatherData.instant.details.air_temperature,
+                        humidity: currentWeatherData.instant.details.relative_humidity,
+                        symbol: currentWeatherData.next_1_hours.summary.symbol_code,
+                        wind: {
+                            direction: currentWeatherData.instant.details.wind_from_direction,
+                            speed: currentWeatherData.instant.details.wind_speed,
+                            gustSpeed: currentWeatherData.instant.details.wind_speed_of_gust,
+                        },
+                    },
+                    error: null,
+                    loading: false,
+                })
             }
             catch {
-                setWeather({
+                setPrecipitation({
                     error: "Nedbørsvarsel er diverre ikkje tilgjengeleg nett no 😢"
                 })
             }
@@ -73,8 +97,8 @@ export const WeatherModule = props => {
     
     return (
         <>
-            <CurrentWeatherCard time={time} geoLocation={geoLocation} weather={weather} />
-            <WeatherCard time={time} geoLocation={geoLocation} />
+            <CurrentWeatherCard time={time} geoLocation={geoLocation} weather={precipitation} />
+            <WeatherCard time={time} geoLocation={geoLocation} weather={weather} />
         </>
     )
 }
