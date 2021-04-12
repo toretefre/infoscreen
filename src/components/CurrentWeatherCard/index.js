@@ -5,7 +5,15 @@ import { VictoryArea, VictoryChart, VictoryAxis } from 'victory';
 
 export const CurrentWeatherCard = props => {
     const { geoLocation } = props;
-    const [precipitation, setPrecipitation] = useState();
+    const [weather, setWeather] = useState({
+        loading: true,
+        error: null,
+        lastUpdated: null,
+        precipitation: {
+            data: null,
+            radarCoverage: null,
+        },
+    });
 
     useEffect(() => {
         const fetchCurrentWeather = async () => {
@@ -21,6 +29,8 @@ export const CurrentWeatherCard = props => {
                 const precipitationChartData = [];
                 const startTime = fetchedNowcast.timeseries[0].time;
                 const endTime = fetchedNowcast.timeseries[fetchedNowcast.timeseries.length - 1].time;
+                const radarStatus = fetchedNowcast.meta.radar_coverage;
+                const radarCoverage = (radarStatus === "ok") ? true : (radarStatus === "temporarily_unavailable" ? "temporarily_unavailable" : false)
                 let totalPrecipitation = 0
                 
                 currentData
@@ -36,16 +46,23 @@ export const CurrentWeatherCard = props => {
                         });
                     });
 
-                setPrecipitation({
-                    chartData: precipitationChartData,
+                setWeather({
+                    loading: false,
+                    error: null,
                     lastUpdated: lastUpdatedTime,
-                    startTime: startTime,
-                    endTime: endTime,
-                    total: totalPrecipitation,
+                    precipitation: {
+                        radarCoverage: radarCoverage,
+                        data: {
+                            chartData: precipitationChartData,
+                            startTime: startTime,
+                            endTime: endTime,
+                            total: totalPrecipitation,
+                        }
+                    }
                 });
             }
             catch {
-                setPrecipitation({
+                setWeather({
                     error: "Nedbørsvarsel er diverre ikkje tilgjengeleg nett no 😢"
                 })
             }
@@ -53,9 +70,9 @@ export const CurrentWeatherCard = props => {
         fetchCurrentWeather();
     }, [geoLocation.lat, geoLocation.lon])
 
-    if (!precipitation) return null;
-
-    if (precipitation.error) return null;
+    if (!weather.precipitation) return <p>Ingen værdata</p>;
+    if (weather.loading) return <p>Laster</p>;
+    if (weather.error) return <p>Feil</p>;
 
     const imageSelection = millimeters => {
         if (millimeters === 1) return "🌦️"
@@ -64,10 +81,28 @@ export const CurrentWeatherCard = props => {
         return millimeters
     }
 
+    console.log("weather", weather)
+
+    if (weather.loading) return (
+        <section id="precipitationCard" className="card">
+            <p>Laster...</p>
+        </section>
+    )
+    if (!weather.precipitation.radarCoverage) return (
+        <section id="precipitationCard" className="card">
+            <p>Du er utanfor radardekning</p>
+        </section>
+    )
+    if (weather.precipitation.radarCoverage === "temporarily_unavailable") return (
+        <section id="precipitationCard" className="card">
+            <p>Værradar ute av drift</p>
+        </section>
+    )
+
     return (
         <section id="precipitationCard" className="card">
-            {precipitation.total === 0 && <p className="precipText">Opphald til {moment(precipitation.endTime).tz('Europe/Oslo').format('LT')}</p>}
-            {precipitation.total > 0 &&
+            {weather.precipitation.data.total === 0 && <p className="precipText">Opphald til {moment(weather.precipitation.data.endTime).tz('Europe/Oslo').format('LT')}</p>}
+            {weather.precipitation.data.total > 0 &&
                 <VictoryChart
                     height={300}
                     style={{
@@ -103,7 +138,7 @@ export const CurrentWeatherCard = props => {
                     />
                     <VictoryArea
                         height="auto"
-                        data={precipitation.chartData}
+                        data={weather.precipitation.data.chartData}
                         domain={{ y: [0, 3] }}
                         style={{
                             data: { fill: "#006edb" },
@@ -116,8 +151,8 @@ export const CurrentWeatherCard = props => {
                 </VictoryChart>
             }
             <h6>Meteorologisk data levert av Meteorologisk institutt</h6>
-            <h6>Nedbørsvarsel oppdatert {moment(precipitation.lastUpdated).tz('Europe/Oslo').format('LT')}</h6>
-        </section >
+            <h6>Nedbørsvarsel oppdatert {moment(weather.lastUpdated).tz('Europe/Oslo').format('LT')}</h6>
+        </section>
     )
 }
 
