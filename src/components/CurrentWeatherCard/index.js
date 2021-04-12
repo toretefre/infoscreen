@@ -8,7 +8,7 @@ export const CurrentWeatherCard = props => {
 
     if (weather.loading) return (
         <section id="precipitationCard" className="card">
-            <p>Laster...</p>
+            <p>Lastar nedbørsvarsel...</p>
         </section>
     )
 
@@ -26,16 +26,9 @@ export const CurrentWeatherCard = props => {
 
     if (weather.error) return (
         <section id="precipitationCard" className="card">
-            <p>Feil</p>
+            <p>Klarte ikkje hente nedbørsvarsel</p>
         </section>
     );
-
-    if (!weather.precipitation) return (
-        <section id="precipitationCard" className="card">
-            <p>Værradar ute av drift</p>
-        </section>
-    );
-
 
     return (
         <section id="precipitationCard" className="card">

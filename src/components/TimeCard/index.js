@@ -24,7 +24,7 @@ export const TimeCard = props => {
     fetchSunData();
   }, [geoLocation.lat, geoLocation.lon])
 
-  if (!time) return <section id="timeCard" className="card" />;
+  if (!time) return <section id="timeCard" className="card"><h3>Lastar tid og soldata...</h3></section>;
 
   return (
     <section id="timeCard" className="card">

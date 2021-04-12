@@ -22,7 +22,7 @@ export const DateCard = props => {
         findHolidays();
     }, [])
 
-    if (!time) return null;
+    if (!time) return <section id="dateCard" className="card"><h3>Lastar kalenderinformasjon...</h3></section>;
 
     const localTime = time.tz('Europe/Oslo')
 

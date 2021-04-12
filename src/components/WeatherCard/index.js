@@ -5,7 +5,7 @@ export const WeatherCard = props => {
   const { weather } = props;
 
   if (weather.loading) return (
-    <section id="weatherCard" className="card"><p>Laster...</p></section>
+    <section id="weatherCard" className="card"><p>Lastar vêret...</p></section>
   )
 
   return (
