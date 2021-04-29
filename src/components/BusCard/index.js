@@ -180,7 +180,8 @@ export const BusCard = props => {
                     </div>
                     {!departure.realtime && "ca "}
                     {(moment(departure.expectedArrivalTime).diff(moment(), "seconds") <= 120 && (moment(departure.expectedArrivalTime).diff(moment(), "seconds") + " s"))}
-                    {(moment(departure.expectedArrivalTime).diff(moment(), "seconds") > 120 && (moment(departure.expectedArrivalTime).diff(moment(), "minutes") + " min"))}
+                    {(((moment(departure.expectedArrivalTime).diff(moment(), "seconds") > 120) && (moment(departure.expectedArrivalTime).diff(moment(), "seconds") < 60*10)) && (moment(departure.expectedArrivalTime).diff(moment(), "minutes") + " min"))}
+                    {(moment(departure.expectedArrivalTime).diff(moment(), "seconds") >= 60*10 && moment(departure.expectedArrivalTime).format('LTS'))}
                   </div>)}
             </section>
           </section>
