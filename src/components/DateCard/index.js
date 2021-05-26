@@ -30,7 +30,6 @@ export const DateCard = props => {
         <section id="dateCard" className="card">
             <h3>Veke {localTime.weeks()}</h3>
             <h3>{localTime.format('dddd Do MMMM')}</h3>
-            {holidays}
         </section>
     )
 }
