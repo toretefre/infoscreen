@@ -56,6 +56,13 @@
         "msl": 5
     },
     {
+        "identifier": "varianthuset",
+        "name": "Varianthuset",
+        "lat": 63.432931,
+        "lon": 10.399618,
+        "msl": 5
+    },
+    {
         "identifier": "trafikanten",
         "name": "Trafikanten - Oslo S",
         "lat": 59.911359,
