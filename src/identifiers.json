@@ -1,72 +1,51 @@
 [
-    {
-        "identifier": "k18",
-        "name": "Klostergata 18",
-        "lat": 63.42279,
-        "lon": 10.396867,
-        "msl": 10
-    },
-    {
-        "identifier": "dragvoll",
-        "name": "Dragvoll",
-        "lat": 63.408106,
-        "lon": 10.470524,
-        "msl": 200
-    },
-    {
-        "identifier": "glos",
-        "name": "Gløshaugen",
-        "lat": 63.415418,
-        "lon": 10.404673,
-        "msl": 50
-    },
-    {
-        "identifier": "postterminalen",
-        "name": "Postterminalen",
-        "lat": 63.396095,
-        "lon": 10.395323,
-        "msl": 20
-    },
-    {
-        "identifier": "hundvebakke",
-        "name": "Hundvebakke",
-        "lat": 61.462169,
-        "lon": 5.849788,
-        "msl": 100
-    },
-    {
-        "identifier": "furehogen",
-        "name": "Furehogen",
-        "lat": 61.489152,
-        "lon": 6.068663,
-        "msl": 220
-    },
-    {
-        "identifier": "bjerke",
-        "name": "Bjerke",
-        "lat": 59.941032,
-        "lon": 10.807453,
-        "msl": 200
-    },
-    {
-        "identifier": "torgallmenningen",
-        "name": "Torgallmenningen",
-        "lat": 60.393540,
-        "lon": 5.324604,
-        "msl": 5
-    },
-    {
-        "identifier": "varianthuset",
-        "name": "Varianthuset",
-        "lat": 63.432931,
-        "lon": 10.399618,
-        "msl": 5
-    },
-    {
-        "identifier": "trafikanten",
-        "name": "Trafikanten - Oslo S",
-        "lat": 59.911359,
-        "lon": 10.750315,
-        "msl": 5
-    }
+  {
+    "identifier": "k18",
+    "name": "Klostergata 18",
+    "lat": 63.42279,
+    "lon": 10.396867,
+    "msl": 10
+  },
+  {
+    "identifier": "dragvoll",
+    "name": "Dragvoll",
+    "lat": 63.408106,
+    "lon": 10.470524,
+    "msl": 200
+  },
+  {
+    "identifier": "glos",
+    "name": "Gløshaugen",
+    "lat": 63.415418,
+    "lon": 10.404673,
+    "msl": 50
+  },
+  {
+    "identifier": "postterminalen",
+    "name": "Postterminalen",
+    "lat": 63.396095,
+    "lon": 10.395323,
+    "msl": 20
+  },
+  {
+    "identifier": "torgallmenningen",
+    "name": "Torgallmenningen",
+    "lat": 60.39354,
+    "lon": 5.324604,
+    "msl": 5
+  },
+  {
+    "identifier": "varianthuset",
+    "name": "Varianthuset",
+    "lat": 63.432931,
+    "lon": 10.399618,
+    "msl": 5
+  },
+  {
+    "identifier": "trafikanten",
+    "name": "Oslo S - Trafikanten",
+    "lat": 59.911359,
+    "lon": 10.750315,
+    "msl": 5
+  }
 ]
