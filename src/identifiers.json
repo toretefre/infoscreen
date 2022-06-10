@@ -1,5 +1,12 @@
 [
   {
+    "identifier": "p39",
+    "name": "Prinsens gate 39",
+    "lat": 63.431043,
+    "lon": 10.39234,
+    "msl": 10
+  },
+  {
     "identifier": "k18",
     "name": "Klostergata 18",
     "lat": 63.42279,

@@ -16,6 +16,7 @@ export const MapCard = (props) => {
     data: null,
     error: null,
   });
+  const [vehicles, setVehicles] = useState(null);
   /*
   useEffect(() => {
     const fetchCitybikes = async () => {
@@ -112,8 +113,29 @@ export const MapCard = (props) => {
     fetchScooters();
   }, [geoLocation.lat, geoLocation.lon]);
 
-  if (scooters.status === "fetching" /*|| citybikes.status === "fetching"*/)
-    return <h1>Fetching data...</h1>;
+  const fetchVehicles = async () => {
+    console.log("VM FETCH");
+    const response = await fetch(
+      "https://api.entur.io/realtime/v1/rest/vm?datasetId=ATB",
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "ET-Client-Name": "toretefre - infoscreen",
+        },
+      }
+    );
+
+    const fetchedData = await response.json();
+    const fetchedVehicles =
+      fetchedData["Siri"]["ServiceDelivery"]["VehicleMonitoringDelivery"][0];
+
+    console.log("received", fetchedVehicles);
+    setVehicles({ data: fetchedVehicles, fetching: false });
+  };
+
+  useEffect(() => {
+    fetchVehicles();
+  }, [geoLocation.lat, geoLocation.lon]);
 
   return (
     <section id="mapCard" className="card">
@@ -156,6 +178,30 @@ export const MapCard = (props) => {
               </Popup>
             </Marker>
           ))}
+        {vehicles?.data &&
+          vehicles.data["VehicleActivity"].map((vehicle) => {
+            const vehicleInfo = vehicle["MonitoredVehicleJourney"];
+            const vehicleLocation = vehicleInfo["VehicleLocation"];
+            return (
+              <Marker
+                position={[vehicleLocation.Latitude, vehicleLocation.Longitude]}
+                icon={divIcon({
+                  className: `scooter-icon vehicle-icon`,
+                  html: ReactDOMServer.renderToString(
+                    <p>{vehicleInfo.LineRef.value.slice(-3)}</p>
+                  ),
+                  iconSize: null,
+                  iconAnchor: [13, 0],
+                })}
+              >
+                <Popup>
+                  Destinasjon: {vehicleInfo.DestinationName[0].value}
+                  <br />
+                  Linje {vehicleInfo.LineRef.value.slice(-3)}
+                </Popup>
+              </Marker>
+            );
+          })}
         {/*!citybikes.error &&
           citybikes.data.map((station) => (
             <Marker

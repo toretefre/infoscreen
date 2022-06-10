@@ -186,6 +186,10 @@ table {
   background-color: #35d187;
 }
 
+.vehicle-icon {
+  background-color: #ffffff;
+}
+
 input[type="range"] {
   -webkit-appearance: none;
   width: 90vw;
