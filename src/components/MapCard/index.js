@@ -137,6 +137,7 @@ export const MapCard = (props) => {
 
   useEffect(() => {
     fetchVehicles();
+    setInterval(fetchVehicles, 20000);
   }, [geoLocation.lat, geoLocation.lon]);
 
   return (
