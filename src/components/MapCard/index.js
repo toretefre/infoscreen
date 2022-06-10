@@ -3,9 +3,11 @@ import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 import { divIcon } from "leaflet";
 import ReactDOMServer from "react-dom/server";
 import { getDistance } from "geolib";
+import { v4 as uuidv4 } from "uuid";
 
 export const MapCard = (props) => {
   const { geoLocation } = props;
+  const uniqueUUID = uuidv4();
   const [scooters, setScooters] = useState({
     status: "fetching",
     data: null,
@@ -116,11 +118,11 @@ export const MapCard = (props) => {
   const fetchVehicles = async () => {
     console.log("VM FETCH");
     const response = await fetch(
-      "https://api.entur.io/realtime/v1/rest/vm?datasetId=ATB",
+      `https://api.entur.io/realtime/v1/rest/vm?datasetId=ATB&requestorId=${uniqueUUID}`,
       {
         headers: {
           "Content-Type": "application/json",
-          "ET-Client-Name": "toretefre - infoscreen",
+          "ET-Client-Name": `toretefre - infoscreen - ${uniqueUUID}`,
         },
       }
     );
