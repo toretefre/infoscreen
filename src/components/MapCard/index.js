@@ -4,6 +4,7 @@ import { divIcon } from "leaflet";
 import ReactDOMServer from "react-dom/server";
 import { getDistance } from "geolib";
 import { v4 as uuidv4 } from "uuid";
+import moment from "moment";
 
 export const MapCard = (props) => {
   const { geoLocation } = props;
@@ -118,18 +119,48 @@ export const MapCard = (props) => {
   const fetchVehicles = async () => {
     console.log("VM FETCH");
     const response = await fetch(
-      `https://api.entur.io/realtime/v1/rest/vm?datasetId=ATB&requestorId=${uniqueUUID}`,
+      "https://api.entur.io/realtime/v1/vehicles/graphql",
       {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "ET-Client-Name": `toretefre - infoscreen - ${uniqueUUID}`,
+          "ET-Client-Name": "toretefre - infoscreen",
         },
+        body: JSON.stringify({
+          query: `query {
+            vehicles(
+              codespaceId: "ATB"
+            ) {
+              line {
+                lineRef
+                lineName
+                publicCode
+              }
+              lastUpdated
+              location {
+                latitude
+                longitude
+              }
+              direction
+              bearing
+              speed
+              monitored
+              delay
+              mode
+              vehicleId
+              serviceJourney {
+                id
+              }
+            }
+          }
+          `,
+        }),
       }
     );
 
-    const fetchedData = await response.json();
-    const fetchedVehicles =
-      fetchedData["Siri"]["ServiceDelivery"]["VehicleMonitoringDelivery"][0];
+    const fetchedJSON = await response.json();
+    const fetchedData = fetchedJSON.data;
+    const fetchedVehicles = fetchedData["vehicles"];
 
     console.log("received", fetchedVehicles);
     setVehicles({ data: fetchedVehicles, fetching: false });
@@ -137,7 +168,7 @@ export const MapCard = (props) => {
 
   useEffect(() => {
     fetchVehicles();
-    setInterval(fetchVehicles, 20000);
+    setInterval(fetchVehicles, 16000);
   }, [geoLocation.lat, geoLocation.lon]);
 
   return (
@@ -182,25 +213,35 @@ export const MapCard = (props) => {
             </Marker>
           ))}
         {vehicles?.data &&
-          vehicles.data["VehicleActivity"].map((vehicle) => {
-            const vehicleInfo = vehicle["MonitoredVehicleJourney"];
-            const vehicleLocation = vehicleInfo["VehicleLocation"];
+          vehicles.data.map((vehicle) => {
+            const vehicleLocation = vehicle.location;
             return (
               <Marker
-                position={[vehicleLocation.Latitude, vehicleLocation.Longitude]}
+                position={[vehicleLocation.latitude, vehicleLocation.longitude]}
                 icon={divIcon({
                   className: `scooter-icon vehicle-icon`,
                   html: ReactDOMServer.renderToString(
-                    <p>{vehicleInfo.LineRef.value.slice(-3)}</p>
+                    <p>{vehicle.line.lineRef.slice(-3)}</p>
                   ),
                   iconSize: null,
                   iconAnchor: [13, 0],
                 })}
               >
                 <Popup>
-                  Destinasjon: {vehicleInfo.DestinationName[0].value}
+                  Destinasjon:{" "}
+                  {vehicle.line.lineName || "ikke inkludert i data"}
                   <br />
-                  Linje {vehicleInfo.LineRef.value.slice(-3)}
+                  Linje {vehicle.line.lineRef.slice(-3)}
+                  <br />
+                  Retning: {vehicle.bearing} grader
+                  <br />
+                  Hastighet: {vehicle.speed} km/t
+                  <br />
+                  Forsinkelse: {vehicle.delay} s
+                  <br />
+                  Sist oppdatert: {moment(vehicle.lastUpdated).format()}
+                  <br />
+                  SJ: {vehicle.serviceJourney.id}
                 </Popup>
               </Marker>
             );
