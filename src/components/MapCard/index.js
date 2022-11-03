@@ -221,7 +221,7 @@ export const MapCard = (props) => {
                 icon={divIcon({
                   className: `scooter-icon vehicle-icon`,
                   html: ReactDOMServer.renderToString(
-                    <p>{vehicle.line.lineRef.slice(-3)}</p>
+                    <p>{vehicle.line.lineRef.split("_")[1]}</p>
                   ),
                   iconSize: null,
                   iconAnchor: [13, 0],
@@ -231,7 +231,7 @@ export const MapCard = (props) => {
                   Destinasjon:{" "}
                   {vehicle.line.lineName || "ikke inkludert i data"}
                   <br />
-                  Linje {vehicle.line.lineRef.slice(-3)}
+                  Linje {vehicle.line.lineRef.split("_")[1]}
                   <br />
                   Retning: {vehicle.bearing} grader
                   <br />
