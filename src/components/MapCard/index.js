@@ -217,6 +217,7 @@ export const MapCard = (props) => {
             const vehicleLocation = vehicle.location;
             return (
               <Marker
+                key={vehicle.serviceJourney.id}
                 position={[vehicleLocation.latitude, vehicleLocation.longitude]}
                 icon={divIcon({
                   className: `scooter-icon vehicle-icon`,
@@ -235,6 +236,8 @@ export const MapCard = (props) => {
                   <br />
                   Retning: {vehicle.bearing} grader
                   <br />
+                  In/out: {vehicle.direction}
+                  <br />
                   Hastighet: {vehicle.speed} km/t
                   <br />
                   Forsinkelse: {vehicle.delay} s
@@ -242,6 +245,10 @@ export const MapCard = (props) => {
                   Sist oppdatert: {moment(vehicle.lastUpdated).format()}
                   <br />
                   SJ: {vehicle.serviceJourney.id}
+                  <br />
+                  Kjøretøytype: {vehicle.mode}
+                  <br />
+                  Vehicle ID: {vehicle.vehicleId}
                 </Popup>
               </Marker>
             );
