@@ -5,6 +5,11 @@ import MapCard from "../../components/MapCard";
 import { getDistance, getCompassDirection } from "geolib";
 
 export const EnturDataContainer = ({ time, geoLocation }) => {
+  const [combinedData, setCombinedData] = useState({
+    status: "merging",
+    data: [],
+    error: null,
+  });
   const [scooters, setScooters] = useState({
     status: "fetching",
     data: null,
@@ -65,6 +70,7 @@ export const EnturDataContainer = ({ time, geoLocation }) => {
 
   useEffect(() => {
     const fetchScooters = async () => {
+      console.log("Fetching scooters");
       const response = await fetch("https://api.entur.io/mobility/v2/graphql", {
         method: "POST",
         headers: {
@@ -93,7 +99,7 @@ export const EnturDataContainer = ({ time, geoLocation }) => {
           error: "noscooters",
         });
       else {
-        console.log("scooters:", fetchedData);
+        console.log("received scooters:", fetchedData);
         fetchedData.forEach((scooter) => {
           scooter.distance = getDistance(
             { lat: geoLocation.lat, lon: geoLocation.lon },
@@ -113,7 +119,7 @@ export const EnturDataContainer = ({ time, geoLocation }) => {
   }, [geoLocation.lat, geoLocation.lon]);
 
   const fetchVehicles = async () => {
-    console.log("VM FETCH");
+    console.log("Fetching vehicles");
     const response = await fetch(
       "https://api.entur.io/realtime/v1/vehicles/graphql",
       {
@@ -158,7 +164,7 @@ export const EnturDataContainer = ({ time, geoLocation }) => {
     const fetchedData = fetchedJSON.data;
     const fetchedVehicles = fetchedData["vehicles"];
 
-    console.log("received", fetchedVehicles);
+    console.log("received vehicles", fetchedVehicles);
     setVehicles({ data: fetchedVehicles, fetching: false });
   };
 
@@ -313,6 +319,23 @@ export const EnturDataContainer = ({ time, geoLocation }) => {
       fetchManyDepartures();
     }
   }, [nearestVenues]);
+
+  useEffect(() => {
+    const flattenedDepartureList = [];
+    if (!busData || !vehicles) return;
+    busData.forEach((quayWithBuses) => {
+      quayWithBuses.departures.forEach((departure) => {
+        flattenedDepartureList.push({ jpData: departure });
+      });
+    });
+    flattenedDepartureList.forEach((departure) => {
+      const matchingVehicleForDeparture = vehicles.data.find(
+        (vehicle) => vehicle.serviceJourney.id === departure.jpData.id
+      );
+      departure["vmData"] = matchingVehicleForDeparture;
+    });
+    console.log("completeFlattenedDepartureList", flattenedDepartureList);
+  }, [busData.length]);
 
   return (
     <>
