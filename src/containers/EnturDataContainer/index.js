@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "moment-timezone";
 import BusCard from "../../components/BusCard";
 import MapCard from "../../components/MapCard";
-import { getDistance } from "geolib";
+import { getDistance, getCompassDirection } from "geolib";
 
 export const EnturDataContainer = ({ time, geoLocation }) => {
   const [scooters, setScooters] = useState({
@@ -167,9 +167,162 @@ export const EnturDataContainer = ({ time, geoLocation }) => {
     setInterval(fetchVehicles, 16000);
   }, [geoLocation.lat, geoLocation.lon]);
 
+  const [busData, setBusData] = useState([]);
+  const [nearestVenue, setNearestVenue] = useState();
+  const [nearestVenues, setNearestVenues] = useState();
+  const [numberOfQuays, setNumberOfQuays] = useState(4);
+
+  useEffect(() => {
+    const fetchVenue = async () => {
+      const numberOfVenues = 10;
+      const response = await fetch(
+        `https://api.entur.io/geocoder/v1/reverse?point.lat=${geoLocation.lat}&point.lon=${geoLocation.lon}&boundary.circle.radius=1&size=${numberOfVenues}&layers=venue`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "ET-Client-Name": "toretefre - infoscreen",
+          },
+        }
+      );
+      const data = await response.json();
+      const newVenues = data.features;
+      const nearestVenue = data.features[0];
+      if (newVenues) setNearestVenues(newVenues);
+      if (nearestVenue) setNearestVenue(nearestVenue.properties.id);
+    };
+
+    fetchVenue();
+  }, [geoLocation.lat, geoLocation.lon]);
+
+  const fetchBusdata = async (venueToSearchFor) => {
+    if (venueToSearchFor) {
+      const response = await fetch(
+        "https://api.entur.io/journey-planner/v2/graphql",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "ET-Client-Name": "toretefre - infoscreen",
+          },
+          body: JSON.stringify({
+            query: `{
+              stopPlace(id: "${venueToSearchFor}") {
+                id
+                name
+                estimatedCalls(timeRange: 3600, numberOfDepartures: 100) {
+                  realtime
+                  aimedArrivalTime
+                  aimedDepartureTime
+                  expectedArrivalTime
+                  expectedDepartureTime
+                  date
+                  forBoarding
+                  forAlighting
+                  destinationDisplay {
+                    frontText
+                  }
+                  quay {
+                    name
+                    id
+                    latitude
+                    longitude
+                    publicCode
+                    description
+                  }
+                  serviceJourney {
+                    id
+                    journeyPattern {
+                      line {
+                        publicCode
+                        id
+                        name
+                        transportMode
+                      }
+                    }
+                  }
+                }
+              }
+            }`,
+          }),
+        }
+      );
+      const enturJSON = await response.json();
+      const data = enturJSON.data.stopPlace;
+      const departures = data.estimatedCalls;
+      const quaysWithDepartures = [];
+
+      departures.forEach((departure) => {
+        if (
+          !quaysWithDepartures.some((quay) => quay.id === departure.quay.id)
+        ) {
+          quaysWithDepartures.push({
+            id: departure.quay.id,
+            name: departure.quay.name,
+            stopId: venueToSearchFor,
+            lat: departure.quay.latitude,
+            lon: departure.quay.longitude,
+            quayNumber: departure.quay.publicCode,
+            description: departure.quay.description,
+            distance: getDistance(
+              { lat: geoLocation.lat, lon: geoLocation.lon },
+              { lat: departure.quay.latitude, lon: departure.quay.longitude }
+            ),
+            bearing: getCompassDirection(
+              { lat: geoLocation.lat, lon: geoLocation.lon },
+              { lat: departure.quay.latitude, lon: departure.quay.longitude }
+            ),
+            departures: [],
+          });
+        }
+        quaysWithDepartures
+          .find((quay) => quay.id === departure.quay.id)
+          .departures.push({
+            realtime: departure.realtime,
+            frontText: departure.destinationDisplay.frontText,
+            line: departure.serviceJourney.journeyPattern.line.publicCode,
+            id: departure.serviceJourney.id,
+            aimedDepartureTime: departure.aimedDepartureTime,
+            expectedArrivalTime: departure.expectedArrivalTime,
+            transportMode:
+              departure.serviceJourney.journeyPattern.line.transportMode,
+          });
+      });
+
+      return quaysWithDepartures;
+    }
+  };
+
+  useEffect(() => {
+    fetchBusdata(nearestVenue);
+    setInterval(fetchBusdata, 1000 * 60);
+  }, [nearestVenue, numberOfQuays]);
+
+  useEffect(() => {
+    const fetchManyDepartures = async () => {
+      const newDepartures = [];
+      nearestVenues.forEach(async (venue) => {
+        const newData = await fetchBusdata(venue.properties.id);
+        newData.forEach((quay) => {
+          newDepartures.push(quay);
+        });
+      });
+      setBusData(newDepartures);
+    };
+
+    if (nearestVenues) {
+      fetchManyDepartures();
+    }
+  }, [nearestVenues]);
+
   return (
     <>
-      <BusCard time={time} geoLocation={geoLocation} />
+      <BusCard
+        time={time}
+        geoLocation={geoLocation}
+        busData={busData}
+        setNumberOfQuays={setNumberOfQuays}
+        numberOfQuays={numberOfQuays}
+      />
       <MapCard
         time={time}
         geoLocation={geoLocation}
