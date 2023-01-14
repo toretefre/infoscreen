@@ -203,7 +203,7 @@ export const EnturDataContainer = ({ time, geoLocation }) => {
   const fetchBusdata = async (venueToSearchFor) => {
     if (venueToSearchFor) {
       const response = await fetch(
-        "https://api.entur.io/journey-planner/v2/graphql",
+        "https://api.entur.io/journey-planner/v3/graphql",
         {
           method: "POST",
           headers: {
