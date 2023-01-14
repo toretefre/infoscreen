@@ -5,7 +5,8 @@ import ReactDOMServer from "react-dom/server";
 
 import moment from "moment";
 
-export const MapCard = ({ geoLocation, scooters, vehicles }) => {
+export const MapCard = ({ geoLocation, scooters, combinedData }) => {
+  console.log("received combinedData to map:", combinedData);
   return (
     <section id="mapCard" className="card">
       <Map
@@ -47,8 +48,9 @@ export const MapCard = ({ geoLocation, scooters, vehicles }) => {
               </Popup>
             </Marker>
           ))}
-        {vehicles?.data &&
-          vehicles.data.map((vehicle) => {
+        {combinedData?.data?.length &&
+          combinedData.data?.map((vehicleEntry) => {
+            const vehicle = vehicleEntry["vmData"];
             const vehicleLocation = vehicle.location;
             return (
               <Marker

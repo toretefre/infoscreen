@@ -322,19 +322,29 @@ export const EnturDataContainer = ({ time, geoLocation }) => {
 
   useEffect(() => {
     const flattenedDepartureList = [];
-    if (!busData || !vehicles) return;
-    busData.forEach((quayWithBuses) => {
-      quayWithBuses.departures.forEach((departure) => {
-        flattenedDepartureList.push({ jpData: departure });
+    if (vehicles?.data?.length) {
+      vehicles.data.forEach((vehicle) => {
+        const objectToAdd = {
+          vmData: vehicle,
+        };
+        busData.forEach((quayWithBuses) => {
+          quayWithBuses.departures.forEach((departure) => {
+            if (vehicle.serviceJourney.id === departure.id) {
+              objectToAdd["jpData"] = departure;
+              flattenedDepartureList.push(objectToAdd);
+              return;
+            }
+          });
+        });
       });
-    });
-    flattenedDepartureList.forEach((departure) => {
-      const matchingVehicleForDeparture = vehicles.data.find(
-        (vehicle) => vehicle.serviceJourney.id === departure.jpData.id
-      );
-      departure["vmData"] = matchingVehicleForDeparture;
-    });
-    console.log("completeFlattenedDepartureList", flattenedDepartureList);
+
+      console.log("completeFlattenedDepartureList", flattenedDepartureList);
+      setCombinedData({
+        status: "complete",
+        data: flattenedDepartureList,
+        error: null,
+      });
+    }
   }, [busData.length]);
 
   return (
@@ -345,12 +355,13 @@ export const EnturDataContainer = ({ time, geoLocation }) => {
         busData={busData}
         setNumberOfQuays={setNumberOfQuays}
         numberOfQuays={numberOfQuays}
+        combinedData={combinedData}
       />
       <MapCard
         time={time}
         geoLocation={geoLocation}
         scooters={scooters}
-        vehicles={vehicles}
+        combinedData={combinedData}
       />
     </>
   );
