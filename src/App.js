@@ -13,6 +13,7 @@ export const App = () => {
     <Router>
       <Home path="/" />
       <Home path="/:input" />
+      <Home path="/:lat/:lon" />
       <Places path="/tilpass" />
     </Router>
   );

@@ -25,6 +25,12 @@ export const Home = (props) => {
           msl: correctData.msl,
         });
       }
+    } else if (props.lat && props.lon) {
+      setGeoLocation({
+        lat: props.lat,
+        lon: props.lon,
+        msl: 10,
+      });
     } else {
       const options = {
         enableHighAccuracy: true,
