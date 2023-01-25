@@ -14,6 +14,7 @@ export const App = () => {
       <Home path="/" />
       <Home path="/:input" />
       <Home path="/:lat/:lon" />
+      <Home path="/https://www.google.com/maps/:googledetails" />
       <Places path="/tilpass" />
     </Router>
   );

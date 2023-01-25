@@ -31,6 +31,14 @@ export const Home = (props) => {
         lon: props.lon,
         msl: 10,
       });
+    } else if (props.googledetails) {
+      const googledata = props.googledetails;
+      const decoded_geoloc = {
+        lat: googledata.slice(1, 11),
+        lon: googledata.slice(12, 22),
+        msl: 10,
+      };
+      setGeoLocation(decoded_geoloc);
     } else {
       const options = {
         enableHighAccuracy: true,
