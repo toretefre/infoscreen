@@ -362,6 +362,7 @@ export const EnturDataContainer = ({ time, geoLocation }) => {
         geoLocation={geoLocation}
         scooters={scooters}
         combinedData={combinedData}
+        busData={busData}
       />
     </>
   );

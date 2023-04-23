@@ -5,7 +5,7 @@ import ReactDOMServer from "react-dom/server";
 
 import moment from "moment";
 
-export const MapCard = ({ geoLocation, scooters, combinedData }) => {
+export const MapCard = ({ geoLocation, scooters, combinedData, busData }) => {
   console.log("received combinedData to map:", combinedData);
   return (
     <section id="mapCard" className="card">
@@ -90,6 +90,25 @@ export const MapCard = ({ geoLocation, scooters, combinedData }) => {
               </Marker>
             );
           })}
+        {busData.length && busData.map((quay) => (
+          <Marker
+            key={quay.id}
+            position={[quay.lat, quay.lon]}
+            icon={divIcon({
+            className: `scooter-icon vehicle-icon`,
+            html: ReactDOMServer.renderToString(
+              <p>Hpl</p>
+            ),
+            iconSize: null,
+            iconAnchor: [13, 0],
+            })}>
+              <Popup>
+                {quay.name} {quay.quayNumber && quay.quayNumber}
+                {quay.description && quay.description}
+                {quay.distance && quay.distance + " meter vekke"}
+              </Popup>
+          </Marker>
+        ))}
         {/*!citybikes.error &&
           citybikes.data.map((station) => (
             <Marker
