@@ -79,10 +79,23 @@ export const EnturDataContainer = ({ time, geoLocation }) => {
         },
         body: JSON.stringify({
           query: `{vehicles(lat:${geoLocation.lat}, lon:${geoLocation.lon}, range: 500, count: 25, formFactors: SCOOTER) {
+            id
             lat
             lon
+            isDisabled
             rentalUris {
               ios
+            }
+            vehicleType {
+              maxRangeMeters
+            }
+            pricingPlan {
+              description {
+                translation {
+                  language
+                  value
+                }
+              }
             }
             currentRangeMeters
             pricingPlan { description { translation { language value } } }

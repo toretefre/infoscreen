@@ -39,8 +39,14 @@ export const MapCard = ({ geoLocation, scooters, combinedData, busData }) => {
               <Popup>
                 {readableOperatorName}
                 <br />
+                {scooter.isDisabled && "Scooteren er deaktivert" }
+                {scooter.isDisabled && <br /> }
                 {scooter.currentRangeMeters &&
-                  `${scooter.currentRangeMeters / 1000} km rekkevidde`}
+                  `${Math.floor(scooter.currentRangeMeters / 1000)} km batteri`}
+                <br />
+                {(scooter.currentRangeMeters && scooter.vehicleType?.maxRangeMeters) && (
+                  `${Math.floor((scooter.currentRangeMeters / scooter.vehicleType.maxRangeMeters) * 100)}% av ${Math.floor(scooter.vehicleType.maxRangeMeters / 1000)} km rekkevidde`
+                )}
                 <br />
                 {scooter.rentalUris?.ios && (
                   <a href={scooter.rentalUris.ios}>
