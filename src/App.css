@@ -96,7 +96,7 @@ table {
 }
 
 .bus {
-  background-color: #f9f871;
+  background-color: #f4d58d;
   border-radius: 2em 0 0 0;
   border: 1px solid black;
   padding: 0.3em;
@@ -104,6 +104,18 @@ table {
   min-height: 3em;
   min-width: 5rem;
   color: black;
+}
+
+.depdetails {
+  background-color: black;
+  padding: 0.3em 0;
+  color: white;
+  margin: -4px;
+  margin-top: 10px;
+}
+
+.depdetails > p {
+  color: #f4d58d;
 }
 
 .rightText {
@@ -279,7 +291,7 @@ input[type="range"]:focus {
   list-style: none;
   height: 6rem;
   width: 30vw;
-  border: 1px solid #f9f871;
+  border: 1px solid red;
   border-radius: 8px;
   font-size: 1.5rem;
 }
