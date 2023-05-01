@@ -229,6 +229,7 @@ export const EnturDataContainer = ({ time, geoLocation }) => {
               stopPlace(id: "${venueToSearchFor}") {
                 id
                 name
+                transportMode
                 estimatedCalls(timeRange: 3600, numberOfDepartures: 100) {
                   realtime
                   aimedArrivalTime
@@ -248,6 +249,11 @@ export const EnturDataContainer = ({ time, geoLocation }) => {
                     longitude
                     publicCode
                     description
+                    lines {
+                      name
+                      transportMode
+                      publicCode
+                    }
                   }
                   serviceJourney {
                     id
@@ -272,7 +278,6 @@ export const EnturDataContainer = ({ time, geoLocation }) => {
       const quaysWithDepartures = [];
 
       departures.forEach((departure) => {
-        //console.log(departure.serviceJourney.id)
         if (
           !quaysWithDepartures.some((quay) => quay.id === departure.quay.id)
         ) {
@@ -284,6 +289,8 @@ export const EnturDataContainer = ({ time, geoLocation }) => {
             lon: departure.quay.longitude,
             quayNumber: departure.quay.publicCode,
             description: departure.quay.description,
+            lines: departure.quay.lines,
+            transportMode: departure.quay.lines.length ? departure.quay.lines[0].transportMode : "unknown",
             distance: getDistance(
               { lat: geoLocation.lat, lon: geoLocation.lon },
               { lat: departure.quay.latitude, lon: departure.quay.longitude }

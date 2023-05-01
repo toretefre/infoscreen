@@ -2,7 +2,6 @@ import React from "react";
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 import { divIcon } from "leaflet";
 import ReactDOMServer from "react-dom/server";
-
 import moment from "moment";
 
 export const MapCard = ({ geoLocation, scooters, combinedData, busData, vehicles }) => {
@@ -98,15 +97,14 @@ export const MapCard = ({ geoLocation, scooters, combinedData, busData, vehicles
               </Marker>
             );
           })}
-        {busData.length && busData.map((quay) => (
+        {busData.length && busData.map((quay) => {
+          return(
           <Marker
             key={quay.id}
             position={[quay.lat, quay.lon]}
             icon={divIcon({
             className: `station-icon`,
-            html: ReactDOMServer.renderToString(
-              <p className="station-icon-text">Hpl</p>
-            ),
+            html: ReactDOMServer.renderToString(<p className="station-icon-text">{quay.quayNumber ? quay.quayNumber : quay.transportMode}</p>),
             iconSize: null,
             iconAnchor: [13, 13],
             })}>
@@ -118,7 +116,7 @@ export const MapCard = ({ geoLocation, scooters, combinedData, busData, vehicles
                 {quay.distance && quay.distance + " meter vekke"}
               </Popup>
           </Marker>
-        ))}
+        )})}
         {/*!citybikes.error &&
           citybikes.data.map((station) => (
             <Marker
