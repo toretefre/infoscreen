@@ -5,8 +5,7 @@ import ReactDOMServer from "react-dom/server";
 
 import moment from "moment";
 
-export const MapCard = ({ geoLocation, scooters, combinedData, busData }) => {
-  console.log("received combinedData to map:", combinedData);
+export const MapCard = ({ geoLocation, scooters, combinedData, busData, vehicles }) => {
   return (
     <section id="mapCard" className="card">
       <Map
@@ -56,10 +55,11 @@ export const MapCard = ({ geoLocation, scooters, combinedData, busData }) => {
               </Popup>
             </Marker>
           )})}
-        {combinedData?.data?.length &&
-          combinedData.data?.map((vehicleEntry) => {
-            const vehicle = vehicleEntry["vmData"];
+        {vehicles?.data?.length &&
+          vehicles.data.map((vehicleEntry) => {
+            const vehicle = vehicleEntry;
             const vehicleLocation = vehicle.location;
+            const lineNumber = vehicle.line.lineRef.split(":Line:")[1]
             return (
               <Marker
                 key={vehicle.serviceJourney.id}
@@ -67,7 +67,7 @@ export const MapCard = ({ geoLocation, scooters, combinedData, busData }) => {
                 icon={divIcon({
                   className: `scooter-icon vehicle-icon`,
                   html: ReactDOMServer.renderToString(
-                    <p>{vehicle.line.lineRef.split("_")[1]}</p>
+                    <p>{lineNumber.split("_")[1] ? lineNumber.split("_")[1] : (lineNumber.length < 4 ? lineNumber : "?")}</p>
                   ),
                   iconSize: null,
                   iconAnchor: [13, 13],
@@ -77,15 +77,15 @@ export const MapCard = ({ geoLocation, scooters, combinedData, busData }) => {
                   Destinasjon:{" "}
                   {vehicle.line.lineName || "ikke inkludert i data"}
                   <br />
-                  Linje {vehicle.line.lineRef.split("_")[1]}
+                  Linje {lineNumber}
                   <br />
-                  Retning: {vehicle.bearing} grader
+                  Retning: {vehicle.bearing.toFixed(0)} grader
                   <br />
                   In/out: {vehicle.direction}
                   <br />
                   Hastighet: {vehicle.speed} km/t
                   <br />
-                  Forsinkelse: {vehicle.delay} s
+                  Forsinkelse: {vehicle.delay < 120 ? vehicle.delay + " s" : Math.floor(vehicle.delay / 60) + " min " + (vehicle.delay % 60) + " s"}
                   <br />
                   Sist oppdatert: {moment(vehicle.lastUpdated).format()}
                   <br />

@@ -69,8 +69,7 @@ export const EnturDataContainer = ({ time, geoLocation }) => {
 */
 
   useEffect(() => {
-    const fetchScooters = async () => {
-      console.log("Fetching scooters");
+      const fetchScooters = async () => {
       const response = await fetch("https://api.entur.io/mobility/v2/graphql", {
         method: "POST",
         headers: {
@@ -78,7 +77,7 @@ export const EnturDataContainer = ({ time, geoLocation }) => {
           "ET-Client-Name": "toretefre - infoscreen",
         },
         body: JSON.stringify({
-          query: `{vehicles(lat:${geoLocation.lat}, lon:${geoLocation.lon}, range: 500, count: 25, formFactors: SCOOTER) {
+          query: `{vehicles(lat:${geoLocation.lat}, lon:${geoLocation.lon}, range: 500, count: 50, formFactors: SCOOTER) {
             id
             lat
             lon
@@ -112,7 +111,6 @@ export const EnturDataContainer = ({ time, geoLocation }) => {
           error: "noscooters",
         });
       else {
-        console.log("received scooters:", fetchedData);
         fetchedData.forEach((scooter) => {
           scooter.distance = getDistance(
             { lat: geoLocation.lat, lon: geoLocation.lon },
@@ -132,7 +130,6 @@ export const EnturDataContainer = ({ time, geoLocation }) => {
   }, [geoLocation.lat, geoLocation.lon]);
 
   const fetchVehicles = async () => {
-    console.log("Fetching vehicles");
     const response = await fetch(
       "https://api.entur.io/realtime/v1/vehicles/graphql",
       {
@@ -144,7 +141,12 @@ export const EnturDataContainer = ({ time, geoLocation }) => {
         body: JSON.stringify({
           query: `query {
             vehicles(
-              codespaceId: "ATB"
+              boundingBox: {
+                minLat: ${geoLocation.lat - 0.1}
+                minLon: ${geoLocation.lon - 0.1}
+                maxLat: ${geoLocation.lat + 0.1}
+                maxLon: ${geoLocation.lon + 0.1}
+              }
             ) {
               line {
                 lineRef
@@ -175,9 +177,8 @@ export const EnturDataContainer = ({ time, geoLocation }) => {
 
     const fetchedJSON = await response.json();
     const fetchedData = fetchedJSON.data;
-    const fetchedVehicles = fetchedData["vehicles"];
+    const fetchedVehicles = fetchedData?.vehicles ? fetchedData["vehicles"] : [];
 
-    console.log("received vehicles", fetchedVehicles);
     setVehicles({ data: fetchedVehicles, fetching: false });
   };
 
@@ -271,6 +272,7 @@ export const EnturDataContainer = ({ time, geoLocation }) => {
       const quaysWithDepartures = [];
 
       departures.forEach((departure) => {
+        //console.log(departure.serviceJourney.id)
         if (
           !quaysWithDepartures.some((quay) => quay.id === departure.quay.id)
         ) {
@@ -376,6 +378,7 @@ export const EnturDataContainer = ({ time, geoLocation }) => {
         scooters={scooters}
         combinedData={combinedData}
         busData={busData}
+        vehicles={vehicles}
       />
     </>
   );

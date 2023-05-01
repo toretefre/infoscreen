@@ -4,7 +4,6 @@ import "moment-timezone";
 import { getDistance } from "geolib";
 
 export const BusCard = ({ busData, combinedData, setNumberOfQuays, numberOfQuays }) => {
-  console.log(combinedData)
   if (busData.length < 1)
     return (
       <section id="busCard" className="card">
@@ -60,11 +59,10 @@ export const BusCard = ({ busData, combinedData, setNumberOfQuays, numberOfQuays
                     vmDataForDeparture = combinedData?.data?.find(entry => entry.vmData.serviceJourney.id === departure.id)
                   }
                   
-                  console.log("fordep", vmDataForDeparture)
                   if (vmDataForDeparture) {
                     distanceFromQuayToDeparture = getDistance({lat: quay.lat, lon: quay.lon}, {lat: vmDataForDeparture.vmData.location.latitude, lon: vmDataForDeparture.vmData.location.longitude})
                   }
-                  vmDataForDeparture && console.log("found vmdata!", vmDataForDeparture)
+
                   return (
                   <div className="busContainer" key={departure.id}>
                     <div className="bus">
