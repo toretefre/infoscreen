@@ -367,7 +367,7 @@ export const EnturDataContainer = ({ time, geoLocation }) => {
         error: null,
       });
     }
-  }, [busData.length]);
+  }, [busData.length, vehicles]);
 
   return (
     <>
