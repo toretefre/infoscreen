@@ -19,35 +19,37 @@ export const MapCard = ({ geoLocation, scooters, combinedData, busData }) => {
           <Popup>Deg</Popup>
         </Marker>
         {scooters.data &&
-          scooters.data.map((scooter) => (
+          scooters.data.map((scooter) => {
+            const operatorNameForStyles = scooter.system.operator.id.split("Operator:")[1].toLowerCase()
+            const readableOperatorName = operatorNameForStyles.slice(0, 1).toUpperCase() + operatorNameForStyles.slice(1).toLowerCase()
+            const operatorsWithStyles = ['Tier', 'Ryde', 'voi']
+            return (
             <Marker
               key={scooter.distance + scooter.lat + scooter.lon}
               position={[scooter.lat, scooter.lon]}
               icon={divIcon({
-                className: `scooter-icon tier-icon`,
+                className: `scooter-icon ${operatorNameForStyles}-icon`,
                 html: ReactDOMServer.renderToString(
-                  <p>{scooter.system.name.translation[0].value.slice(0, 3)}</p>
+                  <p>{readableOperatorName.slice(0, 1)}</p>
                 ),
-                iconSize: null,
-                iconAnchor: [13, 0],
+                iconSize: 16,
+                iconAnchor: [10, 0],
               })}
             >
               <Popup>
-                {scooter.operator &&
-                  `${
-                    scooter.operator.slice(0, 1).toUpperCase() +
-                    scooter.operator.slice(1)
-                  }`}
+                {readableOperatorName}
                 <br />
                 {scooter.currentRangeMeters &&
-                  `${scooter.currentRangeMeters / 1000} km `}
+                  `${scooter.currentRangeMeters / 1000} km rekkevidde`}
                 <br />
-                {/*scooter.rentalUris?.ios && (
-                  <a href={scooter.rentalUris.ios}>Link</a>
-                )*/}
+                {scooter.rentalUris?.ios && (
+                  <a href={scooter.rentalUris.ios}>
+                    <button className="scooter-button">Åpne {readableOperatorName}-appen</button>
+                  </a>
+                )}
               </Popup>
             </Marker>
-          ))}
+          )})}
         {combinedData?.data?.length &&
           combinedData.data?.map((vehicleEntry) => {
             const vehicle = vehicleEntry["vmData"];
@@ -62,7 +64,7 @@ export const MapCard = ({ geoLocation, scooters, combinedData, busData }) => {
                     <p>{vehicle.line.lineRef.split("_")[1]}</p>
                   ),
                   iconSize: null,
-                  iconAnchor: [13, 0],
+                  iconAnchor: [13, 13],
                 })}
               >
                 <Popup>
@@ -95,16 +97,18 @@ export const MapCard = ({ geoLocation, scooters, combinedData, busData }) => {
             key={quay.id}
             position={[quay.lat, quay.lon]}
             icon={divIcon({
-            className: `scooter-icon vehicle-icon`,
+            className: `station-icon`,
             html: ReactDOMServer.renderToString(
-              <p>Hpl</p>
+              <p className="station-icon-text">Hpl</p>
             ),
             iconSize: null,
-            iconAnchor: [13, 0],
+            iconAnchor: [13, 13],
             })}>
               <Popup>
                 {quay.name} {quay.quayNumber && quay.quayNumber}
+                {quay.description && (<br />)}
                 {quay.description && quay.description}
+                {quay.distance && (<br />)}
                 {quay.distance && quay.distance + " meter vekke"}
               </Popup>
           </Marker>

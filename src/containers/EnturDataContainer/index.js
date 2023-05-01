@@ -86,7 +86,7 @@ export const EnturDataContainer = ({ time, geoLocation }) => {
             }
             currentRangeMeters
             pricingPlan { description { translation { language value } } }
-            system { name { translation { language value } } }
+            system { operator { id } } 
           }}`,
         }),
       });
