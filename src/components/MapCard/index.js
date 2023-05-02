@@ -98,13 +98,49 @@ export const MapCard = ({ geoLocation, scooters, combinedData, busData, vehicles
             );
           })}
         {busData.length && busData.map((quay) => {
+          let iconPath = undefined;
+          console.log(quay.transportMode)
+          switch (quay.transportMode) {
+            case "bus":
+              iconPath = "Bus.svg"
+              break;
+            case "coach":
+              iconPath = "Bus.svg"
+              break;
+            case "tram":
+              iconPath = "Tram.svg"
+              break;
+            case "rail":
+              iconPath = "Train.svg"
+              break;
+            case "metro":
+              iconPath = "Metro.svg"
+              break;
+            case "water":
+              iconPath = "Ferry.svg"
+              break;
+            case "air":
+              iconPath = "Plane.svg"
+              break;
+            default:
+              iconPath = "New.svg"
+          }
           return(
           <Marker
             key={quay.id}
             position={[quay.lat, quay.lon]}
             icon={divIcon({
             className: `station-icon`,
-            html: ReactDOMServer.renderToString(<p className="station-icon-text">{quay.quayNumber ? quay.quayNumber : quay.transportMode}</p>),
+            html: ReactDOMServer.renderToString(
+              quay.quayNumber 
+                ? 
+                <p className="station-icon-text">{quay.quayNumber}</p> 
+                : 
+                <img 
+                  className="station-icon" 
+                  src={process.env.PUBLIC_URL + "/station_icons/" + iconPath} 
+                />
+              ),
             iconSize: null,
             iconAnchor: [13, 13],
             })}>
