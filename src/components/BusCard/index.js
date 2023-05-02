@@ -7,7 +7,7 @@ export const BusCard = ({ busData, combinedData, setNumberOfQuays, numberOfQuays
   if (busData.length < 1)
     return (
       <section id="busCard" className="card">
-        <h1>Ingen kollektivavgangar nære deg den neste timen</h1>
+        <h1>Lastar inn dine næraste kollektivavgangar...</h1>
       </section>
     );
 
