@@ -71,7 +71,7 @@ export const Home = (props) => {
 
     setInterval(() => {
       window.location.reload(true);
-    }, 1000 * 60 * 5);
+    }, 1000 * 60 * 60);
   }, []);
 
   if (!geoLocation)

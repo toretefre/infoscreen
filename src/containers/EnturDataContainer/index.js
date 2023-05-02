@@ -184,7 +184,19 @@ export const EnturDataContainer = ({ time, geoLocation }) => {
 
   useEffect(() => {
     fetchVehicles();
-    setInterval(fetchVehicles, 16000);
+      let counter = 0;
+      function callFuncAndCount() {
+        if (counter < 2) {
+          fetchVehicles()
+          counter++
+          console.log("increasing count to ", counter)
+        }
+        else {
+          clearInterval(firstInterval)
+          setInterval(fetchVehicles, 60 * 1000)
+        }      
+      }
+      const firstInterval = setInterval(callFuncAndCount, 10 * 1000)
   }, [geoLocation.lat, geoLocation.lon]);
 
   const [busData, setBusData] = useState([]);
@@ -319,11 +331,11 @@ export const EnturDataContainer = ({ time, geoLocation }) => {
       return quaysWithDepartures;
     }
   };
-
+/*
   useEffect(() => {
     fetchBusdata(nearestVenue);
-    setInterval(fetchBusdata, 1000 * 60);
   }, [nearestVenue, numberOfQuays]);
+  */
 
   useEffect(() => {
     const fetchManyDepartures = async () => {
@@ -339,6 +351,19 @@ export const EnturDataContainer = ({ time, geoLocation }) => {
 
     if (nearestVenues) {
       fetchManyDepartures();
+      let counter = 0;
+      function callFuncAndCount() {
+        if (counter < 2) {
+          fetchManyDepartures()
+          counter++
+          console.log("increasing count to ", counter)
+        }
+        else {
+          clearInterval(firstInterval)
+          setInterval(fetchManyDepartures, 60 * 1000)
+        }      
+      }
+      const firstInterval = setInterval(callFuncAndCount, 10 * 1000)
     }
   }, [nearestVenues]);
 
