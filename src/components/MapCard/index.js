@@ -99,7 +99,6 @@ export const MapCard = ({ geoLocation, scooters, combinedData, busData, vehicles
           })}
         {busData.length && busData.map((quay) => {
           let iconPath = undefined;
-          console.log(quay.transportMode)
           switch (quay.transportMode) {
             case "bus":
               iconPath = "Bus.svg"
