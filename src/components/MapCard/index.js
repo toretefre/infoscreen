@@ -78,7 +78,7 @@ export const MapCard = ({ geoLocation, scooters, combinedData, busData, vehicles
                   <br />
                   Linje {lineNumber}
                   <br />
-                  Retning: {vehicle.bearing.toFixed(0)} grader
+                  Retning: {vehicle.bearing ? vehicle.bearing.toFixed(0) : "?"} grader
                   <br />
                   In/out: {vehicle.direction}
                   <br />
