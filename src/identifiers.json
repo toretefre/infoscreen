@@ -54,5 +54,26 @@
     "lat": 59.911359,
     "lon": 10.750315,
     "msl": 5
+  },
+  {
+    "identifier": "molde",
+    "name": "Molde",
+    "lat": 62.734542,
+    "lon": 7.151045,
+    "msl": 5
+  },
+  {
+    "identifier": "moa",
+    "name": "Moa",
+    "lat": 62.467155,
+    "lon": 6.351407,
+    "msl": 20
+  },
+  {
+    "identifier": "ksu",
+    "name": "Kristiansund",
+    "lat": 63.114758,
+    "lon": 7.732562,
+    "msl": 5
   }
 ]
